@@ -1,0 +1,1320 @@
+<!doctype html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive — 15 дасгал</title>
+
+    <!-- ================================================================
+     ЭНЭ ХЭСГИЙГ БҮҮ ӨӨРЧИЛ
+     Хуудасны загвар ба дасгалын элементүүдийн өнгө, хэмжээ.
+     ================================================================ -->
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        padding: 0 24px 90px;
+        background-color: #f5f2ec;
+        color: #575146;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        line-height: 1.6;
+      }
+      .page {
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      /* ---------- Дэлгэцийн өргөний гулсуур ---------- */
+      .ruler {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background-color: #0d3b2f;
+        color: #fff;
+        border-radius: 0 0 14px 14px;
+        padding: 12px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 14px;
+        align-items: center;
+        margin-bottom: 34px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+      .ruler .lbl {
+        font-size: 13px;
+        opacity: 0.8;
+      }
+      .ruler .wv {
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 18px;
+        font-weight: 700;
+        min-width: 64px;
+        color: #f2d28a;
+      }
+      .ruler input {
+        width: 220px;
+        accent-color: #f2a05f;
+      }
+      .ruler button {
+        background-color: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 100px;
+        padding: 5px 13px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .ruler button:hover {
+        background-color: rgba(255, 255, 255, 0.22);
+      }
+      .ruler .score {
+        margin-left: auto;
+        font-size: 13px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        padding: 5px 14px;
+      }
+      .ruler .score b {
+        font-size: 16px;
+        color: #f2d28a;
+      }
+      .ruler .score.all {
+        background-color: #b8862a;
+      }
+      .ruler .score.all b {
+        color: #fff;
+      }
+
+      /* ---------- Толгой ---------- */
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: #b8862a;
+        margin-bottom: 6px;
+      }
+      .top h1 {
+        font-family: Georgia, serif;
+        font-size: 42px;
+        line-height: 1.15;
+        color: #b03a1a;
+        margin-bottom: 14px;
+      }
+      .topics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .topics span {
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 13.5px;
+        color: #0d3b2f;
+        background-color: #e2ede8;
+        border-radius: 6px;
+        padding: 3px 10px;
+      }
+      .zaavar {
+        background-color: #fffdf8;
+        border: 2px solid #dcd5c7;
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin: 26px 0 20px;
+      }
+      .zaavar h3 {
+        margin-bottom: 8px;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        color: #0d3b2f;
+      }
+      .zaavar ol {
+        padding-left: 22px;
+      }
+      .zaavar li {
+        font-size: 15.5px;
+        line-height: 1.85;
+      }
+
+      /* ---------- Бүлэг ---------- */
+      .bulag {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        margin: 54px 0 18px;
+        border-bottom: 2px solid #dcd5c7;
+        padding-bottom: 10px;
+      }
+      .bulag span {
+        font-family: Georgia, serif;
+        font-size: 30px;
+        color: #b8862a;
+      }
+      .bulag h2 {
+        font-family: Georgia, serif;
+        font-size: 22px;
+        color: #0d3b2f;
+        font-weight: 400;
+      }
+
+      /* ---------- Дасгалын карт ---------- */
+      .dasgal {
+        background-color: #fffdf8;
+        border: 2px solid #dcd5c7;
+        border-radius: 14px;
+        padding: 24px 28px 28px;
+        margin-bottom: 26px;
+      }
+      .dasgal.ok {
+        border-color: #7fb59e;
+      }
+      .dh {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .dugaar {
+        background-color: #b03a1a;
+        color: #fff;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 4px 12px;
+        border-radius: 100px;
+      }
+      .tuluv {
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 100px;
+        padding: 4px 12px;
+      }
+      .tuluv.ok {
+        background-color: #ddeee6;
+        color: #0d3b2f;
+      }
+      .tuluv.no {
+        background-color: #f0ede6;
+        color: #8a8377;
+        font-weight: 600;
+      }
+      .dasgal h3 {
+        font-family: Georgia, serif;
+        font-size: 23px;
+        color: #0d3b2f;
+        margin-bottom: 4px;
+      }
+      .tailbar {
+        font-size: 16px;
+        margin-bottom: 14px;
+      }
+      .sp {
+        background-color: #f0ede6;
+        border-radius: 8px;
+        padding: 12px 18px;
+        margin-bottom: 20px;
+        font-size: 14.5px;
+        line-height: 1.9;
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+      }
+      .sp b {
+        color: #b03a1a;
+      }
+      .shoshgo {
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        margin-bottom: 8px;
+      }
+      .shoshgo.g {
+        color: #0d3b2f;
+      }
+      .shoshgo.o {
+        color: #b03a1a;
+        margin-top: 20px;
+      }
+      .heregleh {
+        font-size: 14px;
+        color: #8a8377;
+        margin-top: 16px;
+        font-family: ui-monospace, Menlo, monospace;
+      }
+      .heregleh b {
+        color: #575146;
+      }
+
+      /* ---------- «Дэлгэц» — гулсуураар өргөн нь өөрчлөгдөнө ---------- */
+      .screen {
+        width: var(--w, 800px);
+        max-width: 100%;
+        background-color: #ffffff;
+        border: 3px solid #16130f;
+        border-radius: 14px;
+        padding: 14px;
+        overflow-x: auto;
+      }
+      .checking .screen {
+        max-width: none;
+      }
+
+      /* ---------- Дасгалын элементүүд ---------- */
+      .panel {
+        background-color: #e2ede8;
+        border: 1px solid #bcd2c9;
+        border-radius: 8px;
+        padding: 18px;
+        color: #0d3b2f;
+        font-size: 15px;
+      }
+      .cta {
+        background-color: #c0451b;
+        color: #fff;
+        font-weight: 700;
+        text-align: center;
+        padding: 14px;
+        border-radius: 100px;
+      }
+
+      .layout {
+        display: flex;
+      }
+      .main {
+        background-color: #e2ede8;
+        color: #0d3b2f;
+        font-weight: 600;
+        padding: 18px;
+      }
+      .side {
+        background-color: #0d3b2f;
+        color: #fff;
+        font-weight: 600;
+        padding: 18px;
+      }
+
+      .bar-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: #0d3b2f;
+        margin-bottom: 6px;
+      }
+      .bar {
+        background-color: #ece6da;
+        border-radius: 100px;
+        padding: 4px;
+      }
+      .fill {
+        background-color: #b8862a;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 100px;
+      }
+
+      .zurag {
+        display: block;
+        border-radius: 10px;
+      }
+      .big {
+        width: 520px;
+        background-color: #fae8e0;
+        border: 1px solid #e8c4b4;
+        border-radius: 10px;
+        padding: 18px;
+        color: #7e2a0d;
+        font-weight: 600;
+      }
+
+      .kart {
+        background-color: #ffffff;
+        border: 1px solid #dcd5c7;
+        border-radius: 12px;
+        padding: 12px;
+      }
+      .kart img {
+        display: block;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      .kart h4 {
+        font-size: 16px;
+        color: #16130f;
+      }
+      .kart p {
+        font-size: 13.5px;
+      }
+
+      .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .btn {
+        background-color: #0d3b2f;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        padding: 10px 14px;
+        border-radius: 8px;
+      }
+
+      .skill {
+        background-color: #f3e8ff;
+        border: 1px solid #e9d5ff;
+        color: #6b21a8;
+        font-size: 13.5px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 100px;
+      }
+
+      .photo {
+        width: 110px;
+        height: 110px;
+        background-color: #0d3b2f;
+        color: #f2d28a;
+        border-radius: 10px;
+        font-size: 22px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 110px;
+      }
+
+      .hero {
+        padding: 6px;
+      }
+      .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-color: #c0451b;
+        color: #fff;
+        font-family: Georgia, serif;
+        font-size: 38px;
+        text-align: center;
+        line-height: 120px;
+      }
+      .about h4 {
+        font-family: Georgia, serif;
+        font-size: 22px;
+        color: #16130f;
+      }
+      .about p {
+        font-size: 14.5px;
+      }
+
+      .lineup {
+        background-color: #15111f;
+        border-radius: 14px;
+        padding: 16px;
+      }
+      .artist {
+        background-color: #241c33;
+        color: #fff;
+        border-radius: 12px;
+        padding: 10px;
+      }
+      .artist img {
+        display: block;
+        border-radius: 8px;
+        margin-bottom: 8px;
+      }
+      .artist b {
+        display: block;
+        font-size: 15px;
+      }
+      .artist small {
+        font-size: 12px;
+        color: #a99fc0;
+      }
+
+      /* ================================================================
+     ЗОРИЛГО — хариулт. Эхлээд өөрөө оролд, бүү хуулж ав :)
+     ================================================================ */
+      .t1 {
+        max-width: 480px;
+      }
+      .t2 {
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      .t3 {
+        width: 220px;
+        margin: 0 auto;
+      }
+      .t4 {
+        width: 80%;
+        margin: 0 auto;
+      }
+      .t5 > .main {
+        width: 70%;
+      }
+      .t5 > .side {
+        width: 30%;
+      }
+      .t6 {
+        max-width: 400px;
+      }
+      .t6 > .fill {
+        width: 75%;
+      }
+      .t7 {
+        max-width: 100%;
+      }
+      .t8 {
+        max-width: 100%;
+      }
+      .t9 {
+        max-width: 260px;
+      }
+      .t9 img {
+        width: 100%;
+      }
+      .t10 {
+        width: 40%;
+        min-width: 220px;
+      }
+      .t11 > .btn {
+        min-width: 140px;
+      }
+      .t12 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .t13 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      .t14 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+      }
+      .t14 > .about {
+        width: 280px;
+      }
+      .t15 {
+        max-width: 620px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+      }
+      .t15 > .artist {
+        width: 180px;
+      }
+      .t15 img {
+        width: 100%;
+      }
+    </style>
+
+    <!-- ================================================================
+     ★★★  ЭНД БИЧ  ★★★
+     ================================================================ -->
+    <style>
+      /* ДАСГАЛ 1 */
+      .d1 {
+        max-width: 480px;
+      }
+
+      /* ДАСГАЛ 2 */
+      .d2 {
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      /* ДАСГАЛ 3 */
+      .d3 {
+        width: 220px;
+        margin: 0 auto;
+      }
+
+      /* ДАСГАЛ 4 */
+      .d4 {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      /* ДАСГАЛ 5 — гол хэсэг */
+      .d5 > .main {
+        width: 70%;
+      }
+      /* ДАСГАЛ 5 — цэс */
+      .d5 > .side {
+        width: 30%;
+      }
+
+      /* ДАСГАЛ 6 — зурвас */
+      .d6 {
+        max-width: 400px;
+      }
+      /* ДАСГАЛ 6 — дүүргэлт */
+      .d6 > .fill {
+        width: 75%;
+      }
+
+      /* ДАСГАЛ 7 */
+      .d7 {
+        max-width: 100%;
+      }
+
+      /* ДАСГАЛ 8 */
+      .d8 {
+        max-width: 100%;
+      }
+
+      /* ДАСГАЛ 9 — карт */
+      .d9 {
+        max-width: 260px;
+      }
+      /* ДАСГАЛ 9 — зураг */
+      .d9 img {
+        width: 100%;
+      }
+
+      /* ДАСГАЛ 10 */
+      .d10 {
+        width: 40%;
+        min-width: 220px;
+      }
+
+      /* ДАСГАЛ 11 — товч */
+      .d11 > .btn {
+        min-width: 140px;
+      }
+
+      /* ДАСГАЛ 12 */
+      .d12 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      /* ДАСГАЛ 13 */
+      .d13 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      /* ДАСГАЛ 14 — сав */
+      .d14 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+      }
+      /* ДАСГАЛ 14 — текст */
+      .d14 > .about {
+        width: 280px;
+      }
+
+      /* ДАСГАЛ 15 — хэсэг */
+      .d15 {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 620px;
+        justify-content: center;
+        gap: 14px;
+        margin: 0 auto;
+      }
+      /* ДАСГАЛ 15 — карт */
+      .d15 > .artist {
+        width: 180px;
+      }
+      /* ДАСГАЛ 15 — зураг */
+      .d15 img {
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="ruler">
+        <span class="lbl">Дэлгэцийн өргөн</span>
+        <span class="wv" id="wv">800px</span>
+        <input type="range" id="w" min="320" max="800" value="800" />
+        <button data-w="360">Утас</button>
+        <button data-w="600">Таблет</button>
+        <button data-w="800">Компьютер</button>
+        <span class="score" id="score">Зөв: <b id="onoo">0</b> / 15</span>
+      </div>
+
+      <div class="top">
+        <p class="eyebrow">ХИЧЭЭЛ 07 · ДАСГАЛ</p>
+        <h1>Responsive — 15 дасгал</h1>
+        <div class="topics">
+          <span>max-width</span><span>margin: 0 auto</span><span>%</span
+          ><span>min-width</span><span>flex-wrap</span>
+        </div>
+      </div>
+
+      <div class="zaavar">
+        <h3>ЯАЖ АЖИЛЛАХ ВЭ</h3>
+        <ol>
+          <li>
+            Дээд талын <b>★★★ ЭНД БИЧ ★★★</b> хэсэгт CSS-ээ бич. Хадгалаад
+            хуудсаа дахин ачаал.
+          </li>
+          <li>Ногоон <b>гулсуурыг</b> чирж дэлгэцийн өргөнийг өөрчил.</li>
+          <li>
+            <b>Бүх өргөнд</b> ЧИНИЙ ХИЙСЭН нь ЗОРИЛГО-той адилхан байх ёстой.
+          </li>
+          <li>
+            Хуудас ачаалах бүрдээ <b>360 · 600 · 800px</b> дээр шалгаад, зөв бол
+            <b>✓ Зөв</b> гэж тэмдэглэнэ.
+          </li>
+        </ol>
+      </div>
+
+      <!-- ============================== I ============================== -->
+      <div class="bulag">
+        <span>I</span>
+        <h2>max-width ба голлуулах</h2>
+      </div>
+
+      <!-- 1 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 1</span><span class="tuluv"></span>
+        </div>
+        <h3>Дээд хязгаар</h3>
+        <p class="tailbar">
+          Том дэлгэцэнд хэт өргөсөхгүй. Жижиг дэлгэцэнд өөрөө багасна.
+        </p>
+        <div class="sp">Хамгийн ихдээ: <b>480px</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="panel t1">
+            Playtime Festival бол зуны хамгийн том хөгжмийн наадам. Гурван өдөр,
+            гурван тайз.
+          </div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="panel d1">
+            Playtime Festival бол зуны хамгийн том хөгжмийн наадам. Гурван өдөр,
+            гурван тайз.
+          </div>
+        </div>
+        <p class="heregleh">Хэрэглэх: <b>max-width</b></p>
+      </div>
+
+      <!-- 2 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 2</span><span class="tuluv"></span>
+        </div>
+        <h3>Голдоо</h3>
+        <p class="tailbar">1-р дасгал шиг, гэхдээ үргэлж голдоо.</p>
+        <div class="sp">Хамгийн ихдээ: <b>480px</b> · Байрлал: <b>гол</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="panel t2">Би ямар ч дэлгэцэнд голдоо байна.</div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="panel d2">Би ямар ч дэлгэцэнд голдоо байна.</div>
+        </div>
+        <p class="heregleh">Хэрэглэх: <b>max-width</b> · <b>margin</b></p>
+      </div>
+
+      <!-- 3 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 3</span><span class="tuluv"></span>
+        </div>
+        <h3>Товч голдоо</h3>
+        <p class="tailbar">
+          Товч дэлгэцийн өргөнөөр сунаад байна. Тогтмол өргөнтэй болгоод
+          голлуул.
+        </p>
+        <div class="sp">Өргөн: <b>220px</b> · Байрлал: <b>гол</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen"><div class="cta t3">Тасалбар авах</div></div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen"><div class="cta d3">Тасалбар авах</div></div>
+        <p class="heregleh">Хэрэглэх: <b>width</b> · <b>margin</b></p>
+      </div>
+
+      <!-- ============================== II ============================== -->
+      <div class="bulag">
+        <span>II</span>
+        <h2>% — эцгийнхээ хэдэн хувь</h2>
+      </div>
+
+      <!-- 4 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 4</span><span class="tuluv"></span>
+        </div>
+        <h3>Үргэлж 80%</h3>
+        <p class="tailbar">
+          Дэлгэц ямар ч байсан <b>80%</b>-ийг нь эзэлж, голдоо байна.
+        </p>
+        <div class="sp">Өргөн: эцгийнхээ <b>80%</b> · Байрлал: <b>гол</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen"><div class="panel t4">80%</div></div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen"><div class="panel d4">80%</div></div>
+        <p class="heregleh">
+          Хэрэглэх: <b>width</b> · <b>%</b> · <b>margin</b>
+        </p>
+      </div>
+
+      <!-- 5 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 5</span><span class="tuluv"></span>
+        </div>
+        <h3>70 ба 30</h3>
+        <p class="tailbar">
+          Гол хэсэг ба хажуугийн цэс. Дэлгэц өөрчлөгдөхөд харьцаа нь хэвээрээ.
+          Сав нь аль хэдийн <b>flex</b>.
+        </p>
+        <div class="sp">Гол хэсэг: <b>70%</b> · Цэс: <b>30%</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="layout t5">
+            <div class="main">Гол хэсэг</div>
+            <div class="side">Цэс</div>
+          </div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="layout d5">
+            <div class="main">Гол хэсэг</div>
+            <div class="side">Цэс</div>
+          </div>
+        </div>
+        <p class="heregleh">Хэрэглэх: <b>width</b> · <b>%</b></p>
+      </div>
+
+      <!-- 6 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 6</span><span class="tuluv"></span>
+        </div>
+        <h3>Тасалбарын үлдэгдэл</h3>
+        <p class="tailbar">
+          Тасалбарын 75% зарагдсан. Шар дүүргэлт нь дэлгэцийн биш —
+          <b>саарал зурвасынхаа</b> 75%.
+        </p>
+        <div class="sp">
+          Зурвас: хамгийн ихдээ <b>400px</b> · Дүүргэлт: <b>75%</b>
+        </div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <p class="bar-label">Тасалбар</p>
+          <div class="bar t6"><div class="fill">75% зарагдсан</div></div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <p class="bar-label">Тасалбар</p>
+          <div class="bar d6"><div class="fill">75% зарагдсан</div></div>
+        </div>
+        <p class="heregleh">
+          Хэрэглэх: <b>max-width</b> · <b>width</b> · <b>%</b>
+        </p>
+      </div>
+
+      <!-- ============================== III ============================== -->
+      <div class="bulag">
+        <span>III</span>
+        <h2>Халихгүй</h2>
+      </div>
+
+      <!-- 7 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 7</span><span class="tuluv"></span>
+        </div>
+        <h3>Зураг халихгүй</h3>
+        <p class="tailbar">
+          Зураг <b>600px</b>. «Таблет», «Утас» дээр дэлгэцнээсээ халиж байна.
+          Хэзээ ч эцгээсээ өргөн болохгүй болго.
+        </p>
+        <div class="sp">Хамгийн ихдээ: эцгийнхээ <b>100%</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <img class="zurag t7" data-img="stage" alt="Тайз" />
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <img class="zurag d7" data-img="stage" alt="Тайз" />
+        </div>
+        <p class="heregleh">Хэрэглэх: <b>max-width</b></p>
+      </div>
+
+      <!-- 8 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 8</span><span class="tuluv"></span>
+        </div>
+        <h3>Зөвхөн зураг биш</h3>
+        <p class="tailbar">
+          Энэ хайрцаг <b>520px</b> (бичигдсэн). «Утас» дээр халиж байна. 7-р
+          дасгалын нэг мөр энд ч ажиллана.
+        </p>
+        <div class="sp">Хамгийн ихдээ: эцгийнхээ <b>100%</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="big t8">Би 520px өргөнтэй. Гэхдээ утсанд багтана.</div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="big d8">Би 520px өргөнтэй. Гэхдээ утсанд багтана.</div>
+        </div>
+        <p class="heregleh">Хэрэглэх: <b>max-width</b></p>
+      </div>
+
+      <!-- 9 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 9</span><span class="tuluv"></span>
+        </div>
+        <h3>Карт доторх зураг</h3>
+        <p class="tailbar">
+          Карт хамгийн ихдээ <b>260px</b>. Зураг нь картаасаа халихгүй, яг
+          дүүргэнэ.
+        </p>
+        <div class="sp">
+          Карт: хамгийн ихдээ <b>260px</b> · Зураг: картынхаа <b>100%</b>
+        </div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="kart t9">
+            <img data-img="stage" alt="Тайз" />
+            <h4>Гол тайз</h4>
+            <p>7 сарын 15 · 18:00</p>
+          </div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="kart d9">
+            <img data-img="stage" alt="Тайз" />
+            <h4>Гол тайз</h4>
+            <p>7 сарын 15 · 18:00</p>
+          </div>
+        </div>
+        <p class="heregleh">
+          Хэрэглэх: <b>max-width</b> · <b>width</b> · <b>%</b>
+        </p>
+      </div>
+
+      <!-- ============================== IV ============================== -->
+      <div class="bulag">
+        <span>IV</span>
+        <h2>min-width</h2>
+      </div>
+
+      <!-- 10 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 10</span><span class="tuluv"></span>
+        </div>
+        <h3>Хэт нарийсахгүй</h3>
+        <p class="tailbar">
+          Хайрцаг дэлгэцийн <b>40%</b>. Гэхдээ утсанд <b>220px</b>-ээс
+          нарийсахгүй.
+        </p>
+        <div class="sp">Өргөн: <b>40%</b> · Хамгийн багадаа: <b>220px</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="panel t10">40%, гэхдээ 220px-ээс бага биш</div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="panel d10">40%, гэхдээ 220px-ээс бага биш</div>
+        </div>
+        <p class="heregleh">
+          Хэрэглэх: <b>width</b> · <b>%</b> · <b>min-width</b>
+        </p>
+      </div>
+
+      <!-- 11 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 11</span><span class="tuluv"></span>
+        </div>
+        <h3>Ижил товчнууд</h3>
+        <p class="tailbar">
+          «OK» хэт жижигхэн байна. Текст нь богино ч товч бүр <b>140px</b>-ээс
+          нарийхан болохгүй.
+        </p>
+        <div class="sp">Товч бүр хамгийн багадаа: <b>140px</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="btns t11">
+            <div class="btn">OK</div>
+            <div class="btn">Болих</div>
+            <div class="btn">Тасалбар авах</div>
+          </div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="btns d11">
+            <div class="btn">OK</div>
+            <div class="btn">Болих</div>
+            <div class="btn">Тасалбар авах</div>
+          </div>
+        </div>
+        <p class="heregleh">Хэрэглэх: <b>min-width</b></p>
+      </div>
+
+      <!-- ============================== V ============================== -->
+      <div class="bulag">
+        <span>V</span>
+        <h2>flex-wrap</h2>
+      </div>
+
+      <!-- 12 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 12</span><span class="tuluv"></span>
+        </div>
+        <h3>Миний ур чадвар</h3>
+        <p class="tailbar">
+          Шошгууд зэрэгцэнэ. Мөрөндөө багтахгүй бол доош бууна.
+        </p>
+        <div class="sp">Сав: <b>flex</b> · эвхэгдэнэ · зай <b>8px</b></div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="t12">
+            <div class="skill">HTML</div>
+            <div class="skill">CSS</div>
+            <div class="skill">Flexbox</div>
+            <div class="skill">Google Fonts</div>
+            <div class="skill">Lucide</div>
+            <div class="skill">hover</div>
+            <div class="skill">box-shadow</div>
+            <div class="skill">max-width</div>
+            <div class="skill">flex-wrap</div>
+            <div class="skill">Netlify</div>
+          </div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="d12">
+            <div class="skill">HTML</div>
+            <div class="skill">CSS</div>
+            <div class="skill">Flexbox</div>
+            <div class="skill">Google Fonts</div>
+            <div class="skill">Lucide</div>
+            <div class="skill">hover</div>
+            <div class="skill">box-shadow</div>
+            <div class="skill">max-width</div>
+            <div class="skill">flex-wrap</div>
+            <div class="skill">Netlify</div>
+          </div>
+        </div>
+        <p class="heregleh">
+          Хэрэглэх: <b>display</b> · <b>flex-wrap</b> · <b>gap</b>
+        </p>
+      </div>
+
+      <!-- 13 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 13</span><span class="tuluv"></span>
+        </div>
+        <h3>Зургийн цомог</h3>
+        <p class="tailbar">
+          Зураг бүр <b>110px</b> (бичигдсэн). Эвхэгдэж, мөр бүр голдоо.
+        </p>
+        <div class="sp">
+          Сав: <b>flex</b> · эвхэгдэнэ · үндсэн тэнхлэгт <b>гол</b> · зай
+          <b>10px</b>
+        </div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="t13">
+            <div class="photo">1</div>
+            <div class="photo">2</div>
+            <div class="photo">3</div>
+            <div class="photo">4</div>
+            <div class="photo">5</div>
+            <div class="photo">6</div>
+          </div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="d13">
+            <div class="photo">1</div>
+            <div class="photo">2</div>
+            <div class="photo">3</div>
+            <div class="photo">4</div>
+            <div class="photo">5</div>
+            <div class="photo">6</div>
+          </div>
+        </div>
+        <p class="heregleh">
+          Хэрэглэх: <b>display</b> · <b>flex-wrap</b> · <b>justify-content</b> ·
+          <b>gap</b>
+        </p>
+      </div>
+
+      <!-- 14 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 14</span><span class="tuluv"></span>
+        </div>
+        <h3>Миний тухай</h3>
+        <p class="tailbar">
+          Компьютерт зураг, текст зэрэгцэнэ. Утсанд текст зурган доор бууна.
+          Үргэлж голдоо.
+        </p>
+        <div class="sp">
+          Сав: <b>flex</b> · эвхэгдэнэ · үндсэн тэнхлэгт <b>гол</b> · эсрэг
+          тэнхлэгт <b>гол</b> · зай <b>24px</b><br />
+          Текст: өргөн <b>280px</b>
+        </div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="hero t14">
+            <div class="avatar">Би</div>
+            <div class="about">
+              <h4>Сайн уу! 👋</h4>
+              <p>
+                Би Pinecone Academy-д веб хөгжүүлэлт сурч байна. HTML, CSS-ээр
+                сайт хийдэг.
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="hero d14">
+            <div class="avatar">Би</div>
+            <div class="about">
+              <h4>Сайн уу! 👋</h4>
+              <p>
+                Би Pinecone Academy-д веб хөгжүүлэлт сурч байна. HTML, CSS-ээр
+                сайт хийдэг.
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="heregleh">
+          Хэрэглэх: <b>display</b> · <b>flex-wrap</b> · <b>justify-content</b> ·
+          <b>align-items</b> · <b>gap</b> · <b>width</b>
+        </p>
+      </div>
+
+      <!-- 15 -->
+      <div class="dasgal">
+        <div class="dh">
+          <span class="dugaar">ДАСГАЛ 15</span><span class="tuluv"></span>
+        </div>
+        <h3>Playtime Lineup</h3>
+        <p class="tailbar">
+          Өнөөдөр сурсан бүгдээ нэгтгэ. Компьютерт <b>3</b>, таблетад
+          <b>2 + 1</b>, утсанд <b>1</b>.
+        </p>
+        <div class="sp">
+          Хэсэг: хамгийн ихдээ <b>620px</b> · <b>гол</b> · <b>flex</b> ·
+          эвхэгдэнэ · үндсэн тэнхлэгт <b>гол</b> · зай <b>14px</b><br />
+          Карт: өргөн <b>180px</b><br />
+          Зураг: картынхаа <b>100%</b>
+        </div>
+        <p class="shoshgo g">ЗОРИЛГО</p>
+        <div class="screen">
+          <div class="lineup t15">
+            <div class="artist">
+              <img data-img="nova" alt="Nova Sky" /><b>Nova Sky</b
+              ><small>Day 1 · Гол тайз</small>
+            </div>
+            <div class="artist">
+              <img data-img="pulse" alt="DJ Pulse" /><b>DJ Pulse</b
+              ><small>Day 2 · Neon тайз</small>
+            </div>
+            <div class="artist">
+              <img data-img="echoes" alt="The Echoes" /><b>The Echoes</b
+              ><small>Day 3 · Гол тайз</small>
+            </div>
+          </div>
+        </div>
+        <p class="shoshgo o">ЧИНИЙ ХИЙСЭН</p>
+        <div class="screen">
+          <div class="lineup d15">
+            <div class="artist">
+              <img data-img="nova" alt="Nova Sky" /><b>Nova Sky</b
+              ><small>Day 1 · Гол тайз</small>
+            </div>
+            <div class="artist">
+              <img data-img="pulse" alt="DJ Pulse" /><b>DJ Pulse</b
+              ><small>Day 2 · Neon тайз</small>
+            </div>
+            <div class="artist">
+              <img data-img="echoes" alt="The Echoes" /><b>The Echoes</b
+              ><small>Day 3 · Гол тайз</small>
+            </div>
+          </div>
+        </div>
+        <p class="heregleh">
+          Хэрэглэх: <b>max-width</b> · <b>margin</b> · <b>display</b> ·
+          <b>flex-wrap</b> · <b>justify-content</b> · <b>gap</b> ·
+          <b>width</b> · <b>%</b>
+        </p>
+      </div>
+    </div>
+
+    <!-- Хуудасны ажиллагаа (гулсуур, зураг, автомат шалгалт). Бүү өөрчил. -->
+    <script>
+      // ---------- Зургууд ----------
+      function svgUrl(svg) {
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+      }
+
+      function artist(a, b) {
+        return svgUrl(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">' +
+            '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' +
+            a +
+            '"/><stop offset="1" stop-color="' +
+            b +
+            '"/></linearGradient></defs>' +
+            '<rect width="300" height="300" fill="url(#g)"/>' +
+            '<circle cx="150" cy="122" r="52" fill="#fff" fill-opacity=".88"/>' +
+            '<ellipse cx="150" cy="300" rx="96" ry="88" fill="#fff" fill-opacity=".88"/></svg>',
+        );
+      }
+
+      var IMAGES = {
+        stage: svgUrl(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">' +
+            '<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B1466"/><stop offset="1" stop-color="#0E0A1A"/></linearGradient>' +
+            '<linearGradient id="l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2D28A" stop-opacity=".5"/><stop offset="1" stop-color="#F2D28A" stop-opacity="0"/></linearGradient></defs>' +
+            '<rect width="600" height="300" fill="url(#g)"/>' +
+            '<polygon points="118,0 146,0 250,236 50,236" fill="url(#l)"/>' +
+            '<polygon points="454,0 482,0 550,236 350,236" fill="url(#l)"/>' +
+            '<polygon points="286,0 314,0 400,236 200,236" fill="url(#l)" opacity=".7"/>' +
+            '<rect y="232" width="600" height="4" fill="#A855F7"/><rect y="236" width="600" height="64" fill="#15111F"/>' +
+            '<text x="300" y="148" text-anchor="middle" font-family="Georgia, serif" font-size="58" font-weight="700" fill="#fff" letter-spacing="8">PLAYTIME</text>' +
+            '<text x="300" y="184" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#D8B4FE" letter-spacing="6">FESTIVAL · 2026</text></svg>',
+        ),
+        nova: artist("#7C3AED", "#DB2777"),
+        pulse: artist("#0EA5E9", "#6366F1"),
+        echoes: artist("#F59E0B", "#DC2626"),
+      };
+
+      document.querySelectorAll("img[data-img]").forEach(function (img) {
+        img.src = IMAGES[img.dataset.img];
+      });
+
+      // ---------- Гулсуур ----------
+      var range = document.getElementById("w");
+      var label = document.getElementById("wv");
+
+      function setWidth(px) {
+        document.documentElement.style.setProperty("--w", px + "px");
+        label.textContent = px + "px";
+        range.value = px;
+      }
+
+      range.addEventListener("input", function () {
+        setWidth(range.value);
+      });
+      document.querySelectorAll("[data-w]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setWidth(btn.dataset.w);
+        });
+      });
+      setWidth(800);
+
+      // ---------- Автомат шалгалт: ЗОРИЛГО ба ЧИНИЙ ХИЙСЭН-ийг 3 өргөнд харьцуулна ----------
+      var CHECK_WIDTHS = [360, 600, 800];
+      var TOLERANCE = 1;
+      var exercises = Array.prototype.slice.call(
+        document.querySelectorAll(".dasgal"),
+      );
+
+      function layoutOf(screen) {
+        var origin = screen.getBoundingClientRect();
+        return Array.prototype.map.call(
+          screen.querySelectorAll("*"),
+          function (el) {
+            var r = el.getBoundingClientRect();
+            return [
+              r.left - origin.left,
+              r.top - origin.top,
+              r.width,
+              r.height,
+            ];
+          },
+        );
+      }
+
+      function sameLayout(a, b) {
+        if (a.length !== b.length) return false;
+        return a.every(function (box, i) {
+          return box.every(function (value, k) {
+            return Math.abs(value - b[i][k]) <= TOLERANCE;
+          });
+        });
+      }
+
+      function checkAll() {
+        var current = range.value;
+        var passed = exercises.map(function () {
+          return true;
+        });
+
+        // Жижиг цонхонд ч гэсэн яг 360 · 600 · 800px-ээр хэмжинэ
+        document.documentElement.classList.add("checking");
+        CHECK_WIDTHS.forEach(function (px) {
+          document.documentElement.style.setProperty("--w", px + "px");
+          exercises.forEach(function (ex, i) {
+            var screens = ex.querySelectorAll(".screen");
+            if (!sameLayout(layoutOf(screens[0]), layoutOf(screens[1])))
+              passed[i] = false;
+          });
+        });
+        document.documentElement.classList.remove("checking");
+        setWidth(current);
+
+        var count = 0;
+        exercises.forEach(function (ex, i) {
+          var badge = ex.querySelector(".tuluv");
+          ex.classList.toggle("ok", passed[i]);
+          badge.className = "tuluv " + (passed[i] ? "ok" : "no");
+          badge.textContent = passed[i] ? "✓ Зөв" : "Хараахан биш";
+          if (passed[i]) count++;
+        });
+
+        var score = document.getElementById("score");
+        score.classList.toggle("all", count === exercises.length);
+        score.innerHTML =
+          count === exercises.length
+            ? "Бүгд зөв! <b>" + count + "</b> / " + exercises.length + " 🎉"
+            : "Зөв: <b>" + count + "</b> / " + exercises.length;
+      }
+
+      var images = Array.prototype.slice.call(document.querySelectorAll("img"));
+      Promise.all(
+        images.map(function (img) {
+          return img.decode
+            ? img.decode().catch(function () {})
+            : Promise.resolve();
+        }),
+      ).then(checkAll);
+    </script>
+  </body>
+</html>

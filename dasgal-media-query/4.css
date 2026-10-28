@@ -1,0 +1,45 @@
+style * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+  padding: 16px;
+}
+
+.sponsors {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #e5e0d6;
+  padding: 20px 24px;
+  border-radius: 12px;
+}
+
+.logo-box {
+  width: 120px;
+  height: 48px;
+  background-color: #f0ede6;
+  color: #8e8777;
+  border-radius: 8px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .sponsors {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .logo-box {
+    width: 90px;
+    height: 40px;
+    font-size: 13px;
+  }
+}

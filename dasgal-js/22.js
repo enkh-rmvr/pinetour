@@ -1,0 +1,10 @@
+const money = Number(prompt("heden tugrug avah ve"));
+const twentykbills = (money - (money % 20000)) / 20000;
+const twentykleft = money % 20000;
+const tenkbills = (twentykleft - (twentykleft % 10000)) / 10000;
+const tenkleft = twentykleft % 10000;
+const fivekbills = (tenkleft - (tenkleft % 5000)) / 5000;
+const fivekleft = tenkleft % 5000;
+const onekbills = (fivekleft - (fivekleft % 1000)) / 1000;
+const onekleft = fivekleft % 1000;
+console.log(twentykbills, tenkbills, fivekbills, onekbills);

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>09 · Reaction time</title>
+  </head>
+  <body style="background-color: black" id="body">
+    <h1 style="color: white">⚡ Reaction time</h1>
+
+    <input id="nameInput" type="text" placeholder="Нэрээ бич" />
+    <button onclick="startRound()">🎮 Эхлэх</button>
+
+    <h2 style="color: white" id="status">Нэрээ бичээд «Эхлэх» дар</h2>
+    <button id="light" onclick="react()" style="font-size: 120px; background: none; border: none; cursor: pointer">⬜</button>
+
+    <p style="color: white; font-size: 28px" id="result"></p>
+    <p style="color: white" id="myBest"></p>
+    <p style="color: white" id="champion"></p>
+
+    <script src="09-reaction-time.js"></script>
+  </body>
+</html>

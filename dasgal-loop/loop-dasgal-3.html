@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for давталт — дахиад 10 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 900px; margin: 0 auto; }
+
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+
+  .start { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 22px 26px; margin: 26px 0 40px; }
+  .start h3 { font-size: 14px; letter-spacing: .08em; color: #0D3B2F; margin-bottom: 10px; }
+  .start ol { padding-left: 22px; }
+  .start li { font-size: 15.5px; line-height: 1.85; }
+  .start code, .uses b, .hint code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
+  .start li code { background-color: #F0EDE6; border-radius: 4px; padding: 1px 6px; }
+
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; margin-top: 12px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 24px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; margin-bottom: 16px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin-bottom: 10px; }
+
+  /* prompt → alert / console жишээ */
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .arrow { color: #B8862A; font-size: 22px; font-weight: 700; }
+  .mock { border-radius: 10px; padding: 10px 14px; min-width: 180px; max-width: 100%; }
+  .mock .tag { display: block; font-family: ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; letter-spacing: .06em; margin-bottom: 4px; }
+  .mock p { font-size: 14.5px; color: #16130F; }
+  .prompt { background-color: #FFFFFF; border: 1.5px solid #DCD5C7; }
+  .prompt .tag { color: #0D3B2F; }
+  .prompt .field { margin-top: 6px; border: 1.5px solid #7FB59E; border-radius: 6px; padding: 4px 10px; font-weight: 700; color: #0D3B2F; background-color: #F3FAF6; }
+  .alert { background-color: #FFFFFF; border: 1.5px solid #E8C4B4; }
+  .alert .tag { color: #B03A1A; }
+  .alert .ok { display: inline-block; margin-top: 6px; background-color: #C0451B; color: #fff; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 12px; }
+  .console { background-color: #16130F; }
+  .console .tag { color: #8E8777; }
+  .console code { display: block; color: #9CD6A8; font-family: ui-monospace, Menlo, monospace; font-size: 14px; }
+
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+  .uses { margin-top: 14px; font-size: 14px; color: #8E8777; }
+  .uses b { color: #575146; }
+
+  details { margin-top: 14px; }
+  summary { display: inline-block; cursor: pointer; font-size: 13px; font-weight: 700; color: #7A5410;
+            background-color: #F8F0DB; border: 1px solid #E5D2A4; border-radius: 100px; padding: 4px 14px; }
+  summary:hover { background-color: #F2E6C6; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 12 · ДАВТАЛТ</p>
+  <h1>for давталт — дахиад 10 дасгал</h1>
+  <p class="lead">Зөвхөн for · if · % · && · || · prompt · `${ }` · console.log</p>
+
+  <div class="start">
+    <h3>ЭХЛЭХ</h3>
+    <ol>
+      <li>Шинэ хавтас нээгээд <code>index.html</code>, <code>script.js</code> гэсэн хоёр файл үүсгэ.</li>
+      <li><code>index.html</code>-д доорх кодыг хуул. <code>&lt;script&gt;</code> нь body-гийн хамгийн доор байна.</li>
+      <li>Дасгал бүрийг <code>script.js</code>-д бич. Дараагийн дасгал руу шилжихдээ өмнөхөө <code>/* */</code>-аар comment болго.</li>
+      <li>Console-оо нээ: <code>Cmd + Option + J</code>. Алдаа гарвал улаан мөрийг унш.</li>
+    </ol>
+    <pre>&lt;!doctype html&gt;
+&lt;html lang="mn"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;JS дасгал&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;JS дасгал&lt;/h1&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span></div>
+    <h2>10 чихрийг хоёр халаасанд 🍬</h2>
+    <p class="task">10 чихрээ зүүн, баруун хоёр халаасандаа хуваах бүх аргыг хэвлэ. Зүүн халаасанд 0-ээс 10 хүртэл чихэр, баруун халаасанд нь үлдсэн нь.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 0 + 10 = 10</code><code>› 1 + 9 = 10</code><code>› 2 + 8 = 10</code><code>› 3 + 7 = 10</code><code>› 4 + 6 = 10</code><code>› 5 + 5 = 10</code><code>› 6 + 4 = 10</code><code>› 7 + 3 = 10</code><code>› 8 + 2 = 10</code><code>› 9 + 1 = 10</code><code>› 10 + 0 = 10</code></div></div>
+    <p class="hint">💡 i бол зүүн халаасны чихэр. Тэгвэл баруун халаасанд хэд байх вэ? Түүнийг i-ээс бодож гарга.</p>
+    <p class="uses">Хэрэглэх: <b>for · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span></div>
+    <h2>Шатрын мөр ⬛⬜</h2>
+    <p class="task">Шатрын самбарын нэг мөр 8 нүдтэй, хар цагаан нүд ээлжилнэ. ⬛-ээр эхэлсэн 8 нүдийг НЭГ мөрөнд хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› ⬛⬜⬛⬜⬛⬜⬛⬜</code></div></div>
+    <p class="hint">💡 Хоосон текстээс эхэлж, давталт бүрт нэг нүд нэм. Хар уу, цагаан уу гэдгийг i тэгш эсвэл сондгой байгаагаар шийд. Нэг л мөр гарах ёстой — console.log хаана байх вэ?</p>
+    <p class="uses">Хэрэглэх: <b>for · if · else · %</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span></div>
+    <h2>Бум! 💥</h2>
+    <p class="task">«Бум» тоглоомд 7-д хуваагддаг ЭСВЭЛ 7-оор төгссөн тоон дээр тоогоо хэлэхгүй «Бум!» гэж хашгирна. 1-ээс 50 хүртэл тоолоход аль тоонууд дээр «Бум!» гэх вэ? Тэр тоонуудыг хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 7</code><code>› 14</code><code>› 17</code><code>› 21</code><code>› 27</code><code>› 28</code><code>› 35</code><code>› 37</code><code>› 42</code><code>› 47</code><code>› 49</code></div></div>
+    <p class="hint">💡 Хоёр нөхцлийн аль нэг нь үнэн байхад хангалттай. Сүүлийн цифрийг 10-д хуваасны үлдэгдлээр олдгийг санаарай.</p>
+    <p class="uses">Хэрэглэх: <b>for · if · % · ||</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span></div>
+    <h2>Гэртээ шатаар 🏠</h2>
+    <p class="task">Хэдэн давхарт амьдардгийг prompt-оор асуу. Шатаар өгсөх бүрт давхраа хэвлэ. Харин хамгийн сүүлийн давхар дээр «— гэртээ ирлээ 🏠» гэж нэмж бич.</p>
+    <p class="label">ЖИШЭЭ 1</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн давхарт амьдардаг вэ?</p><div class="field">5</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 1-р давхар</code><code>› 2-р давхар</code><code>› 3-р давхар</code><code>› 4-р давхар</code><code>› 5-р давхар — гэртээ ирлээ 🏠</code></div></div>
+    <div style="height:14px"></div>
+    <p class="label">ЖИШЭЭ 2</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн давхарт амьдардаг вэ?</p><div class="field">3</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 1-р давхар</code><code>› 2-р давхар</code><code>› 3-р давхар — гэртээ ирлээ 🏠</code></div></div>
+    <p class="hint">💡 Хэдэн удаа давтах нь prompt-оос ирнэ. Давталт дотор «энэ сүүлийн давхар мөн үү?» гэж шалга.</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · for · if · else · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span></div>
+    <h2>Тэгш ба сондгойн нийлбэр</h2>
+    <p class="task">1-ээс 20 хүртэлх тоонуудаас тэгшүүдийг нь тусад нь, сондгойнуудыг нь тусад нь нэмж, хоёр нийлбэрийг хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› Тэгш тоонуудын нийлбэр: 110</code><code>› Сондгой тоонуудын нийлбэр: 100</code></div></div>
+    <p class="hint">💡 Нийлбэрийн хоёр тусдаа хувьсагч хэрэгтэй. Тоо бүрийг тэгш үү, сондгой юу гэж шалгаад өөрийнх нь нийлбэрт нэм.</p>
+    <p class="uses">Хэрэглэх: <b>for · if · else · % · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span></div>
+    <h2>Хамгийн том нь</h2>
+    <p class="task">1-ээс 100 хүртэлх тоонуудаас 13-т хуваагддаг ХАМГИЙН ТОМ тоог ол. Зөвхөн тэр нэг тоог хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 13-т хуваагддаг хамгийн том тоо: 91</code></div></div>
+    <p class="hint">💡 Олдох бүрт нэг хувьсагчид хадгал — шинээр олдсон нь хуучныгаа дарна. Давталт дуусахад тэр хувьсагчид аль тоо үлдэх вэ?</p>
+    <p class="uses">Хэрэглэх: <b>for · if · % · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span></div>
+    <h2>Факториал ❗</h2>
+    <p class="task">n! (n факториал) гэдэг нь 1-ээс n хүртэлх бүх тоонуудын ҮРЖВЭР: 5! = 1 × 2 × 3 × 4 × 5. n-ийг prompt-оор асуугаад n!-ийг хэвлэ.</p>
+    <p class="label">ЖИШЭЭ 1</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Аль тооны факториалыг олох вэ?</p><div class="field">5</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 5! = 120</code></div></div>
+    <div style="height:14px"></div>
+    <p class="label">ЖИШЭЭ 2</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Аль тооны факториалыг олох вэ?</p><div class="field">7</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 7! = 5040</code></div></div>
+    <p class="hint">💡 Нийлбэр 0-ээс эхэлдэг. Харин үржвэр 0-ээс эхэлбэл юу болох вэ? Үржвэрийн хувьсагч хэднээс эхлэх ёстойг бод.</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · for · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span></div>
+    <h2>Хагас жилийн хуримтлал 💰</h2>
+    <p class="task">Сар бүр хэдэн төгрөг хадгалахыг prompt-оор асуу. 6 сарын турш сар бүрийн эцэст нийт хэдэн төгрөгтэй болсныг хэвлэ.</p>
+    <p class="label">ЖИШЭЭ 1</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Сар бүр хэдэн төгрөг хадгалах вэ?</p><div class="field">50000</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 1-р сар: 50000₮</code><code>› 2-р сар: 100000₮</code><code>› 3-р сар: 150000₮</code><code>› 4-р сар: 200000₮</code><code>› 5-р сар: 250000₮</code><code>› 6-р сар: 300000₮</code></div></div>
+    <div style="height:14px"></div>
+    <p class="label">ЖИШЭЭ 2</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Сар бүр хэдэн төгрөг хадгалах вэ?</p><div class="field">30000</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 1-р сар: 30000₮</code><code>› 2-р сар: 60000₮</code><code>› 3-р сар: 90000₮</code><code>› 4-р сар: 120000₮</code><code>› 5-р сар: 150000₮</code><code>› 6-р сар: 180000₮</code></div></div>
+    <p class="hint">💡 Нийт мөнгө 0-ээс эхэлнэ. Сар бүр нэмээд ТЭР ДАРУЙ хэвлэ — зөвхөн төгсгөлд нь биш.</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · for · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 9</span></div>
+    <h2>Дундаж оноо 📝</h2>
+    <p class="task">5 сурагчийн оноог prompt-оор нэг нэгээр нь асуугаад дундаж оноог хэвлэ.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>1-р сурагчийн оноо?</p><div class="field">70</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>2-р сурагчийн оноо?</p><div class="field">85</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>3-р сурагчийн оноо?</p><div class="field">90</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>4-р сурагчийн оноо?</p><div class="field">60</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>5-р сурагчийн оноо?</p><div class="field">95</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Дундаж оноо: 80</code></div></div>
+    <p class="hint">💡 prompt-оо давталтын ДОТОР бич — тэгвэл 5 удаа асууна. Асуулт бүрт сурагчийн дугаар өөрчлөгдөнө. Дундаж = нийлбэр ÷ 5.</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · for · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 10</span></div>
+    <h2>Хамгийн өндөр нь 📏</h2>
+    <p class="task">5 найзынхаа өндрийг prompt-оор нэг нэгээр нь асуугаад хамгийн өндрийг нь хэвлэ.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>1-р найзын өндөр (см)?</p><div class="field">165</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>2-р найзын өндөр (см)?</p><div class="field">178</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>3-р найзын өндөр (см)?</p><div class="field">182</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>4-р найзын өндөр (см)?</p><div class="field">170</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>5-р найзын өндөр (см)?</p><div class="field">159</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Хамгийн өндөр нь: 182 см</code></div></div>
+    <p class="hint">💡 Одоогоор олдсон хамгийн өндрийг нэг хувьсагчид хадгал (0-ээс эхэл). Шинэ өндөр түүнээс их байвал түүгээр соль.</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · for · if · `${ }`</b></p>
+  </section>
+</div>
+</body>
+</html>

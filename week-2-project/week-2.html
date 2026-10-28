@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      #big {
+        width: 60%;
+        height: 100vh;
+        background-color: #0f0f1b;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+      }
+      #navbar {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+      }
+      #navlink {
+        color: white;
+        display: flex;
+        padding-top: 5px;
+        font-family: "Archivo", sans-serif;
+        gap: 20px;
+      }
+      .headlink {
+        color: #e3e0f2;
+        padding: 5px;
+        border-radius: 20px;
+        transition: 0.2s;
+      }
+      .headlink:hover {
+        padding: 5px;
+        border: 1px #b597d9 solid;
+        border-radius: 20px;
+        background-color: #b597d9;
+        transition: 0.2s;
+      }
+      a {
+        text-decoration: none;
+        font-family: "Archivo", sans-serif;
+      }
+      #b1:hover {
+        box-shadow: 0 0px 10px #ddb7ff;
+        transition: 0.2s;
+      }
+      #b1 {
+        border-radius: 20px;
+        background-color: #ddb7ff;
+        border: none;
+        color: black;
+        padding: 10px;
+        transition: 0.2s;
+        font-family: "Archivo black", sans-serif;
+      }
+      #b2:hover {
+        box-shadow: 0 0px 20px #adc6ff;
+        transition: 0.2s;
+      }
+      #b2 {
+        box-shadow: 0 0px 10px #adc6ff;
+        border-radius: 40px;
+        background-color: #adc6ff;
+        border: none;
+        padding: 20px;
+        width: 300px;
+        font-size: 25px;
+        transition: 0.2s;
+        font-family: "Archivo black", sans-serif;
+        color: #002e6a;
+      }
+      #hero {
+        width: 100%;
+        display: flex;
+        gap: 50px;
+        padding-top: 50px;
+        padding-left: 60px;
+      }
+      .herotext {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        align-items: flex-start;
+        gap: 20px;
+        color: #cfc2d6;
+        font-size: 20px;
+        justify-content: center;
+        font-family: "Archivo", sans-serif;
+      }
+      #herotexttit {
+        font-family: "Archivo Black", sans-serif;
+        font-size: 70px;
+        background: -webkit-linear-gradient(#ddb7ff, #adc6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      #herotextdate {
+        font-size: 15px;
+        padding-top: 12px;
+        font-family: "Archivo", sans-serif;
+        color: #adc6ff;
+      }
+      #herotextpara {
+        font-family: "Archivo", sans-serif;
+      }
+      #mediahero {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+      .image {
+        display: flex;
+        justify-content: right;
+        width: 90%;
+        height: 450px;
+        border-radius: 40px;
+        box-shadow: 0 0px 10px #e3e0f2;
+      }
+      #headliners {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 100px;
+        padding-bottom: 40px;
+      }
+      .hl {
+        color: #ddb7ff;
+        font-family: "Archivo Black", sans-serif;
+      }
+      #hl1 {
+        font-size: 40px;
+      }
+      #subtit {
+        padding-top: 5px;
+        font-family: "Archivo", sans-serif;
+      }
+      #lineupup {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        align-items: center;
+      }
+      #hlbig {
+        width: 100%;
+        height: auto;
+      }
+      .artist1 {
+        background-image: url(nova.jpeg);
+        background-size: cover;
+        background-position: center;
+        height: 350px;
+        width: 350px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: 0.2s;
+      }
+      .artist1:hover {
+        box-shadow: 0 0px 10px white;
+        transition: 0.2s;
+      }
+      .artist2 {
+        background-image: url(artist2.jpeg);
+        background-size: cover;
+        background-position: center;
+        height: 350px;
+        width: 350px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: 0.2s;
+      }
+      .artist2:hover {
+        box-shadow: 0 0px 10px white;
+        transition: 0.2s;
+      }
+      .artist3 {
+        background-image: url(artist3.jpg);
+        background-size: cover;
+        background-position: center;
+        height: 350px;
+        width: 350px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: 0.2s;
+      }
+      .artist3:hover {
+        box-shadow: 0 0px 10px white;
+        transition: 0.2s;
+      }
+      .artname {
+        font-family: "Archivo Black", sans-serif;
+        color: #ffffff;
+      }
+      .artistdesc {
+        display: flex;
+        flex-direction: column;
+        padding-top: 265px;
+        padding-left: 10px;
+      }
+      .genre {
+        display: flex;
+        border: 1px black solid;
+        color: #ddb7ff;
+        background-color: #452e5a;
+        border-radius: 20px;
+        width: 100px;
+        justify-content: center;
+        font-family: "Archivo", sans-serif;
+      }
+      #edm {
+        background-color: #283a5c;
+        color: #adc6ff;
+      }
+      #indie {
+        background-color: #72376c;
+        color: #ffb0cd;
+      }
+      .biolink {
+        color: #adc6ff;
+      }
+      #infoboxdad {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        padding-top: 100px;
+      }
+      .icon {
+        border: 8px gray solid;
+        border-radius: 50%;
+        background-color: gray;
+        width: 50px;
+        height: 50px;
+      }
+      #iconcal {
+        border: 8px #adc6ff solid;
+        background-color: #adc6ff;
+      }
+      #iconmap {
+        border: 8px #ddb7ff solid;
+        background-color: #ddb7ff;
+      }
+      #icontic {
+        border: 8px pink solid;
+        background-color: pink;
+      }
+      .infobox {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        padding-left: 20px;
+        background-color: #1f1e2b;
+        border: 2px #1f1e2b solid;
+        border-radius: 20px;
+        width: 370px;
+        height: 100px;
+      }
+      .infotitle {
+        color: #cfc2d6;
+        font-size: 14px;
+        font-family: "Archivo", sans-serif;
+      }
+      .infodesc {
+        color: #e3e0f2;
+        font-size: 17px;
+        font-family: "Archivo black", sans-serif;
+      }
+      .infotext {
+        display: flex;
+        flex-direction: column;
+      }
+      #nav2 {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 50px;
+      }
+      .nav2tit {
+        color: #adc6ff;
+        font-family: "Archivo Black", sans-serif;
+      }
+      .nav2but:hover {
+        box-shadow: 0 0px 10px #e3e0f2;
+        background-color: #ddb7ff;
+        color: black;
+        transition: 0.3s;
+      }
+      .nav2but {
+        border-radius: 20px;
+        background-color: #0f0f1b;
+        color: #e3e0f2;
+        padding: 5px;
+        border: none;
+        font-family: "Archivo", sans-serif;
+        transition: 0.3s;
+      }
+      #schedulesec {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 75px;
+      }
+      .schedsecbox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 2px rgb(45, 43, 45) solid;
+        border-radius: 20px;
+        width: 100%;
+        height: 150px;
+        padding: 20px;
+        background-color: #1f1e2b;
+      }
+      .time {
+        color: #e3e0f2;
+        font-family: "Archivo Black", sans-serif;
+      }
+      #col2 {
+        color: #ddb7ff;
+      }
+      #col5 {
+        color: pink;
+      }
+      #col9 {
+        color: #adc6ff;
+      }
+      .nameloc {
+        color: #e3e0f2;
+        font-family: "Archivo Black", sans-serif;
+        padding-right: 200px;
+      }
+      #loc {
+        font-family: "Archivo", sans-serif;
+        color: gray;
+      }
+      .mainstagebut {
+        font-family: "Archivo", sans-serif;
+        border-radius: 20px;
+        border: none;
+        padding: 10px;
+        background-color: #383846;
+        transition: 0.2s;
+        color: #e3e0f2;
+      }
+      .mainstagebut:hover {
+        box-shadow: 0 0px 10px #e3e0f2;
+        transition: 0.2s;
+      }
+      #sponpart {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .sponpartbord {
+        border-radius: 20px;
+        border: 2px #191924 solid;
+        width: 550px;
+        height: 400px;
+        background-color: #171723;
+      }
+      #spoon {
+        border-radius: 20px;
+        border: 2px #191924 solid;
+        width: 550px;
+        height: 280px;
+        background-color: #171723;
+      }
+      .spontit {
+        color: #ddb7ff;
+        font-family: "Archivo Black", sans-serif;
+      }
+      .parttit {
+        color: #adc6ff;
+        font-family: "Archivo Black", sans-serif;
+      }
+      #sponcont {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding-top: 28px;
+      }
+      .sponkids {
+        border: 2px rgb(45, 43, 45) solid;
+        background-color: #1f1e2b;
+        width: 225px;
+        height: 100px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      #partcont {
+        display: flex;
+        flex-direction: column;
+        padding-top: 25px;
+        gap: 20px;
+        align-items: center;
+      }
+      .partkids {
+        border: 2px rgb(45, 43, 45) solid;
+        width: 475px;
+        height: 100px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        gap: 20px;
+        background-color: #1f1e2b;
+      }
+      .sponicon {
+        width: 40px;
+        height: 40px;
+        border: 5px #ddb7ff solid;
+        border-radius: 50%;
+        background-color: #ddb7ff;
+      }
+      .spontext {
+        font-family: arial;
+        color: #e3e0f2;
+      }
+      .particon {
+        width: 40px;
+        height: 40px;
+        border: 5px #adc6ff solid;
+        border-radius: 50%;
+        background-color: #adc6ff;
+      }
+      .parttext {
+        font-family: "Archivo", sans-serif;
+        color: #e3e0f2;
+      }
+      #spon {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      #part {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      #footer {
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 15px;
+      }
+      #footrights {
+        color: #cfc2d6;
+        font-family: "Archivo", sans-serif;
+        font-size: 20px;
+      }
+      #foothr {
+        display: flex;
+        flex-direction: column;
+        padding-top: 200px;
+      }
+      #echo {
+        padding-left: 45px;
+      }
+      @media (width <= 1587px) {
+        #sponpart {
+          gap: 20px;
+        }
+        #navbar {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        #big {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          margin: 0 auto;
+          align-items: center;
+        }
+        .image {
+          width: 100%;
+          min-height: 300px;
+          min-width: 500px;
+        }
+        #hero {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        #herotexttit {
+          font-size: 70px;
+          align-self: center;
+        }
+        #mediahero {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding-left: 10px;
+          align-self: center;
+        }
+        #navbar {
+          width: 100%;
+          justify-content: space-evenly;
+          flex-wrap: wrap;
+        }
+        #lineupup {
+          display: flex;
+          flex-direction: column;
+        }
+        #infoboxdad {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        #nav2 {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+        #sponpart {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        #footer {
+          font-size: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        #echo {
+          padding-left: 20px;
+        }
+        #sponcont {
+          flex-wrap: wrap;
+        }
+        #partcont {
+          flex-wrap: wrap;
+        }
+      }
+      @media (display-mode: browser) {
+        #big {
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body style="background-color: #0f0f1b">
+    <div id="big">
+      <div id="navbar">
+        <img src="playtime.png" alt="" />
+        <div id="navlink">
+          <a class="headlink" href="">Lineup</a>
+          <a class="headlink" href="">Schedule</a>
+          <a class="headlink" href="">Tickets</a>
+        </div>
+        <button id="b1">Get Tickets</button>
+      </div>
+      <hr />
+      <div id="hero">
+        <div class="herotext">
+          <h1 id="herotexttit">PLAYTIME FESTIVAL</h1>
+          <div id="mediahero">
+            <p id="herotextdate">JULY 15-17, 2024 • NEON CITY PARK</p>
+            <p id="herotextpara">
+              The ultimate summer music experience for the next generation.
+              Three days of non-stop beats, vibrant lights, and unforgettable
+              memories.
+            </p>
+            <button id="b2">Join the Beat-></button>
+          </div>
+        </div>
+        <div id="medi">
+          <img class="image" src="festival.webp" alt="bleh" />
+        </div>
+      </div>
+      <div id="hlbig">
+        <div id="headliners">
+          <h1 class="hl" id="hl1">MEET THE HEADLINERS</h1>
+          <p class="hl" id="subtit">
+            The biggest acts lighting up the stage this summer.
+          </p>
+        </div>
+        <div id="lineupup">
+          <div class="artist1">
+            <div class="artistdesc">
+              <span class="genre">Pop / Synth</span>
+              <h1 class="artname">Nova Sky</h1>
+              <a class="biolink" href="">View Bio</a>
+            </div>
+          </div>
+          <div class="artist2">
+            <div class="artistdesc">
+              <span class="genre" id="edm">EDM / House</span>
+              <h1 class="artname">DJ Pulse</h1>
+              <a class="biolink" href="">View Bio</a>
+            </div>
+          </div>
+          <div class="artist3">
+            <div class="artistdesc">
+              <span class="genre" id="indie">Indie Rock</span>
+              <h1 class="artname">The Echoes</h1>
+              <a class="biolink" href="">View Bio</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="infoboxdad">
+        <div class="infobox">
+          <div id="infopic">
+            <img class="icon" id="iconcal" src="55281.png" alt="" />
+          </div>
+          <div class="infotext">
+            <p class="infotitle">DATE</p>
+            <p class="infodesc">July 15-17</p>
+          </div>
+        </div>
+        <div class="infobox">
+          <div id="infopic">
+            <img
+              class="icon"
+              id="iconmap"
+              src="map_icon-icons.com_50101.webp"
+              alt=""
+            />
+          </div>
+          <div class="infotext">
+            <p class="infotitle">LOCATION</p>
+            <p class="infodesc">Neon City</p>
+          </div>
+        </div>
+        <div class="infobox">
+          <div id="infopic">
+            <img class="icon" id="icontic" src="ticket.png" alt="" />
+          </div>
+          <div class="infotext">
+            <p class="infotitle">PRICE</p>
+            <p class="infodesc">$99 (3-Day Pass)</p>
+          </div>
+        </div>
+      </div>
+      <div id="nav2">
+        <h1 class="nav2tit">FESTIVAL SCHEDULE</h1>
+        <div>
+          <button class="nav2but">Day 1</button>
+          <button class="nav2but">Day 2</button>
+          <button class="nav2but">Day 3</button>
+        </div>
+      </div>
+      <hr />
+      <div id="schedulesec">
+        <div class="schedsecbox">
+          <div class="time">
+            <h1 id="col2">2:00 PM</h1>
+          </div>
+          <div class="nameloc">
+            <h1>Nova Sky</h1>
+            <p id="loc">Main Stage</p>
+          </div>
+          <div>
+            <button class="mainstagebut">Main Stage</button>
+          </div>
+        </div>
+        <div class="schedsecbox">
+          <div class="time">
+            <h1 id="col5">5:00 PM</h1>
+          </div>
+          <div class="nameloc" id="echo">
+            <h1>The Echoes</h1>
+            <p id="loc">Groove Arena</p>
+          </div>
+          <div>
+            <button class="mainstagebut">Main Stage</button>
+          </div>
+        </div>
+        <div class="schedsecbox">
+          <div class="time">
+            <h1 id="col9">9:00 PM</h1>
+          </div>
+          <div class="nameloc">
+            <h1>DJ Pulse</h1>
+            <p id="loc">Neon Dome</p>
+          </div>
+          <div>
+            <button class="mainstagebut">Main Stage</button>
+          </div>
+        </div>
+      </div>
+      <div id="sponpart">
+        <div id="spon">
+          <h1 class="spontit">OUR SPONSORS</h1>
+          <hr />
+          <div class="sponpartbord" id="spoon">
+            <div id="sponcont">
+              <div class="sponkids">
+                <img class="sponicon" src="cas.png" alt="" />
+                <p class="spontext">SOUNDWAVE AUDIO</p>
+              </div>
+              <div class="sponkids">
+                <img class="sponicon" src="sun.png" alt="" />
+                <p class="spontext">ECLIPSE STAGE</p>
+              </div>
+              <div class="sponkids">
+                <img class="sponicon" src="quant.png" alt="" />
+                <p class="spontext">QUANTUM CONNECTIVITY</p>
+              </div>
+              <div class="sponkids">
+                <img class="sponicon" src="bank-icon-5.png" alt="" />
+                <p class="spontext">HARMONY FINANCIAL</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="part">
+          <h1 class="parttit">STRATEGIC PARTNERS</h1>
+          <hr />
+          <div class="sponpartbord">
+            <div id="partcont">
+              <div class="partkids">
+                <img class="particon" src="rad.png" alt="" />
+                <p class="parttext">SONIC SYNC MEDIA</p>
+              </div>
+              <div class="partkids">
+                <img class="particon" src="son.png" alt="" />
+                <p class="parttext">NEXUS AUDIO TECH</p>
+              </div>
+              <div class="partkids">
+                <img class="particon" src="str.png" alt="" />
+                <p class="parttext">STREAMFLOW LIVE</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="foothr">
+        <hr />
+      </div>
+      <div id="footer">
+        <div>
+          <img src="playtime.png" alt="" />
+        </div>
+        <div>
+          <p id="footrights">2024 NEON BEATS FESTIVAL. ALL RIGHTS RESERVED.</p>
+        </div>
+        <div>
+          <a class="headlink" href="">Privacy</a>
+          <a class="headlink" href="">Terms</a>
+          <a class="headlink" href="">Safety</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

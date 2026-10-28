@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM × JavaScript — 5 сорилттой дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { color-scheme: light; }
+  body { background:#F5F2EC; color:#575146; padding:40px 20px 90px; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.65; }
+  .page { max-width:980px; margin:0 auto; }
+  .eyebrow { font-size:12px; font-weight:800; letter-spacing:.16em; color:#B8862A; margin-bottom:6px; }
+  h1 { font-family:Georgia,serif; font-size:clamp(32px,5vw,44px); line-height:1.15; color:#B03A1A; margin-bottom:10px; }
+  .lead { font-size:16px; margin-bottom:4px; }
+  code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.9em; background:#EBE6DC; border-radius:4px; padding:1px 5px; }
+  .rules,.recipe,.ex { background:#FFFDF8; border:2px solid #DCD5C7; border-radius:14px; }
+  .rules { padding:18px 24px; margin:24px 0 30px; }
+  .rules li,.recipe li { font-size:15px; line-height:1.85; margin-left:20px; }
+  .recipe { border-color:#0D3B2F; padding:4px 24px 20px; margin:0 0 36px; }
+  .label { font-size:11.5px; font-weight:800; letter-spacing:.13em; color:#0D3B2F; margin:20px 0 8px; }
+  pre { background:#16130F; color:#EDE7DC; border-radius:10px; padding:16px 18px; overflow-x:auto; white-space:pre-wrap; overflow-wrap:anywhere; font:13.5px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  .ex { padding:24px 28px 28px; margin-bottom:26px; }
+  .ex-head { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
+  .num { background:#B03A1A; color:white; font-size:12px; font-weight:800; letter-spacing:.08em; padding:4px 12px; border-radius:100px; }
+  .level { font-size:12px; font-weight:800; padding:4px 12px; border-radius:100px; }
+  .l1 { background:#DDEEE6; color:#0D3B2F; } .l2 { background:#F8F0DB; color:#7A5410; } .l3 { background:#FAE8E0; color:#7E2A0D; }
+  .ex h2 { font-family:Georgia,serif; font-size:25px; line-height:1.3; color:#0D3B2F; margin-bottom:6px; }
+  .task { font-size:16px; }
+  .shots { display:flex; flex-wrap:wrap; align-items:stretch; gap:14px; }
+  .shot { flex:1 1 280px; min-width:0; }
+  .demo { display:block; width:100%; min-height:190px; border:0; border-radius:12px; background:#fff; box-shadow:0 0 0 3px #16130F; pointer-events:none; }
+  .arrow { color:#B8862A; font-size:26px; font-weight:800; align-self:center; }
+  .cases { width:100%; border-collapse:collapse; margin-top:8px; font-size:14px; }
+  .cases th { text-align:left; font-size:11px; letter-spacing:.08em; color:#8E8777; padding:7px 9px; border-bottom:2px solid #DCD5C7; }
+  .cases td { padding:8px 9px; border-bottom:1px solid #EBE6DC; vertical-align:top; }
+  .cases td:first-child { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; color:#0D3B2F; }
+  .cases td:last-child { font-weight:650; color:#16130F; }
+  .hint { margin-top:14px; font-size:14.5px; background:#F8F0DB; border-radius:8px; padding:10px 14px; color:#5E4310; }
+  .subtasks { margin:12px 0 0 22px; }
+  .subtasks li { margin:5px 0; }
+  .footer { color:#766D5E; font-size:13px; text-align:center; margin-top:32px; }
+  @media(max-width:600px) { body{padding:25px 12px 50px} .ex{padding:20px 16px} .rules{padding:16px 18px} .recipe{padding:4px 16px 18px} .arrow{display:none} .cases{font-size:12.5px} .cases th,.cases td{padding:7px 5px} }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ДАВТЛАГА · DOM + JAVASCRIPT</p>
+  <h1>DOM × JavaScript — 5 сорилттой дасгал</h1>
+  <p class="lead"><code>getElementById</code> · <code>.value</code> · <code>.textContent</code> · <code>onclick</code> · <code>Number()</code> · <code>if/else</code> · <code>for</code> · DOM элемент үүсгэх</p>
+
+  <div class="rules">
+    <ol>
+      <li>Дасгал бүрийн HTML-ийг <code>index.html</code>-даа хуул. JavaScript-ээ <code>script.js</code> файлд өөрөө бич.</li>
+      <li>Шалгах жишээнүүдийг нэг нэгээр нь турш. Зөвхөн эхний жишээг ажиллуулаад зогсохгүй бүх нөхцөлийг шалга.</li>
+      <li>Алдаа гарвал browser Console-оо нээ: <code>Cmd + Option + J</code> (Mac) эсвэл <code>Ctrl + Shift + J</code> (Windows).</li>
+      <li>Шийдлийг шууд хайхгүйгээр эхлээд өөрөө бод. Доорх зөвлөмж нь чиглэл өгөх болохоос бэлэн код биш.</li>
+    </ol>
+  </div>
+
+  <div class="recipe">
+    <p class="label">САНАХ 4 АЛХАМ</p>
+    <pre>// 1. ОЛОХ
+const title = document.getElementById("title");
+const input = document.getElementById("myInput");
+
+// 2. ТОВЧ ДАРАХАД АЖИЛЛАХ ФУНКЦ
+function show() {
+  // 3. УНШИХ
+  const value = input.value;
+
+  // 4. ДЭЛГЭЦЭНД ХАРУУЛАХ
+  title.textContent = value;
+}</pre>
+    <ul>
+      <li><code>.value</code> нь input-ээс утга уншина; <code>.textContent</code> нь элемент доторх текстийг өөрчилнө.</li>
+      <li><code>input.value</code> бол текст. Тоогоор бодохын өмнө <code>Number()</code> ашигла.</li>
+      <li>Товч дарах хооронд хадгалагдах тоо/төлөвийг функцийн гадна <code>let</code>-ээр зарла.</li>
+      <li>Олон элемент үүсгэхдээ <code>document.createElement()</code>, жагсаалтад нэмэхдээ <code>appendChild()</code> ашиглаж болно.</li>
+    </ul>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span><span class="level l1">ТҮВШИН 1</span></div>
+    <h2>🛒 Худалдааны сагс</h2>
+    <p class="task">Бараа сонгож, тоо ширхэг оруулаад нийт үнийг тооцоол. 5 ба түүнээс олон бараа авбал 10% хөнгөлөлт үзүүл.</p>
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="cart"&gt;🛒 Сагс хоосон&lt;/h1&gt;
+
+&lt;select id="product"&gt;
+  &lt;option value="5000"&gt;Дэвтэр — 5000₮&lt;/option&gt;
+  &lt;option value="3000"&gt;Үзэг — 3000₮&lt;/option&gt;
+  &lt;option value="12000"&gt;Ном — 12000₮&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;input id="quantity" type="number" placeholder="Тоо ширхэг"&gt;
+&lt;button onclick="checkout()"&gt;Захиалах&lt;/button&gt;</pre>
+    <p class="label">ХИЙХ ДААЛГАВАР</p>
+    <ul class="subtasks">
+      <li>Сонгосон барааны үнийг <code>product.value</code>-аас авч, тоо ширхэгтэй үржүүл.</li>
+      <li>Тоо ширхэг 5 буюу түүнээс их бол нийт үнээс 10% хас.</li>
+      <li>Тоо ширхэг хоосон, 0 эсвэл сөрөг бол алдааны мессеж харуул.</li>
+      <li>Нийт үнэ болон хөнгөлөлт авсан эсэхийг дэлгэцэнд харуул.</li>
+    </ul>
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД</p>
+    <table class="cases"><thead><tr><th>БАРАА</th><th>ТОО</th><th>ГАРАХ ЁСТОЙ</th></tr></thead><tbody>
+      <tr><td>Дэвтэр</td><td>2</td><td>Нийт: 10,000₮</td></tr>
+      <tr><td>Үзэг</td><td>5</td><td>Нийт: 13,500₮ (10% хөнгөлөлттэй)</td></tr>
+      <tr><td>Ном</td><td>3</td><td>Нийт: 36,000₮</td></tr>
+      <tr><td>Дэвтэр</td><td>0</td><td>Алдааны мессеж</td></tr>
+    </tbody></table>
+    <p class="hint">💡 Зөвлөмж: <code>Number()</code>, <code>if/else</code>, үржих болон хөнгөлөлтийн тооцоолол ашигла.</p>
+  </section>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span><span class="level l1">ТҮВШИН 2</span></div>
+    <h2>🎯 Тоо таах тоглоом</h2>
+    <p class="task">Компьютер 1–20 хооронд нууц тоо сонгоно. Хэрэглэгч зөв тоог олох хүртлээ таамаглана.</p>
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="message"&gt;🎯 1–20 хооронд тоо таа!&lt;/h1&gt;
+&lt;p id="attempts"&gt;Оролдлого: 0&lt;/p&gt;
+
+&lt;input id="guess" type="number" placeholder="Таамагласан тоо"&gt;
+&lt;button onclick="checkGuess()"&gt;Таах&lt;/button&gt;
+&lt;button onclick="restart()"&gt;Дахин эхлэх&lt;/button&gt;</pre>
+    <p class="label">ХИЙХ ДААЛГАВАР</p>
+    <ul class="subtasks">
+      <li><code>Math.random()</code> ашиглан 1–20 хооронд бүхэл тоо үүсгэ.</li>
+      <li>Таамаг нууц тооноос бага бол “⬆️ Илүү том тоо!”, их бол “⬇️ Илүү бага тоо!” гэж харуул.</li>
+      <li>Оролдлого бүрийн дараа оролдлогын тоог 1-ээр нэм.</li>
+      <li>Зөв таасны дараа дахин таах товчийг ажиллахгүй болгох эсвэл дараагийн таамгийг үл тоо.</li>
+      <li>“Дахин эхлэх” дарахад шинэ нууц тоо үүсгэж, оролдлогыг 0 болго.</li>
+    </ul>
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД</p>
+    <table class="cases"><thead><tr><th>НӨХЦӨЛ</th><th>ГАРАХ ЁСТОЙ</th></tr></thead><tbody>
+      <tr><td>Таамаг 5, нууц тоо 12</td><td>⬆️ Илүү том тоо!</td></tr>
+      <tr><td>Таамаг 18, нууц тоо 12</td><td>⬇️ Илүү бага тоо!</td></tr>
+      <tr><td>Таамаг 12, нууц тоо 12</td><td>🎉 Зөв таалаа!</td></tr>
+      <tr><td>Дахин эхлэх</td><td>Шинэ тоглоом, оролдлого: 0</td></tr>
+    </tbody></table>
+    <p class="hint">💡 Зөвлөмж: <code>Math.floor(Math.random() * 20) + 1</code>, <code>let</code>, <code>if/else</code> ашигла. Нууц тоо болон оролдлогын тоог функцийн гадна хадгал.</p>
+  </section>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span><span class="level l2">ТҮВШИН 3</span></div>
+    <h2>📝 Даалгаврын жагсаалт</h2>
+    <p class="task">Хэрэглэгч даалгавар нэмэх, дууссан гэж тэмдэглэх, устгах боломжтой жижиг To-do List хийнэ.</p>
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1&gt;📝 Миний даалгаврууд&lt;/h1&gt;
+&lt;input id="taskInput" type="text" placeholder="Даалгавраа бич"&gt;
+&lt;button onclick="addTask()"&gt;Нэмэх&lt;/button&gt;
+
+&lt;p id="status"&gt;Нийт: 0 | Дууссан: 0&lt;/p&gt;
+&lt;ul id="taskList"&gt;&lt;/ul&gt;</pre>
+    <p class="label">ХИЙХ ДААЛГАВАР</p>
+    <ul class="subtasks">
+      <li>Input хоосон байвал даалгавар нэмэхгүй, алдааны мессеж харуул.</li>
+      <li><code>document.createElement("li")</code> ашиглан шинэ даалгавар үүсгэж жагсаалтад нэм.</li>
+      <li>Даалгавар бүрд “Дууссан” болон “Устгах” гэсэн товч нэм.</li>
+      <li>“Дууссан” дарахад тухайн даалгаврын текст зураастай болно.</li>
+      <li>“Устгах” дарахад зөвхөн тухайн даалгавар арилна.</li>
+      <li>Нийт даалгавар болон дууссан даалгаврын тоог үйлдэл бүрийн дараа шинэчил.</li>
+    </ul>
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД</p>
+    <table class="cases"><thead><tr><th>ҮЙЛДЭЛ</th><th>ГАРАХ ЁСТОЙ</th></tr></thead><tbody>
+      <tr><td>“Хичээл хийх” нэмэх</td><td>Нийт: 1 | Дууссан: 0</td></tr>
+      <tr><td>“Ном унших” нэмэх</td><td>Нийт: 2 | Дууссан: 0</td></tr>
+      <tr><td>Эхний даалгаврыг дуусгах</td><td>Нийт: 2 | Дууссан: 1</td></tr>
+      <tr><td>Хоёр дахь даалгаврыг устгах</td><td>Нийт: 1 | Дууссан: 1</td></tr>
+    </tbody></table>
+    <p class="hint">💡 Зөвлөмж: <code>createElement()</code>, <code>appendChild()</code>, <code>.remove()</code>, <code>classList.toggle()</code> ашигла. Хэрэглэгчийн бичсэн текстийг <code>textContent</code>-оор оруул.</p>
+  </section>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span><span class="level l2">ТҮВШИН 3</span></div>
+    <h2>📊 Шалгалтын оноо тооцоологч</h2>
+    <p class="task">Гурван шалгалтын оноог авч дундажийг тооцоолон, дүнд нь тохирсон үнэлгээ харуул.</p>
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1&gt;📊 Шалгалтын тайлан&lt;/h1&gt;
+&lt;input id="score1" type="number" placeholder="1-р шалгалт (0–100)"&gt;
+&lt;input id="score2" type="number" placeholder="2-р шалгалт (0–100)"&gt;
+&lt;input id="score3" type="number" placeholder="3-р шалгалт (0–100)"&gt;
+
+&lt;button onclick="calculate()"&gt;Тооцоолох&lt;/button&gt;
+&lt;h2 id="result"&gt;Үр дүн энд гарна&lt;/h2&gt;
+&lt;p id="grade"&gt;&lt;/p&gt;</pre>
+    <p class="label">ХИЙХ ДААЛГАВАР</p>
+    <ul class="subtasks">
+      <li>Гурван оноог уншиж, тоо болгон хувирга.</li>
+      <li>Input бүр бөглөгдсөн эсэх, оноо тус бүр 0–100 хооронд байгаа эсэхийг шалга.</li>
+      <li>Дундаж оноог нэг орны нарийвчлалтай харуул.</li>
+      <li>Дундаж оноонд тохирох үнэлгээ харуул.</li>
+    </ul>
+    <table class="cases"><thead><tr><th>ДУНДАЖ</th><th>ҮНЭЛГЭЭ</th></tr></thead><tbody>
+      <tr><td>90–100</td><td>A — Маш сайн</td></tr>
+      <tr><td>80–89.9</td><td>B — Сайн</td></tr>
+      <tr><td>70–79.9</td><td>C — Дунд</td></tr>
+      <tr><td>60–69.9</td><td>D — Хангалттай</td></tr>
+      <tr><td>0–59.9</td><td>F — Тэнцээгүй</td></tr>
+    </tbody></table>
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД</p>
+    <table class="cases"><thead><tr><th>ОНОО</th><th>ГАРАХ ЁСТОЙ</th></tr></thead><tbody>
+      <tr><td>90, 80, 100</td><td>Дундаж: 90.0 — A</td></tr>
+      <tr><td>70, 80, 90</td><td>Дундаж: 80.0 — B</td></tr>
+      <tr><td>50, 60, 70</td><td>Дундаж: 60.0 — D</td></tr>
+      <tr><td>100, 120, 80</td><td>Алдааны мессеж</td></tr>
+      <tr><td>90, хоосон, 80</td><td>Алдааны мессеж</td></tr>
+    </tbody></table>
+    <p class="hint">💡 Зөвлөмж: <code>Number()</code>, <code>if / else if / else</code>, <code>toFixed(1)</code> ашигла. Хоосон input-ийг 0 гэж андуурахгүйгээр тусад нь шалга.</p>
+  </section>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span><span class="level l3">ТҮВШИН 4</span></div>
+    <h2>💰 Халаасны мөнгөний менежер</h2>
+    <p class="task">Орлого, зарлага бүртгэж, мөнгөний үлдэгдлээ удирдах жижиг апп хий.</p>
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1&gt;💰 Миний хэтэвч&lt;/h1&gt;
+&lt;p id="balance"&gt;Үлдэгдэл: 0₮&lt;/p&gt;
+&lt;p id="history"&gt;Одоогоор гүйлгээ байхгүй.&lt;/p&gt;
+
+&lt;input id="amount" type="number" placeholder="Мөнгөн дүн"&gt;
+&lt;button onclick="addMoney()"&gt;➕ Орлого&lt;/button&gt;
+&lt;button onclick="spendMoney()"&gt;➖ Зарлага&lt;/button&gt;
+&lt;button onclick="resetWallet()"&gt;🔄 Дахин эхлэх&lt;/button&gt;</pre>
+    <p class="label">ХИЙХ ДААЛГАВАР</p>
+    <ul class="subtasks">
+      <li>Эхний үлдэгдлийг функцийн гадна <code>let balance = 0</code> гэж зарла.</li>
+      <li>Орлого нэмэх товч мөнгийг үлдэгдэлд нэмнэ; зарлага хасах товч үлдэгдлээс хасна.</li>
+      <li>Зарлага үлдэгдлээс их бол гүйлгээг хийхгүй, алдааны мессеж харуул.</li>
+      <li>Мөнгөн дүн хоосон, 0 эсвэл сөрөг бол гүйлгээ хийхгүй.</li>
+      <li>Үлдэгдэл болон хамгийн сүүлийн гүйлгээний төрөл, дүнг үйлдэл бүрийн дараа шинэчил.</li>
+      <li>“Дахин эхлэх” дарахад үлдэгдэл 0 болж, гүйлгээний мэдээлэл цэвэрлэгдэнэ.</li>
+    </ul>
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД</p>
+    <table class="cases"><thead><tr><th>ҮЙЛДЭЛ</th><th>ГАРАХ ЁСТОЙ</th></tr></thead><tbody>
+      <tr><td>50,000₮ орлого</td><td>Үлдэгдэл: 50,000₮</td></tr>
+      <tr><td>12,000₮ зарлага</td><td>Үлдэгдэл: 38,000₮</td></tr>
+      <tr><td>40,000₮ зарлага</td><td>Алдаа; үлдэгдэл 38,000₮ хэвээр</td></tr>
+      <tr><td>5,000₮ орлого</td><td>Үлдэгдэл: 43,000₮</td></tr>
+      <tr><td>Дахин эхлэх</td><td>Үлдэгдэл: 0₮</td></tr>
+    </tbody></table>
+    <p class="hint">💡 Зөвлөмж: үлдэгдлийг хадгалах нэг хувьсагч ашигла. Үлдэгдэл шинэчлэх кодыг тусдаа функц болгож, орлого/зарлагын функцээс дуудаж болно.</p>
+  </section>
+
+  <p class="footer">Амжилт хүсье! Эхлээд өөрөө бод, дараа нь жишээнүүдээр шалга. 🚀</p>
+</div>
+</body>
+</html>

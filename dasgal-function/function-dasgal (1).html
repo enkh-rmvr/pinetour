@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Параметртэй функц — 10 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 900px; margin: 0 auto; }
+
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+
+  .start { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 22px 26px; margin: 26px 0 40px; }
+  .start h3 { font-size: 14px; letter-spacing: .08em; color: #0D3B2F; margin-bottom: 10px; }
+  .start ol { padding-left: 22px; }
+  .start li { font-size: 15.5px; line-height: 1.85; }
+  .start code, .uses b, .hint code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
+  .start li code { background-color: #F0EDE6; border-radius: 4px; padding: 1px 6px; }
+
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; margin-top: 12px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 24px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; margin-bottom: 16px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin-bottom: 10px; }
+
+  /* prompt → alert / console жишээ */
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .arrow { color: #B8862A; font-size: 22px; font-weight: 700; }
+  .mock { border-radius: 10px; padding: 10px 14px; min-width: 180px; max-width: 100%; }
+  .mock .tag { display: block; font-family: ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; letter-spacing: .06em; margin-bottom: 4px; }
+  .mock p { font-size: 14.5px; color: #16130F; }
+  .prompt { background-color: #FFFFFF; border: 1.5px solid #DCD5C7; }
+  .prompt .tag { color: #0D3B2F; }
+  .prompt .field { margin-top: 6px; border: 1.5px solid #7FB59E; border-radius: 6px; padding: 4px 10px; font-weight: 700; color: #0D3B2F; background-color: #F3FAF6; }
+  .alert { background-color: #FFFFFF; border: 1.5px solid #E8C4B4; }
+  .alert .tag { color: #B03A1A; }
+  .alert .ok { display: inline-block; margin-top: 6px; background-color: #C0451B; color: #fff; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 12px; }
+  .console { background-color: #16130F; }
+  .console .tag { color: #8E8777; }
+  .console code { display: block; color: #9CD6A8; font-family: ui-monospace, Menlo, monospace; font-size: 14px; }
+
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+  .uses { margin-top: 14px; font-size: 14px; color: #8E8777; }
+  .uses b { color: #575146; }
+
+  details { margin-top: 14px; }
+  summary { display: inline-block; cursor: pointer; font-size: 13px; font-weight: 700; color: #7A5410;
+            background-color: #F8F0DB; border: 1px solid #E5D2A4; border-radius: 100px; padding: 4px 14px; }
+  summary:hover { background-color: #F2E6C6; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 16–17 · ФУНКЦ</p>
+  <h1>Параметртэй функц — 10 дасгал</h1>
+  <p class="lead">function нэр(параметр) · if / else if · for · массив параметр · console.log</p>
+
+  <div class="start">
+    <h3>ЭХЛЭХ</h3>
+    <ol>
+      <li>Шинэ хавтас нээгээд <code>index.html</code>, <code>script.js</code> гэсэн хоёр файл үүсгэ.</li>
+      <li><code>index.html</code>-д доорх кодыг хуул. <code>&lt;script&gt;</code> нь body-гийн хамгийн доор байна.</li>
+      <li>Дасгал бүрийг <code>script.js</code>-д бич. Дараагийн дасгал руу шилжихдээ өмнөхөө <code>/* */</code>-аар comment болго.</li>
+      <li>Console-оо нээ: <code>Cmd + Option + J</code>. Алдаа гарвал улаан мөрийг унш.</li>
+    </ol>
+    <pre>&lt;!doctype html&gt;
+&lt;html lang="mn"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;JS дасгал&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;JS дасгал&lt;/h1&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span></div>
+    <h2>Цагаар мэндлэх ☀️🌙</h2>
+    <p class="task">greetByHour(name, hour) функц бич. Цаг 12-оос бага бол өглөө, 18-аас бага бол өдөр, бусад үед орой гэж мэндэлнэ.</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">greetByHour("Бат", 9);
+greetByHour("Сараа", 14);
+greetByHour("Ану", 20);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› ☀️ Өглөөний мэнд, Бат!</code><code>› 🌤 Өдрийн мэнд, Сараа!</code><code>› 🌙 Оройн мэнд, Ану!</code></div></div>
+    <p class="hint">💡 Хоёр параметр: name, hour. hour-оор нь if / else if / else-ээр аль мэндчилгээ болохыг шийдээд, name-ийг текст дотор оруул.</p>
+    <p class="uses">Хэрэглэх: <b>2 параметр · if · else if · else · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span></div>
+    <h2>Одны мөр ⭐</h2>
+    <p class="task">stars(count) функц бич. count ширхэг одыг НЭГ мөрөнд хэвлэнэ.</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">stars(3);
+stars(5);
+stars(1);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› ⭐⭐⭐</code><code>› ⭐⭐⭐⭐⭐</code><code>› ⭐</code></div></div>
+    <p class="hint">💡 Хоосон текстээс эхэлж, давталт count удаа эргэж ⭐ нэмнэ. console.log-оо давталтын ДАРАА бич.</p>
+    <p class="uses">Хэрэглэх: <b>1 параметр · for · текст нэмэх</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span></div>
+    <h2>Пуужингийн тоолол 🚀</h2>
+    <p class="task">countdown(from) функц бич. from-оос 1 хүртэл буурч хэвлээд, төгсгөлд нь «🚀 Хөөрлөө!» гэж хэвлэнэ.</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">countdown(3);
+countdown(1);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 3</code><code>› 2</code><code>› 1</code><code>› 🚀 Хөөрлөө!</code><code>› 1</code><code>› 🚀 Хөөрлөө!</code></div></div>
+    <p class="hint">💡 Давталт from-оос эхэлж, 1 хүртэл (i &gt;= 1) i-- хийнэ. «Хөөрлөө»-г давталтын дараа.</p>
+    <p class="uses">Хэрэглэх: <b>1 параметр · for · i--</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span></div>
+    <h2>Кино тасалбар 🎟</h2>
+    <p class="task">ticketPrice(age) функц бич. 6-аас бага: үнэгүй 🎈 · 18-аас бага: 3000₮ · 60 ба түүнээс дээш: 2000₮ · бусад: 6000₮.</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">ticketPrice(4);
+ticketPrice(12);
+ticketPrice(30);
+ticketPrice(65);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 🎟 4 нас: Үнэгүй 🎈</code><code>› 🎟 12 нас: 3000₮</code><code>› 🎟 30 нас: 6000₮</code><code>› 🎟 65 нас: 2000₮</code></div></div>
+    <p class="hint">💡 Нөхцөлүүдийг ЗӨВ дарааллаар шалга: эхлээд хамгийн бага насныхныг. 60+ нь 18-аас их тул тусад нь шалгана.</p>
+    <p class="uses">Хэрэглэх: <b>1 параметр · if · else if · else</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span></div>
+    <h2>Үржүүлэх хүснэгт ✖️</h2>
+    <p class="task">table(n, upTo) функц бич. n-ийн үржүүлэх хүснэгтийг 1-ээс upTo хүртэл хэвлэнэ.</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">table(7, 3);
+table(9, 2);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 7 x 1 = 7</code><code>› 7 x 2 = 14</code><code>› 7 x 3 = 21</code><code>› 9 x 1 = 9</code><code>› 9 x 2 = 18</code></div></div>
+    <p class="hint">💡 Давталт 1-ээс upTo хүртэл. Мөр бүрт n x i = n * i.</p>
+    <p class="uses">Хэрэглэх: <b>2 параметр · for · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span></div>
+    <h2>Тэгш тоонууд</h2>
+    <p class="task">evens(from, to) функц бич. from-оос to хүртэлх ТЭГШ тоонуудыг НЭГ мөрөнд, зайгаар тусгаарлан хэвлэнэ (төгсгөлд нь зай байхгүй).</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">evens(1, 10);
+evens(15, 20);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 2 4 6 8 10</code><code>› 16 18 20</code></div></div>
+    <p class="hint">💡 Давталт from-оос to хүртэл. i % 2 === 0 бол мөрөнд нэм. Эхний тооны өмнө зай тавихгүйн тулд мөр хоосон эсэхийг шалга.</p>
+    <p class="uses">Хэрэглэх: <b>2 параметр · for · if · %</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span></div>
+    <h2>Хуваагддаг тоо тоолох</h2>
+    <p class="task">countDivisible(n, d) функц бич. 1-ээс n хүртэлх тоонуудаас d-д үлдэгдэлгүй хуваагддаг хэдэн тоо байгааг тоолж хэвлэнэ.</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">countDivisible(20, 3);
+countDivisible(100, 7);
+countDivisible(5, 6);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› Хуваагч 3: 1–20 хооронд 6 тоо</code><code>› Хуваагч 7: 1–100 хооронд 14 тоо</code><code>› Хуваагч 6: 1–5 хооронд 0 тоо</code></div></div>
+    <p class="hint">💡 Тоолуурыг функц ДОТОР 0-ээс эхлүүл — дуудалт бүр шинээр тоолно. Давталтын дараа хэвлэ.</p>
+    <p class="uses">Хэрэглэх: <b>2 параметр · for · if · % · тоолуур</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span></div>
+    <h2>Массивын нийлбэр</h2>
+    <p class="task">sumList(numbers) функц бич. Параметр нь МАССИВ — бүх тооны нийлбэрийг хэвлэнэ. Хоосон массив бол 0.</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">sumList([1, 2, 3]);
+sumList([10, 20, 30, 40]);
+sumList([]);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› Нийлбэр: 6</code><code>› Нийлбэр: 100</code><code>› Нийлбэр: 0</code></div></div>
+    <p class="hint">💡 numbers бол ердийн массив: numbers.length, numbers[i] гээд хэрэглэнэ. Нийлбэрийг 0-ээс эхлүүл.</p>
+    <p class="uses">Хэрэглэх: <b>массив параметр · for · .length</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 9</span></div>
+    <h2>Хамгийн их</h2>
+    <p class="task">maxOf(numbers) функц бич. Массивын хамгийн их тоог хэвлэнэ. Бүх тоо хасах байсан ч зөв ажиллах ёстой!</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">maxOf([3, 9, 2]);
+maxOf([-5, -2, -9]);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› Хамгийн их: 9</code><code>› Хамгийн их: -2</code></div></div>
+    <p class="hint">💡 0-ээс эхэлбэл хоёр дахь дуудалт буруу гарна (0 &gt; -2). Эхний элементээс (numbers[0]) эхэл.</p>
+    <p class="uses">Хэрэглэх: <b>массив параметр · for · if</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 10</span></div>
+    <h2>Ирц бүртгэл ✅</h2>
+    <p class="task">attendance(names, present) функц бич. names — нэрс, present — ирсэн эсэх (true / false). Хүн бүрийг ✅ / ❌-тэй хэвлээд, төгсгөлд нь ирцийг «3 / 4» гэж хэвлэнэ.</p>
+    <p class="label">ДУУДАХ КОД — script.js-ийн хамгийн доор хуул, функцээ ДЭЭР нь бич</p>
+    <pre style="margin-bottom:6px">attendance(["Бат", "Сараа", "Ану", "Болд"], [true, false, true, true]);</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› ✅ Бат</code><code>› ❌ Сараа</code><code>› ✅ Ану</code><code>› ✅ Болд</code><code>› Ирц: 3 / 4</code></div></div>
+    <p class="hint">💡 Хоёр массивыг нэг давталтаар зэрэг гүй: names[i] ба present[i]. present[i] нь true / false — шууд if (present[i]) гэж бичиж болно.</p>
+    <p class="uses">Хэрэглэх: <b>2 массив параметр · for · if · тоолуур</b></p>
+  </section>
+</div>
+</body>
+</html>

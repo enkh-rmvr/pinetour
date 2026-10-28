@@ -1,0 +1,44 @@
+style * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+  padding: 16px;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.unit {
+  width: 120px;
+  background-color: #15111f;
+  color: white;
+  padding: 18px 0;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.num {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.label {
+  color: #a99fc0;
+  font-size: 13px;
+}
+@media (min-width: 768px) {
+  .unit {
+    width: 600px;
+  }
+  .num {
+    font-size: 36px;
+  }
+}

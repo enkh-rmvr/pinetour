@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Цаг, дуу, санах ой — 8 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 980px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+  .lead code, .rules code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background-color: #EBE6DC; border-radius: 4px; padding: 1px 6px; }
+  .rules { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 12px; padding: 18px 24px; margin: 24px 0 36px; }
+  .rules li { font-size: 15.5px; line-height: 1.85; margin-left: 20px; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 26px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin: 20px 0 8px; }
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .shots { display: flex; flex-wrap: wrap; align-items: center; gap: 0 14px; }
+  .shot { width: 420px; max-width: 100%; }
+  .arrow { color: #B8862A; font-size: 28px; font-weight: 700; padding-top: 30px; }
+  .demo { display: block; width: 100%; height: 300px; border: 0; border-radius: 12px; background-color: #FFFFFF;
+          box-shadow: 0 0 0 3px #16130F; pointer-events: none; }
+  .example { margin-top: 14px; font-size: 15px; }
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .cases { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14.5px; }
+  .cases th { text-align: left; font-size: 11.5px; letter-spacing: .1em; color: #8E8777; font-weight: 700; padding: 6px 10px; border-bottom: 2px solid #DCD5C7; }
+  .cases td { padding: 7px 10px; border-bottom: 1px solid #EBE6DC; vertical-align: top; }
+  .cases td:first-child { font-family: ui-monospace, Menlo, monospace; color: #0D3B2F; white-space: nowrap; }
+  .cases td:last-child { font-weight: 600; color: #16130F; }
+  .check { width: 18px; height: 18px; border: 2px solid #BCD2C9; border-radius: 4px; display: inline-block; vertical-align: middle; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 13 · ЦАГ, ДУУ, САНАХ ОЙ</p>
+  <h1>Цаг, дуу, санах ой — 8 дасгал</h1>
+  <p class="lead"><code>setTimeout</code> · <code>setInterval</code> · <code>clearInterval</code> · <code>new Audio</code> · <code>localStorage</code></p>
+
+  <div class="rules">
+    <ol>
+      <li>HTML-ийг хуулж <code>index.html</code>-даа тавь. JavaScript-ээ <code>script.js</code>-д өөрөө бич.</li>
+      <li>Хуудсаа нээгээд жишээ утгуудыг бичиж, товчоо дар. «Шалгах жишээнүүд»-ийг нэг нэгээр нь хийж үз — бүгд зөв гарах ёстой. «сек» = тэр хэмжээгээр хүлээ, 🔄 = refresh (<code>Cmd + R</code>).</li>
+      <li>localStorage-ийг цэвэрлэх: DevTools → Application → Local Storage → 🚫 Clear.</li>
+      <li>Алдаа гарвал Console-оо нээ: <code>Cmd + Option + J</code></li>
+    </ol>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span></div>
+    <h2>Мессеж илгээх 📩</h2>
+    <p class="task">«Илгээх» дармагц h1 дээр «⏳ Илгээж байна…» гарна. 2 секундын дараа «✅ Илгээгдлээ» болно.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="status"&gt;✉️ Мессеж бэлэн&lt;/h1&gt;
+
+&lt;button onclick="sendMessage()"&gt;Илгээх&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;status&quot;&gt;✉️ Мессеж бэлэн&lt;/h1&gt;
+
+&lt;button onclick=&quot;sendMessage()&quot;&gt;Илгээх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРААД 2 СЕКУНДЫН ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРААД 2 СЕКУНДЫН ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;status&quot;&gt;✅ Илгээгдлээ&lt;/h1&gt;
+
+&lt;button onclick=&quot;sendMessage()&quot;&gt;Илгээх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>Илгээх · 2 сек</td><td>✅ Илгээгдлээ</td><td><span class="check"></span></td></tr><tr><td>Илгээх · шууд</td><td>⏳ Илгээж байна…</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Эхний текстийг шууд соль. Дараагийнхыг тусдаа функцэд бичээд setTimeout-д нэрийг нь өг — хаалтгүй!</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span></div>
+    <h2>Хуулах товч 📋</h2>
+    <p class="task">Промо кодын хажууд «📋 Хуулах» товч бий. Дармагц товчны текст «✅ Хуулагдлаа» болж, 2 секундын дараа буцаад «📋 Хуулах» болно. Жинхэнэ хуулах хэрэггүй — зөвхөн товчны текст.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1&gt;🎟 PROMO2026&lt;/h1&gt;
+
+&lt;button onclick="copyCode()" id="copyButton"&gt;📋 Хуулах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1&gt;🎟 PROMO2026&lt;/h1&gt;
+
+&lt;button onclick=&quot;copyCode()&quot; id=&quot;copyButton&quot;&gt;📋 Хуулах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1&gt;🎟 PROMO2026&lt;/h1&gt;
+
+&lt;button onclick=&quot;copyCode()&quot; id=&quot;copyButton&quot;&gt;✅ Хуулагдлаа&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>Хуулах · шууд</td><td>✅ Хуулагдлаа</td><td><span class="check"></span></td></tr><tr><td>Хуулах · 2 сек</td><td>📋 Хуулах</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Товч ч гэсэн textContent-тэй. Дарахад нэг текст тавиад, анхных руу нь буцаах функцийг setTimeout-оор 2 секундын дараа дууд.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span></div>
+    <h2>Ус буцалгагч ☕</h2>
+    <p class="task">Ус 20°-тай. «Асаах» дарвал секунд тутам 20°-аар халж, 100° хүрмэгц «☕ 100° — Ус буцлаа! 🔔» гараад зогсоно. Халж байхад дахин дарвал юу ч болохгүй. Буцалсны дараа дарвал 20°-аас дахин эхэлнэ.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="kettle"&gt;☕ 20°&lt;/h1&gt;
+
+&lt;button onclick="turnOn()"&gt;🔌 Асаах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;kettle&quot;&gt;☕ 20°&lt;/h1&gt;
+
+&lt;button onclick=&quot;turnOn()&quot;&gt;🔌 Асаах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРААД 2 СЕКУНДЫН ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРААД 2 СЕКУНДЫН ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;kettle&quot;&gt;☕ 60°&lt;/h1&gt;
+
+&lt;button onclick=&quot;turnOn()&quot;&gt;🔌 Асаах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>Асаах · 2 сек</td><td>☕ 60°</td><td><span class="check"></span></td></tr><tr><td>Асаах · 4 сек</td><td>☕ 100° — Ус буцлаа! 🔔</td><td><span class="check"></span></td></tr><tr><td>Асаах · Асаах · 1 сек</td><td>☕ 40°</td><td><span class="check"></span></td></tr><tr><td>Асаах · 4 сек · Асаах · 1 сек</td><td>☕ 40°</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 3 хувьсагч: температур, setInterval-ийн дугаар, халж байгаа эсэх (true/false). Асаахдаа 20-оос эхлүүл. 100 хүрмэгц clearInterval.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span></div>
+    <h2>Зогсоолын төлбөр 🅿️</h2>
+    <p class="task">Хурдан шалгахын тулд 1 секундийг 1 минут гэж үзье, минут бүр 100₮. «🚗 Орох» дармагц цаг явж эхэлнэ. «🚙 Гарах» дарвал цаг зогсож, төлөх мөнгө гарна. Зогсоолд байхад дахин орох, ороогүй байж гарах — юу ч болохгүй.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="parking"&gt;🅿️ Зогсоол&lt;/h1&gt;
+&lt;p id="meter"&gt;0 минут · 0₮&lt;/p&gt;
+
+&lt;button id="enterButton" onclick="enter()"&gt;🚗 Орох&lt;/button&gt;
+&lt;button id="leaveButton" onclick="leave()"&gt;🚙 Гарах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;parking&quot;&gt;🅿️ Зогсоол&lt;/h1&gt;
+&lt;p id=&quot;meter&quot;&gt;0 минут · 0₮&lt;/p&gt;
+
+&lt;button id=&quot;enterButton&quot; onclick=&quot;enter()&quot;&gt;🚗 Орох&lt;/button&gt;
+&lt;button id=&quot;leaveButton&quot; onclick=&quot;leave()&quot;&gt;🚙 Гарах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">🚗 → 3 СЕК → 🚙 ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="🚗 → 3 СЕК → 🚙 ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;parking&quot;&gt;🧾 Төлөх: 300₮&lt;/h1&gt;
+&lt;p id=&quot;meter&quot;&gt;3 минут · 300₮&lt;/p&gt;
+
+&lt;button id=&quot;enterButton&quot; onclick=&quot;enter()&quot;&gt;🚗 Орох&lt;/button&gt;
+&lt;button id=&quot;leaveButton&quot; onclick=&quot;leave()&quot;&gt;🚙 Гарах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>🚗 · 3 сек · 🚙</td><td>🧾 Төлөх: 300₮ · 3 минут · 300₮</td><td><span class="check"></span></td></tr><tr><td>🚗 · 2 сек</td><td>🚗 Зогсоолд байна · 2 минут · 200₮</td><td><span class="check"></span></td></tr><tr><td>🚙 (ороогүй)</td><td>🅿️ Зогсоол · 0 минут · 0₮</td><td><span class="check"></span></td></tr><tr><td>🚗 · 🚗 · 2 сек</td><td>🚗 Зогсоолд байна · 2 минут · 200₮</td><td><span class="check"></span></td></tr><tr><td>🚗 · 1 сек · 🚙 · 1 сек</td><td>🧾 Төлөх: 100₮ · 1 минут · 100₮</td><td><span class="check"></span></td></tr><tr><td>🚗 · 1 сек · 🚙 · 🚗 · 1 сек</td><td>🚗 Зогсоолд байна · 1 минут · 100₮</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Минутыг тоолуураар хадгал. Орох: тэглээд setInterval. Гарах: clearInterval, төлбөр = минут × 100. Машин дотор байгаа эсэхийг true/false-оор шалга.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span></div>
+    <h2>Шинэ мессеж 🔔</h2>
+    <p class="task">«📩 Мессеж ирэх» дарах бүрт ding.wav дуугарч, h1 дээр шинэ мессежийн тоо гарна. «👀 Уншсан» дарвал дуугүйгээр 0 болно. ding.wav-ыг html-тэй нэг хавтсанд хий. Дуу гарч байгааг чихээрээ шалга 🎧</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="inbox"&gt;📭 Шинэ мессеж алга&lt;/h1&gt;
+
+&lt;button id="newButton" onclick="newMessage()"&gt;📩 Мессеж ирэх&lt;/button&gt;
+&lt;button id="readButton" onclick="readAll()"&gt;👀 Уншсан&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;inbox&quot;&gt;📭 Шинэ мессеж алга&lt;/h1&gt;
+
+&lt;button id=&quot;newButton&quot; onclick=&quot;newMessage()&quot;&gt;📩 Мессеж ирэх&lt;/button&gt;
+&lt;button id=&quot;readButton&quot; onclick=&quot;readAll()&quot;&gt;👀 Уншсан&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;inbox&quot;&gt;🔔 3 шинэ мессеж&lt;/h1&gt;
+
+&lt;button id=&quot;newButton&quot; onclick=&quot;newMessage()&quot;&gt;📩 Мессеж ирэх&lt;/button&gt;
+&lt;button id=&quot;readButton&quot; onclick=&quot;readAll()&quot;&gt;👀 Уншсан&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>📩 ×3</td><td>🔔 3 шинэ мессеж</td><td><span class="check"></span></td></tr><tr><td>📩 ×2, 👀</td><td>📭 Шинэ мессеж алга</td><td><span class="check"></span></td></tr><tr><td>📩, 👀, 📩</td><td>🔔 1 шинэ мессеж</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 new Audio-г функцийн ГАДНА нэг удаа үүсгэ. Мессеж ирэх бүрт currentTime = 0 болгоод play().</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span></div>
+    <h2>Усны тэмдэглэл 💧</h2>
+    <p class="task">Өдөрт 8 аяга ус уух зорилготой. «+1 аяга» дарах бүрт тоо нэмэгдэнэ, refresh хийсэн ч хадгалагдана. 8 хүрвэл «🎉 8 / 8 — өнөөдрийн зорилго биеллээ!», цааш нэмэгдэхгүй. «🌅 Шинэ өдөр» дарвал 0 болно.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="water"&gt;💧 0 / 8 аяга&lt;/h1&gt;
+
+&lt;button id="drinkButton" onclick="drink()"&gt;+1 аяга&lt;/button&gt;
+&lt;button id="newDayButton" onclick="newDay()"&gt;🌅 Шинэ өдөр&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;water&quot;&gt;💧 0 / 8 аяга&lt;/h1&gt;
+
+&lt;button id=&quot;drinkButton&quot; onclick=&quot;drink()&quot;&gt;+1 аяга&lt;/button&gt;
+&lt;button id=&quot;newDayButton&quot; onclick=&quot;newDay()&quot;&gt;🌅 Шинэ өдөр&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">+1 ×3 → 🔄 REFRESH-ИЙН ДАРАА</p><iframe class="demo" tabindex="-1" title="+1 ×3 → 🔄 REFRESH-ИЙН ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;water&quot;&gt;💧 3 / 8 аяга&lt;/h1&gt;
+
+&lt;button id=&quot;drinkButton&quot; onclick=&quot;drink()&quot;&gt;+1 аяга&lt;/button&gt;
+&lt;button id=&quot;newDayButton&quot; onclick=&quot;newDay()&quot;&gt;🌅 Шинэ өдөр&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>+1 ×3 · 🔄</td><td>💧 3 / 8 аяга</td><td><span class="check"></span></td></tr><tr><td>+1 ×8</td><td>🎉 8 / 8 — өнөөдрийн зорилго биеллээ!</td><td><span class="check"></span></td></tr><tr><td>+1 ×10 · 🔄</td><td>🎉 8 / 8 — өнөөдрийн зорилго биеллээ!</td><td><span class="check"></span></td></tr><tr><td>+1 ×2 · 🌅 · 🔄</td><td>💧 0 / 8 аяга</td><td><span class="check"></span></td></tr><tr><td>Анх нээхэд</td><td>💧 0 / 8 аяга</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Хуудас нээгдэхэд localStorage-аас уншаад (Number!) харуул. Нэмэх бүрт setItem. 8 хүрсэн бол нэмэхгүй. «Шинэ өдөр» — removeItem.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span></div>
+    <h2>Хэлний сонголт 🌐</h2>
+    <p class="task">🇲🇳 дарвал «Сайн байна уу! 👋», 🇬🇧 дарвал «Hello! 👋» гарна. Сонгосон хэл хадгалагдаж, refresh хийхэд тэр хэлээрээ мэндэлнэ. Юу ч сонгоогүй бол «🌐 Хэлээ сонгоно уу» хэвээрээ.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="hello"&gt;🌐 Хэлээ сонгоно уу&lt;/h1&gt;
+
+&lt;button id="mnButton" onclick="chooseMongolian()"&gt;🇲🇳 Монгол&lt;/button&gt;
+&lt;button id="enButton" onclick="chooseEnglish()"&gt;🇬🇧 English&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;hello&quot;&gt;🌐 Хэлээ сонгоно уу&lt;/h1&gt;
+
+&lt;button id=&quot;mnButton&quot; onclick=&quot;chooseMongolian()&quot;&gt;🇲🇳 Монгол&lt;/button&gt;
+&lt;button id=&quot;enButton&quot; onclick=&quot;chooseEnglish()&quot;&gt;🇬🇧 English&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">🇬🇧 → 🔄 REFRESH-ИЙН ДАРАА</p><iframe class="demo" tabindex="-1" title="🇬🇧 → 🔄 REFRESH-ИЙН ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;hello&quot;&gt;Hello! 👋&lt;/h1&gt;
+
+&lt;button id=&quot;mnButton&quot; onclick=&quot;chooseMongolian()&quot;&gt;🇲🇳 Монгол&lt;/button&gt;
+&lt;button id=&quot;enButton&quot; onclick=&quot;chooseEnglish()&quot;&gt;🇬🇧 English&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>🇬🇧 · 🔄</td><td>Hello! 👋</td><td><span class="check"></span></td></tr><tr><td>🇲🇳</td><td>Сайн байна уу! 👋</td><td><span class="check"></span></td></tr><tr><td>🇬🇧 · 🇲🇳 · 🔄</td><td>Сайн байна уу! 👋</td><td><span class="check"></span></td></tr><tr><td>Анх нээхэд</td><td>🌐 Хэлээ сонгоно уу</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Дэвтэрт "mn" эсвэл "en" гэж хадгал. Хуудас нээгдэхэд уншаад if / else if-ээр аль мэндчилгээг харуулахаа шийд. Юу ч хадгалаагүй бол (null) h1 хэвээрээ.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span></div>
+    <h2>Хурдан даралт ⚡</h2>
+    <p class="task">«🎮 Эхлэх» дармагц 5 секундын дотор «👆 Дар!»-ыг аль болох олон дар. 5 секунд дуусахад рекордоос их бол «🎉 Шинэ рекорд: 7!», үгүй бол «⏰ Хугацаа дууслаа · 3 удаа». Рекорд refresh хийсэн ч хадгалагдана. Тоглоом эхлээгүй үед даралт тоологдохгүй, тоглож байхад «Эхлэх» дахин дарвал юу ч болохгүй.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="status"&gt;⚡ 5 секундэд хэдэн удаа дарж чадах вэ?&lt;/h1&gt;
+&lt;p id="taps"&gt;👆 0&lt;/p&gt;
+&lt;p id="best"&gt;🏆 Рекорд: 0&lt;/p&gt;
+
+&lt;button id="startButton" onclick="startGame()"&gt;🎮 Эхлэх&lt;/button&gt;
+&lt;button id="tapButton" onclick="tap()"&gt;👆 Дар!&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;status&quot;&gt;⚡ 5 секундэд хэдэн удаа дарж чадах вэ?&lt;/h1&gt;
+&lt;p id=&quot;taps&quot;&gt;👆 0&lt;/p&gt;
+&lt;p id=&quot;best&quot;&gt;🏆 Рекорд: 0&lt;/p&gt;
+
+&lt;button id=&quot;startButton&quot; onclick=&quot;startGame()&quot;&gt;🎮 Эхлэх&lt;/button&gt;
+&lt;button id=&quot;tapButton&quot; onclick=&quot;tap()&quot;&gt;👆 Дар!&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">🎮 → 👆×7 → 5 СЕКУНДЫН ДАРАА</p><iframe class="demo" tabindex="-1" title="🎮 → 👆×7 → 5 СЕКУНДЫН ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;status&quot;&gt;🎉 Шинэ рекорд: 7!&lt;/h1&gt;
+&lt;p id=&quot;taps&quot;&gt;👆 7&lt;/p&gt;
+&lt;p id=&quot;best&quot;&gt;🏆 Рекорд: 7&lt;/p&gt;
+
+&lt;button id=&quot;startButton&quot; onclick=&quot;startGame()&quot;&gt;🎮 Эхлэх&lt;/button&gt;
+&lt;button id=&quot;tapButton&quot; onclick=&quot;tap()&quot;&gt;👆 Дар!&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>🎮 · 👆 ×7 · 5 сек</td><td>🎉 Шинэ рекорд: 7! · 👆 7 · 🏆 Рекорд: 7</td><td><span class="check"></span></td></tr><tr><td>🎮 · 👆 ×7 · 5 сек · 🔄</td><td>⚡ 5 секундэд хэдэн удаа дарж чадах вэ? · 👆 0 · 🏆 Рекорд: 7</td><td><span class="check"></span></td></tr><tr><td>🎮 · 👆 ×7 · 5 сек · 🎮 · 👆 ×3 · 5 сек</td><td>⏰ Хугацаа дууслаа · 3 удаа · 👆 3 · 🏆 Рекорд: 7</td><td><span class="check"></span></td></tr><tr><td>🎮 · 👆 ×2 · 🎮 · 👆 ×2 · 5 сек</td><td>🎉 Шинэ рекорд: 4! · 👆 4 · 🏆 Рекорд: 4</td><td><span class="check"></span></td></tr><tr><td>👆 ×4 (эхлээгүй)</td><td>⚡ 5 секундэд хэдэн удаа дарж чадах вэ? · 👆 0 · 🏆 Рекорд: 0</td><td><span class="check"></span></td></tr><tr><td>🎮 · 5 сек · 👆 ×3</td><td>⏰ Хугацаа дууслаа · 0 удаа · 👆 0 · 🏆 Рекорд: 0</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 setTimeout(endGame, 5000) — 5 секундын дараа тоглоомыг дуусгана. Тоглож байгаа эсэхийг true/false-оор хадгал. Рекордыг localStorage-д хадгалж, нээгдэхэд уншина.</p>
+  </section>
+</div>
+<script>
+  // Fit each screen to its content (the CSS height is the no-JS fallback)
+  document.querySelectorAll("iframe.demo").forEach(function (frame) {
+    function fit() {
+      var doc = frame.contentDocument;
+      if (!doc || !doc.body) return;
+      frame.style.height = "0px";
+      frame.style.height = doc.documentElement.scrollHeight + "px";
+    }
+    frame.addEventListener("load", fit);
+    window.addEventListener("resize", fit);
+    if (frame.contentDocument && frame.contentDocument.readyState === "complete") fit();
+  });
+</script>
+</body>
+</html>

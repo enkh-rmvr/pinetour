@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>if / else — 10 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 980px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+  .lead code, .rules code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background-color: #EBE6DC; border-radius: 4px; padding: 1px 6px; }
+  .rules { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 12px; padding: 18px 24px; margin: 24px 0 36px; }
+  .rules li { font-size: 15.5px; line-height: 1.85; margin-left: 20px; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 26px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin: 20px 0 8px; }
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .shots { display: flex; flex-wrap: wrap; align-items: center; gap: 0 14px; }
+  .shot { width: 420px; max-width: 100%; }
+  .arrow { color: #B8862A; font-size: 28px; font-weight: 700; padding-top: 30px; }
+  .demo { display: block; width: 100%; height: 300px; border: 0; border-radius: 12px; background-color: #FFFFFF;
+          box-shadow: 0 0 0 3px #16130F; pointer-events: none; }
+  .example { margin-top: 14px; font-size: 15px; }
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .cases { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14.5px; }
+  .cases th { text-align: left; font-size: 11.5px; letter-spacing: .1em; color: #8E8777; font-weight: 700; padding: 6px 10px; border-bottom: 2px solid #DCD5C7; }
+  .cases td { padding: 7px 10px; border-bottom: 1px solid #EBE6DC; vertical-align: top; }
+  .cases td:first-child { font-family: ui-monospace, Menlo, monospace; color: #0D3B2F; white-space: nowrap; }
+  .cases td:last-child { font-weight: 600; color: #16130F; }
+  .check { width: 18px; height: 18px; border: 2px solid #BCD2C9; border-radius: 4px; display: inline-block; vertical-align: middle; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 11 · НӨХЦӨЛ</p>
+  <h1>if / else — 10 дасгал</h1>
+  <p class="lead"><code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> <code>===</code> <code>!==</code> · <code>if</code> · <code>else</code> · <code>else if</code> · <code>&amp;&amp;</code> <code>||</code> <code>!</code></p>
+
+  <div class="rules">
+    <ol>
+      <li>HTML-ийг хуулж <code>index.html</code>-даа тавь. JavaScript-ээ <code>script.js</code>-д өөрөө бич.</li>
+      <li>Хуудсаа нээгээд жишээ утгуудыг бичиж, товчоо дар. «Шалгах жишээнүүд»-ийг нэг нэгээр нь бичиж үз — бүгд зөв гарах ёстой.</li>
+      <li>Алдаа гарвал Console-оо нээ: <code>Cmd + Option + J</code></li>
+    </ol>
+  </div>
+
+  <h2 class="group">Амархан — 3 дасгал</h2>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span><span class="level l1">Амархан</span></div>
+    <h2>Насанд хүрсэн үү?</h2>
+    <p class="task">Насаа бичээд товч дарахад 18 ба түүнээс дээш бол «Насанд хүрсэн ✅», бусад үед «Насанд хүрээгүй ❌» гэж гарна.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;Насаа бич&lt;/h1&gt;
+
+&lt;input id="ageInput" type="number" placeholder="Нас" /&gt;
+&lt;button onclick="check()"&gt;Шалгах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Насаа бич&lt;/h1&gt;
+
+&lt;input id=&quot;ageInput&quot; type=&quot;number&quot; placeholder=&quot;Нас&quot; /&gt;
+&lt;button onclick=&quot;check()&quot;&gt;Шалгах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Насанд хүрсэн ✅&lt;/h1&gt;
+
+&lt;input id=&quot;ageInput&quot; value=&quot;20&quot; type=&quot;number&quot; placeholder=&quot;Нас&quot; /&gt;
+&lt;button onclick=&quot;check()&quot;&gt;Шалгах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«20»</td><td>Насанд хүрсэн ✅</td><td><span class="check"></span></td></tr><tr><td>«15»</td><td>Насанд хүрээгүй ❌</td><td><span class="check"></span></td></tr><tr><td>«18»</td><td>Насанд хүрсэн ✅</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 18 настай хүн ч насанд хүрсэнд тооцогдоно. «&gt;» ба «&gt;=»-ийн ялгааг бод.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span><span class="level l1">Амархан</span></div>
+    <h2>Нууц үг</h2>
+    <p class="task">Нууц үг нь «pinecone». Зөв бичвэл «Нэвтэрлээ 🎉», буруу бол «Нууц үг буруу ❌» гэж гарна.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;Нууц үгээ оруул&lt;/h1&gt;
+
+&lt;input id="passwordInput" type="password" placeholder="Нууц үг" /&gt;
+&lt;button onclick="login()"&gt;Нэвтрэх&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Нууц үгээ оруул&lt;/h1&gt;
+
+&lt;input id=&quot;passwordInput&quot; type=&quot;password&quot; placeholder=&quot;Нууц үг&quot; /&gt;
+&lt;button onclick=&quot;login()&quot;&gt;Нэвтрэх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Нэвтэрлээ 🎉&lt;/h1&gt;
+
+&lt;input id=&quot;passwordInput&quot; value=&quot;pinecone&quot; type=&quot;password&quot; placeholder=&quot;Нууц үг&quot; /&gt;
+&lt;button onclick=&quot;login()&quot;&gt;Нэвтрэх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«pinecone»</td><td>Нэвтэрлээ 🎉</td><td><span class="check"></span></td></tr><tr><td>«1234»</td><td>Нууц үг буруу ❌</td><td><span class="check"></span></td></tr><tr><td>«Pinecone»</td><td>Нууц үг буруу ❌</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Текстийг харьцуулахад том, жижиг үсэг ялгаатай. «Pinecone» ба «pinecone» хоёр өөр.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span><span class="level l1">Амархан</span></div>
+    <h2>Аль нь их вэ?</h2>
+    <p class="task">Хоёр тоо бичээд товч дарахад ихийг нь «Их нь: 12» гэж харуул.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;Их нь: ?&lt;/h1&gt;
+
+&lt;input id="firstInput" type="number" placeholder="Эхний тоо" /&gt;
+&lt;input id="secondInput" type="number" placeholder="Хоёр дахь тоо" /&gt;
+&lt;button onclick="compare()"&gt;Харьцуулах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Их нь: ?&lt;/h1&gt;
+
+&lt;input id=&quot;firstInput&quot; type=&quot;number&quot; placeholder=&quot;Эхний тоо&quot; /&gt;
+&lt;input id=&quot;secondInput&quot; type=&quot;number&quot; placeholder=&quot;Хоёр дахь тоо&quot; /&gt;
+&lt;button onclick=&quot;compare()&quot;&gt;Харьцуулах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Их нь: 9&lt;/h1&gt;
+
+&lt;input id=&quot;firstInput&quot; value=&quot;4&quot; type=&quot;number&quot; placeholder=&quot;Эхний тоо&quot; /&gt;
+&lt;input id=&quot;secondInput&quot; value=&quot;9&quot; type=&quot;number&quot; placeholder=&quot;Хоёр дахь тоо&quot; /&gt;
+&lt;button onclick=&quot;compare()&quot;&gt;Харьцуулах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«4» · «9»</td><td>Их нь: 9</td><td><span class="check"></span></td></tr><tr><td>«12» · «3»</td><td>Их нь: 12</td><td><span class="check"></span></td></tr><tr><td>«9» · «12»</td><td>Их нь: 12</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 «9» ба «12» гэж бичээд заавал шалга. Number() мартвал 9 нь их гэж гарна — яагаад гэдгийг бод.</p>
+  </section>
+  <h2 class="group">Дунд — 4 дасгал</h2>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span><span class="level l2">Дунд</span></div>
+    <h2>Дүнгийн үсэг</h2>
+    <p class="task">Оноо (0–100) бичээд товч дарахад үнэлгээ гарна: 90-ээс дээш A, 80-аас дээш B, 70-аас дээш C, 60-аас дээш D, бусад F. («дээш» = тухайн тоо орно.)</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;Үнэлгээ: ?&lt;/h1&gt;
+
+&lt;input id="scoreInput" type="number" placeholder="Оноо (0–100)" /&gt;
+&lt;button onclick="grade()"&gt;Үнэлэх&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Үнэлгээ: ?&lt;/h1&gt;
+
+&lt;input id=&quot;scoreInput&quot; type=&quot;number&quot; placeholder=&quot;Оноо (0–100)&quot; /&gt;
+&lt;button onclick=&quot;grade()&quot;&gt;Үнэлэх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Үнэлгээ: A&lt;/h1&gt;
+
+&lt;input id=&quot;scoreInput&quot; value=&quot;95&quot; type=&quot;number&quot; placeholder=&quot;Оноо (0–100)&quot; /&gt;
+&lt;button onclick=&quot;grade()&quot;&gt;Үнэлэх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«95»</td><td>Үнэлгээ: A</td><td><span class="check"></span></td></tr><tr><td>«90»</td><td>Үнэлгээ: A</td><td><span class="check"></span></td></tr><tr><td>«85»</td><td>Үнэлгээ: B</td><td><span class="check"></span></td></tr><tr><td>«72»</td><td>Үнэлгээ: C</td><td><span class="check"></span></td></tr><tr><td>«64»</td><td>Үнэлгээ: D</td><td><span class="check"></span></td></tr><tr><td>«40»</td><td>Үнэлгээ: F</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Хамгийн өндөр онооноос эхэлж шалга: 90 → 80 → 70 → 60. Үлдсэн бүх тохиолдол F.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span><span class="level l2">Дунд</span></div>
+    <h2>Тасалбарын үнэ</h2>
+    <p class="task">Насаа бичээд товч дарахад концертын тасалбарын үнэ гарна: 6-аас бага бол үнэгүй, 6–17 нас 5000₮, 18–59 нас 10000₮, 60 ба түүнээс дээш 3000₮.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;Тасалбар: ?&lt;/h1&gt;
+
+&lt;input id="ageInput" type="number" placeholder="Нас" /&gt;
+&lt;button onclick="price()"&gt;Үнэ харах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Тасалбар: ?&lt;/h1&gt;
+
+&lt;input id=&quot;ageInput&quot; type=&quot;number&quot; placeholder=&quot;Нас&quot; /&gt;
+&lt;button onclick=&quot;price()&quot;&gt;Үнэ харах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Тасалбар: Үнэгүй&lt;/h1&gt;
+
+&lt;input id=&quot;ageInput&quot; value=&quot;4&quot; type=&quot;number&quot; placeholder=&quot;Нас&quot; /&gt;
+&lt;button onclick=&quot;price()&quot;&gt;Үнэ харах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«4»</td><td>Тасалбар: Үнэгүй</td><td><span class="check"></span></td></tr><tr><td>«6»</td><td>Тасалбар: 5000₮</td><td><span class="check"></span></td></tr><tr><td>«12»</td><td>Тасалбар: 5000₮</td><td><span class="check"></span></td></tr><tr><td>«30»</td><td>Тасалбар: 10000₮</td><td><span class="check"></span></td></tr><tr><td>«60»</td><td>Тасалбар: 3000₮</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Хил дээрх насуудыг (6, 18, 60) заавал шалга — тэдгээр нь хаана нь орох вэ?</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span><span class="level l2">Дунд</span></div>
+    <h2>Амралтын өдөр үү?</h2>
+    <p class="task">Гарагийн дугаар бич: 1 = Даваа … 7 = Ням. 6 эсвэл 7 бол «Амралтын өдөр 🎉», 1–5 бол «Ажлын өдөр 💼», бусад тоо бол «1-ээс 7 хүртэл тоо бич».</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;?&lt;/h1&gt;
+
+&lt;input id="dayInput" type="number" placeholder="Гарагийн дугаар (1–7)" /&gt;
+&lt;button onclick="checkDay()"&gt;Шалгах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;?&lt;/h1&gt;
+
+&lt;input id=&quot;dayInput&quot; type=&quot;number&quot; placeholder=&quot;Гарагийн дугаар (1–7)&quot; /&gt;
+&lt;button onclick=&quot;checkDay()&quot;&gt;Шалгах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Амралтын өдөр 🎉&lt;/h1&gt;
+
+&lt;input id=&quot;dayInput&quot; value=&quot;6&quot; type=&quot;number&quot; placeholder=&quot;Гарагийн дугаар (1–7)&quot; /&gt;
+&lt;button onclick=&quot;checkDay()&quot;&gt;Шалгах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«6»</td><td>Амралтын өдөр 🎉</td><td><span class="check"></span></td></tr><tr><td>«7»</td><td>Амралтын өдөр 🎉</td><td><span class="check"></span></td></tr><tr><td>«3»</td><td>Ажлын өдөр 💼</td><td><span class="check"></span></td></tr><tr><td>«1»</td><td>Ажлын өдөр 💼</td><td><span class="check"></span></td></tr><tr><td>«9»</td><td>1-ээс 7 хүртэл тоо бич</td><td><span class="check"></span></td></tr><tr><td>«0»</td><td>1-ээс 7 хүртэл тоо бич</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 «эсвэл» → ||, «ба» → &amp;&amp;. 1–5 гэдэг нь «1-ээс их буюу тэнцүү БА 5-аас бага буюу тэнцүү».</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span><span class="level l2">Дунд</span></div>
+    <h2>Нэвтрэх</h2>
+    <p class="task">Хэрэглэгчийн нэр: admin, нууц үг: 1234. Хоёулаа зөв бол «Тавтай морил, admin! 👋». Нэр зөв ч нууц үг буруу бол «Нууц үг буруу ❌». Нэр буруу бол «Хэрэглэгч олдсонгүй».</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;Нэвтрэх&lt;/h1&gt;
+
+&lt;input id="usernameInput" type="text" placeholder="Хэрэглэгчийн нэр" /&gt;
+&lt;input id="passwordInput" type="password" placeholder="Нууц үг" /&gt;
+&lt;button onclick="login()"&gt;Нэвтрэх&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Нэвтрэх&lt;/h1&gt;
+
+&lt;input id=&quot;usernameInput&quot; type=&quot;text&quot; placeholder=&quot;Хэрэглэгчийн нэр&quot; /&gt;
+&lt;input id=&quot;passwordInput&quot; type=&quot;password&quot; placeholder=&quot;Нууц үг&quot; /&gt;
+&lt;button onclick=&quot;login()&quot;&gt;Нэвтрэх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Тавтай морил, admin! 👋&lt;/h1&gt;
+
+&lt;input id=&quot;usernameInput&quot; value=&quot;admin&quot; type=&quot;text&quot; placeholder=&quot;Хэрэглэгчийн нэр&quot; /&gt;
+&lt;input id=&quot;passwordInput&quot; value=&quot;1234&quot; type=&quot;password&quot; placeholder=&quot;Нууц үг&quot; /&gt;
+&lt;button onclick=&quot;login()&quot;&gt;Нэвтрэх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«admin» · «1234»</td><td>Тавтай морил, admin! 👋</td><td><span class="check"></span></td></tr><tr><td>«admin» · «0000»</td><td>Нууц үг буруу ❌</td><td><span class="check"></span></td></tr><tr><td>«bat» · «1234»</td><td>Хэрэглэгч олдсонгүй</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Эхлээд хоёулаа зөв эсэхийг &amp;&amp; -ээр шалга. Нууц үгийг Number() болгох хэрэггүй — текстээр нь харьцуул.</p>
+  </section>
+  <h2 class="group">Хэцүү — 3 дасгал</h2>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span><span class="level l3">Хэцүү</span></div>
+    <h2>Дэлгүүрийн хямдрал</h2>
+    <p class="task">Худалдан авалтын дүнг бичээд товч дарахад хямдрал, хүргэлт, төлөх мөнгө гарна. Хямдрал: 100000₮ ба түүнээс дээш бол 10%, 50000₮ ба түүнээс дээш бол 5%, бусад үед хямдралгүй. Хүргэлт: 30000₮ ба түүнээс дээш бол үнэгүй, бусад үед 5000₮. Төлөх = дүн − хямдрал + хүргэлт.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="pay"&gt;Төлөх: ?&lt;/h1&gt;
+
+&lt;input id="amountInput" type="number" placeholder="Худалдан авалтын дүн" /&gt;
+&lt;button onclick="checkout()"&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id="discount"&gt;Хямдрал: ?&lt;/p&gt;
+&lt;p id="delivery"&gt;Хүргэлт: ?&lt;/p&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;pay&quot;&gt;Төлөх: ?&lt;/h1&gt;
+
+&lt;input id=&quot;amountInput&quot; type=&quot;number&quot; placeholder=&quot;Худалдан авалтын дүн&quot; /&gt;
+&lt;button onclick=&quot;checkout()&quot;&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id=&quot;discount&quot;&gt;Хямдрал: ?&lt;/p&gt;
+&lt;p id=&quot;delivery&quot;&gt;Хүргэлт: ?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;pay&quot;&gt;Төлөх: 108000₮&lt;/h1&gt;
+
+&lt;input id=&quot;amountInput&quot; value=&quot;120000&quot; type=&quot;number&quot; placeholder=&quot;Худалдан авалтын дүн&quot; /&gt;
+&lt;button onclick=&quot;checkout()&quot;&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id=&quot;discount&quot;&gt;Хямдрал: 12000₮&lt;/p&gt;
+&lt;p id=&quot;delivery&quot;&gt;Хүргэлт: Үнэгүй&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«120000»</td><td>Хямдрал: 12000₮ · Хүргэлт: Үнэгүй · Төлөх: 108000₮</td><td><span class="check"></span></td></tr><tr><td>«60000»</td><td>Хямдрал: 3000₮ · Хүргэлт: Үнэгүй · Төлөх: 57000₮</td><td><span class="check"></span></td></tr><tr><td>«30000»</td><td>Хямдрал: 0₮ · Хүргэлт: Үнэгүй · Төлөх: 30000₮</td><td><span class="check"></span></td></tr><tr><td>«20000»</td><td>Хямдрал: 0₮ · Хүргэлт: 5000₮ · Төлөх: 25000₮</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Хоёр тусдаа шийдвэр: хямдрал (else if) ба хүргэлт (if / else). let-ээр хувьсагч үүсгээд if дотор утгыг нь өөрчилж болно.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 9</span><span class="level l3">Хэцүү</span></div>
+    <h2>Биеийн жингийн индекс (BMI)</h2>
+    <p class="task">Жин (кг), өндөр (см) бичээд товч дарахад BMI-г бодож ангиллыг нь харуул: 18.5-аас бага — Тураалтай, 25-аас бага — Хэвийн, 30-аас бага — Илүүдэл жинтэй, бусад — Таргалалт.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;Үр дүн: ?&lt;/h1&gt;
+
+&lt;input id="weightInput" type="number" placeholder="Жин (кг)" /&gt;
+&lt;input id="heightInput" type="number" placeholder="Өндөр (см)" /&gt;
+&lt;button onclick="calculate()"&gt;Тооцоолох&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Үр дүн: ?&lt;/h1&gt;
+
+&lt;input id=&quot;weightInput&quot; type=&quot;number&quot; placeholder=&quot;Жин (кг)&quot; /&gt;
+&lt;input id=&quot;heightInput&quot; type=&quot;number&quot; placeholder=&quot;Өндөр (см)&quot; /&gt;
+&lt;button onclick=&quot;calculate()&quot;&gt;Тооцоолох&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Үр дүн: Хэвийн&lt;/h1&gt;
+
+&lt;input id=&quot;weightInput&quot; value=&quot;65&quot; type=&quot;number&quot; placeholder=&quot;Жин (кг)&quot; /&gt;
+&lt;input id=&quot;heightInput&quot; value=&quot;170&quot; type=&quot;number&quot; placeholder=&quot;Өндөр (см)&quot; /&gt;
+&lt;button onclick=&quot;calculate()&quot;&gt;Тооцоолох&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«65» · «170»</td><td>Үр дүн: Хэвийн</td><td><span class="check"></span></td></tr><tr><td>«50» · «170»</td><td>Үр дүн: Тураалтай</td><td><span class="check"></span></td></tr><tr><td>«80» · «170»</td><td>Үр дүн: Илүүдэл жинтэй</td><td><span class="check"></span></td></tr><tr><td>«95» · «170»</td><td>Үр дүн: Таргалалт</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 BMI = жин / (өндөр × өндөр), өндөр нь метрээр. 170 см = 1.7 м (100-д хуваана).</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 10</span><span class="level l3">Хэцүү</span></div>
+    <h2>Гурвалжин</h2>
+    <p class="task">Гурван талын уртыг бичээд товч дарахад: гурвалжин үүсэхгүй бол «Гурвалжин үүсэхгүй ❌». Үүсвэл гурван тал тэнцүү — «Адил талт», хоёр тал тэнцүү — «Адил хажуут», бүгд өөр — «Энгийн гурвалжин».</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;?&lt;/h1&gt;
+
+&lt;input id="aInput" type="number" placeholder="1-р тал" /&gt;
+&lt;input id="bInput" type="number" placeholder="2-р тал" /&gt;
+&lt;input id="cInput" type="number" placeholder="3-р тал" /&gt;
+&lt;button onclick="checkTriangle()"&gt;Шалгах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;?&lt;/h1&gt;
+
+&lt;input id=&quot;aInput&quot; type=&quot;number&quot; placeholder=&quot;1-р тал&quot; /&gt;
+&lt;input id=&quot;bInput&quot; type=&quot;number&quot; placeholder=&quot;2-р тал&quot; /&gt;
+&lt;input id=&quot;cInput&quot; type=&quot;number&quot; placeholder=&quot;3-р тал&quot; /&gt;
+&lt;button onclick=&quot;checkTriangle()&quot;&gt;Шалгах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Энгийн гурвалжин&lt;/h1&gt;
+
+&lt;input id=&quot;aInput&quot; value=&quot;3&quot; type=&quot;number&quot; placeholder=&quot;1-р тал&quot; /&gt;
+&lt;input id=&quot;bInput&quot; value=&quot;4&quot; type=&quot;number&quot; placeholder=&quot;2-р тал&quot; /&gt;
+&lt;input id=&quot;cInput&quot; value=&quot;5&quot; type=&quot;number&quot; placeholder=&quot;3-р тал&quot; /&gt;
+&lt;button onclick=&quot;checkTriangle()&quot;&gt;Шалгах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«3» · «4» · «5»</td><td>Энгийн гурвалжин</td><td><span class="check"></span></td></tr><tr><td>«5» · «5» · «5»</td><td>Адил талт</td><td><span class="check"></span></td></tr><tr><td>«5» · «5» · «8»</td><td>Адил хажуут</td><td><span class="check"></span></td></tr><tr><td>«8» · «5» · «5»</td><td>Адил хажуут</td><td><span class="check"></span></td></tr><tr><td>«1» · «2» · «10»</td><td>Гурвалжин үүсэхгүй ❌</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Гурвалжин үүсэх нөхцөл: аль ч хоёр талын нийлбэр гурав дахь талаасаа их (гурван шалгалт, &amp;&amp;). Эхлээд үүсэх эсэхийг, дараа нь тэнцүү талуудыг (=== ба ||) шалга. «Биш» гэдгийг ! -ээр бичнэ.</p>
+  </section>
+</div>
+<script>
+  // Fit each screen to its content (the CSS height is the no-JS fallback)
+  document.querySelectorAll("iframe.demo").forEach(function (frame) {
+    function fit() {
+      var doc = frame.contentDocument;
+      if (!doc || !doc.body) return;
+      frame.style.height = "0px";
+      frame.style.height = doc.documentElement.scrollHeight + "px";
+    }
+    frame.addEventListener("load", fit);
+    window.addEventListener("resize", fit);
+    if (frame.contentDocument && frame.contentDocument.readyState === "complete") fit();
+  });
+</script>
+</body>
+</html>

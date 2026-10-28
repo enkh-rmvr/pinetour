@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    #big {
+      display: flex;
+      gap: 40px;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    #box {
+      background-color: black;
+      height: 500px;
+      width: 800px;
+      display: flex;
+      gap: 40px;
+    }
+    #boxA {
+      background-color: red;
+      height: 500px;
+      width: 800px;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: center;
+    }
+    #boxB {
+      background-color: green;
+      height: 500px;
+      width: 800px;
+      display: flex;
+      gap: 40px;
+      justify-content: right;
+      align-items: last baseline;
+    }
+    .child {
+      background-color: blue;
+      height: 40px;
+      width: 40px;
+      text-align: center;
+    }
+    .child1 {
+      background-color: blue;
+      height: 40px;
+      width: 40px;
+      text-align: center;
+    }
+    .child2 {
+      background-color: blue;
+      height: 40px;
+      width: 40px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div id="big">
+      <div id="box">
+        <div class="child">1</div>
+        <div class="child">1</div>
+        <div class="child">1</div>
+      </div>
+      <div id="boxA">
+        <div class="child1">1</div>
+        <div class="child1">1</div>
+        <div class="child1">1</div>
+      </div>
+      <div id="boxB">
+        <div class="child2">1</div>
+        <div class="child2">1</div>
+        <div class="child2">1</div>
+      </div>
+    </div>
+  </body>
+</html>

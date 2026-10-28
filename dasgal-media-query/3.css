@@ -1,0 +1,67 @@
+style * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+  padding: 16px;
+}
+
+.newsletter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background-color: #15111f;
+  color: white;
+  padding: 28px;
+  border-radius: 14px;
+}
+
+.newsletter h3 {
+  font-size: 22px;
+}
+
+.newsletter p {
+  color: #a99fc0;
+  font-size: 14px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+}
+
+.input {
+  width: 240px;
+  background-color: white;
+  color: gray;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+.send {
+  background-color: #a855f7;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .newsletter {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .input {
+    width: 100%;
+  }
+}

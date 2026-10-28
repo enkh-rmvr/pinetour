@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM — 3 хэцүү дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 980px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+  .lead code, .rules code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background-color: #EBE6DC; border-radius: 4px; padding: 1px 6px; }
+  .rules { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 12px; padding: 18px 24px; margin: 24px 0 36px; }
+  .rules li { font-size: 15.5px; line-height: 1.85; margin-left: 20px; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 26px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin: 20px 0 8px; }
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .shots { display: flex; flex-wrap: wrap; align-items: center; gap: 0 14px; }
+  .shot { width: 420px; max-width: 100%; }
+  .arrow { color: #B8862A; font-size: 28px; font-weight: 700; padding-top: 30px; }
+  .demo { display: block; width: 100%; height: 300px; border: 0; border-radius: 12px; background-color: #FFFFFF;
+          box-shadow: 0 0 0 3px #16130F; pointer-events: none; }
+  .example { margin-top: 14px; font-size: 15px; }
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 10 · DOM</p>
+  <h1>DOM — 3 хэцүү дасгал</h1>
+  <p class="lead"><code>getElementById</code> · <code>input.value</code> · <code>textContent</code> · <code>onclick</code> · <code>Number()</code></p>
+
+  <div class="rules">
+    <ol>
+      <li>HTML-ийг хуулж <code>index.html</code>-даа тавь. JavaScript-ээ <code>script.js</code>-д өөрөө бич.</li>
+      <li>Хуудсаа нээгээд жишээ утгуудыг бичиж, товчоо дар. «Товч дарсны дараа» зурагтай адилхан болох ёстой.</li>
+      <li>Алдаа гарвал Console-оо нээ: <code>Cmd + Option + J</code></li>
+    </ol>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span><span class="level l3">Хэцүү</span></div>
+    <h2>Өрөө будах</h2>
+    <p class="task">Өрөөний урт, өргөн, өндөр, 1 м² будах үнийг бичээд товч дарахад ханын талбай, шалны талбай, будгийн үнэ гурвуулаа гарна. Зөвхөн 4 ханыг будна.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="cost"&gt;Будгийн үнэ: ?&lt;/h1&gt;
+
+&lt;input id="lengthInput" type="number" placeholder="Урт (м)" /&gt;
+&lt;input id="widthInput" type="number" placeholder="Өргөн (м)" /&gt;
+&lt;input id="heightInput" type="number" placeholder="Өндөр (м)" /&gt;
+&lt;input id="priceInput" type="number" placeholder="1 м² будах үнэ" /&gt;
+&lt;button onclick="calculate()"&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id="wallArea"&gt;Ханын талбай: ?&lt;/p&gt;
+&lt;p id="floorArea"&gt;Шалны талбай: ?&lt;/p&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;cost&quot;&gt;Будгийн үнэ: ?&lt;/h1&gt;
+
+&lt;input id=&quot;lengthInput&quot; type=&quot;number&quot; placeholder=&quot;Урт (м)&quot; /&gt;
+&lt;input id=&quot;widthInput&quot; type=&quot;number&quot; placeholder=&quot;Өргөн (м)&quot; /&gt;
+&lt;input id=&quot;heightInput&quot; type=&quot;number&quot; placeholder=&quot;Өндөр (м)&quot; /&gt;
+&lt;input id=&quot;priceInput&quot; type=&quot;number&quot; placeholder=&quot;1 м² будах үнэ&quot; /&gt;
+&lt;button onclick=&quot;calculate()&quot;&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id=&quot;wallArea&quot;&gt;Ханын талбай: ?&lt;/p&gt;
+&lt;p id=&quot;floorArea&quot;&gt;Шалны талбай: ?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;cost&quot;&gt;Будгийн үнэ: 432000₮&lt;/h1&gt;
+
+&lt;input id=&quot;lengthInput&quot; value=&quot;5&quot; type=&quot;number&quot; placeholder=&quot;Урт (м)&quot; /&gt;
+&lt;input id=&quot;widthInput&quot; value=&quot;4&quot; type=&quot;number&quot; placeholder=&quot;Өргөн (м)&quot; /&gt;
+&lt;input id=&quot;heightInput&quot; value=&quot;3&quot; type=&quot;number&quot; placeholder=&quot;Өндөр (м)&quot; /&gt;
+&lt;input id=&quot;priceInput&quot; value=&quot;8000&quot; type=&quot;number&quot; placeholder=&quot;1 м² будах үнэ&quot; /&gt;
+&lt;button onclick=&quot;calculate()&quot;&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id=&quot;wallArea&quot;&gt;Ханын талбай: 54 м²&lt;/p&gt;
+&lt;p id=&quot;floorArea&quot;&gt;Шалны талбай: 20 м²&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+    <p class="example">Жишээ утга: «5» · «4» · «3» · «8000»</p>
+
+    <p class="hint">💡 4 ханын талбай = 2 × (урт + өргөн) × өндөр. Шал = урт × өргөн. Будгийн үнэ = ханын талбай × 1 м²-ийн үнэ.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span><span class="level l3">Хэцүү</span></div>
+    <h2>Цалингийн хуудас</h2>
+    <p class="task">Ажилтны нэр, цагийн хөлс, өдөрт ажиллах цаг, ажилласан өдөр, татварын хувийг бичээд товч дарахад цалингийн хуудас бөглөгдөнө: нэр, нийт цалин, татвар, гарт олгох мөнгө.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;input id="nameInput" type="text" placeholder="Ажилтны нэр" /&gt;
+&lt;input id="wageInput" type="number" placeholder="Цагийн хөлс" /&gt;
+&lt;input id="hoursInput" type="number" placeholder="Өдөрт хэдэн цаг" /&gt;
+&lt;input id="daysInput" type="number" placeholder="Хэдэн өдөр ажилласан" /&gt;
+&lt;input id="taxInput" type="number" placeholder="Татвар (%)" /&gt;
+&lt;button onclick="makeSlip()"&gt;Цалин бодох&lt;/button&gt;
+
+&lt;article&gt;
+  &lt;h2 id="slipName"&gt;Ажилтан&lt;/h2&gt;
+  &lt;p id="gross"&gt;Нийт цалин: ?&lt;/p&gt;
+  &lt;p id="tax"&gt;Татвар: ?&lt;/p&gt;
+  &lt;p id="net"&gt;Гарт олгох: ?&lt;/p&gt;
+&lt;/article&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;input id=&quot;nameInput&quot; type=&quot;text&quot; placeholder=&quot;Ажилтны нэр&quot; /&gt;
+&lt;input id=&quot;wageInput&quot; type=&quot;number&quot; placeholder=&quot;Цагийн хөлс&quot; /&gt;
+&lt;input id=&quot;hoursInput&quot; type=&quot;number&quot; placeholder=&quot;Өдөрт хэдэн цаг&quot; /&gt;
+&lt;input id=&quot;daysInput&quot; type=&quot;number&quot; placeholder=&quot;Хэдэн өдөр ажилласан&quot; /&gt;
+&lt;input id=&quot;taxInput&quot; type=&quot;number&quot; placeholder=&quot;Татвар (%)&quot; /&gt;
+&lt;button onclick=&quot;makeSlip()&quot;&gt;Цалин бодох&lt;/button&gt;
+
+&lt;article&gt;
+  &lt;h2 id=&quot;slipName&quot;&gt;Ажилтан&lt;/h2&gt;
+  &lt;p id=&quot;gross&quot;&gt;Нийт цалин: ?&lt;/p&gt;
+  &lt;p id=&quot;tax&quot;&gt;Татвар: ?&lt;/p&gt;
+  &lt;p id=&quot;net&quot;&gt;Гарт олгох: ?&lt;/p&gt;
+&lt;/article&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;input id=&quot;nameInput&quot; value=&quot;Бат&quot; type=&quot;text&quot; placeholder=&quot;Ажилтны нэр&quot; /&gt;
+&lt;input id=&quot;wageInput&quot; value=&quot;12000&quot; type=&quot;number&quot; placeholder=&quot;Цагийн хөлс&quot; /&gt;
+&lt;input id=&quot;hoursInput&quot; value=&quot;8&quot; type=&quot;number&quot; placeholder=&quot;Өдөрт хэдэн цаг&quot; /&gt;
+&lt;input id=&quot;daysInput&quot; value=&quot;22&quot; type=&quot;number&quot; placeholder=&quot;Хэдэн өдөр ажилласан&quot; /&gt;
+&lt;input id=&quot;taxInput&quot; value=&quot;10&quot; type=&quot;number&quot; placeholder=&quot;Татвар (%)&quot; /&gt;
+&lt;button onclick=&quot;makeSlip()&quot;&gt;Цалин бодох&lt;/button&gt;
+
+&lt;article&gt;
+  &lt;h2 id=&quot;slipName&quot;&gt;Бат&lt;/h2&gt;
+  &lt;p id=&quot;gross&quot;&gt;Нийт цалин: 2112000₮&lt;/p&gt;
+  &lt;p id=&quot;tax&quot;&gt;Татвар: 211200₮&lt;/p&gt;
+  &lt;p id=&quot;net&quot;&gt;Гарт олгох: 1900800₮&lt;/p&gt;
+&lt;/article&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+    <p class="example">Жишээ утга: «Бат» · «12000» · «8» · «22» · «10»</p>
+
+    <p class="hint">💡 Нийт цалин = цагийн хөлс × цаг × өдөр. Татвар = нийт × хувь / 100. Гарт олгох = нийт − татвар. Нэрийг Number() болгох хэрэггүй.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span><span class="level l3">Хэцүү</span></div>
+    <h2>Аяллын төсөв</h2>
+    <p class="task">Найзуудтайгаа аялна. Хүний тоо, хэдэн хоног, буудлын 1 хоногийн үнэ, 1 хүний 1 өдрийн хоолны мөнгө, унааны нийт зардлыг бичээд товч дарахад буудал, хоол, нийт зардал, нэг хүнд ногдох мөнгө дөрвүүлээ гарна.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="perPerson"&gt;Нэг хүн: ?&lt;/h1&gt;
+
+&lt;input id="peopleInput" type="number" placeholder="Хэдэн хүн" /&gt;
+&lt;input id="daysInput" type="number" placeholder="Хэдэн хоног" /&gt;
+&lt;input id="hotelInput" type="number" placeholder="Буудал (1 хоног)" /&gt;
+&lt;input id="foodInput" type="number" placeholder="Хоол (1 хүн, 1 өдөр)" /&gt;
+&lt;input id="busInput" type="number" placeholder="Унаа (нийт)" /&gt;
+&lt;button onclick="planTrip()"&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id="hotelTotal"&gt;Буудал: ?&lt;/p&gt;
+&lt;p id="foodTotal"&gt;Хоол: ?&lt;/p&gt;
+&lt;p id="total"&gt;Нийт: ?&lt;/p&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;perPerson&quot;&gt;Нэг хүн: ?&lt;/h1&gt;
+
+&lt;input id=&quot;peopleInput&quot; type=&quot;number&quot; placeholder=&quot;Хэдэн хүн&quot; /&gt;
+&lt;input id=&quot;daysInput&quot; type=&quot;number&quot; placeholder=&quot;Хэдэн хоног&quot; /&gt;
+&lt;input id=&quot;hotelInput&quot; type=&quot;number&quot; placeholder=&quot;Буудал (1 хоног)&quot; /&gt;
+&lt;input id=&quot;foodInput&quot; type=&quot;number&quot; placeholder=&quot;Хоол (1 хүн, 1 өдөр)&quot; /&gt;
+&lt;input id=&quot;busInput&quot; type=&quot;number&quot; placeholder=&quot;Унаа (нийт)&quot; /&gt;
+&lt;button onclick=&quot;planTrip()&quot;&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id=&quot;hotelTotal&quot;&gt;Буудал: ?&lt;/p&gt;
+&lt;p id=&quot;foodTotal&quot;&gt;Хоол: ?&lt;/p&gt;
+&lt;p id=&quot;total&quot;&gt;Нийт: ?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ТОВЧ ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ТОВЧ ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;perPerson&quot;&gt;Нэг хүн: 230000₮&lt;/h1&gt;
+
+&lt;input id=&quot;peopleInput&quot; value=&quot;4&quot; type=&quot;number&quot; placeholder=&quot;Хэдэн хүн&quot; /&gt;
+&lt;input id=&quot;daysInput&quot; value=&quot;3&quot; type=&quot;number&quot; placeholder=&quot;Хэдэн хоног&quot; /&gt;
+&lt;input id=&quot;hotelInput&quot; value=&quot;120000&quot; type=&quot;number&quot; placeholder=&quot;Буудал (1 хоног)&quot; /&gt;
+&lt;input id=&quot;foodInput&quot; value=&quot;30000&quot; type=&quot;number&quot; placeholder=&quot;Хоол (1 хүн, 1 өдөр)&quot; /&gt;
+&lt;input id=&quot;busInput&quot; value=&quot;200000&quot; type=&quot;number&quot; placeholder=&quot;Унаа (нийт)&quot; /&gt;
+&lt;button onclick=&quot;planTrip()&quot;&gt;Тооцоолох&lt;/button&gt;
+
+&lt;p id=&quot;hotelTotal&quot;&gt;Буудал: 360000₮&lt;/p&gt;
+&lt;p id=&quot;foodTotal&quot;&gt;Хоол: 360000₮&lt;/p&gt;
+&lt;p id=&quot;total&quot;&gt;Нийт: 920000₮&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+    <p class="example">Жишээ утга: «4» · «3» · «120000» · «30000» · «200000»</p>
+
+    <p class="hint">💡 Буудал = 1 хоногийн үнэ × хоног. Хоол = хоолны мөнгө × хүн × хоног. Нийт = буудал + хоол + унаа. Нэг хүн = нийт / хүн.</p>
+  </section>
+</div>
+<script>
+  // Fit each screen to its content (the CSS height is the no-JS fallback)
+  document.querySelectorAll("iframe.demo").forEach(function (frame) {
+    function fit() {
+      var doc = frame.contentDocument;
+      if (!doc || !doc.body) return;
+      frame.style.height = "0px";
+      frame.style.height = doc.documentElement.scrollHeight + "px";
+    }
+    frame.addEventListener("load", fit);
+    window.addEventListener("resize", fit);
+    if (frame.contentDocument && frame.contentDocument.readyState === "complete") fit();
+  });
+</script>
+</body>
+</html>

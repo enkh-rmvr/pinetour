@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for давталт — 10 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 900px; margin: 0 auto; }
+
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+
+  .start { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 22px 26px; margin: 26px 0 40px; }
+  .start h3 { font-size: 14px; letter-spacing: .08em; color: #0D3B2F; margin-bottom: 10px; }
+  .start ol { padding-left: 22px; }
+  .start li { font-size: 15.5px; line-height: 1.85; }
+  .start code, .uses b, .hint code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
+  .start li code { background-color: #F0EDE6; border-radius: 4px; padding: 1px 6px; }
+
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; margin-top: 12px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 24px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; margin-bottom: 16px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin-bottom: 10px; }
+
+  /* prompt → alert / console жишээ */
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .arrow { color: #B8862A; font-size: 22px; font-weight: 700; }
+  .mock { border-radius: 10px; padding: 10px 14px; min-width: 180px; max-width: 100%; }
+  .mock .tag { display: block; font-family: ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; letter-spacing: .06em; margin-bottom: 4px; }
+  .mock p { font-size: 14.5px; color: #16130F; }
+  .prompt { background-color: #FFFFFF; border: 1.5px solid #DCD5C7; }
+  .prompt .tag { color: #0D3B2F; }
+  .prompt .field { margin-top: 6px; border: 1.5px solid #7FB59E; border-radius: 6px; padding: 4px 10px; font-weight: 700; color: #0D3B2F; background-color: #F3FAF6; }
+  .alert { background-color: #FFFFFF; border: 1.5px solid #E8C4B4; }
+  .alert .tag { color: #B03A1A; }
+  .alert .ok { display: inline-block; margin-top: 6px; background-color: #C0451B; color: #fff; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 12px; }
+  .console { background-color: #16130F; }
+  .console .tag { color: #8E8777; }
+  .console code { display: block; color: #9CD6A8; font-family: ui-monospace, Menlo, monospace; font-size: 14px; }
+
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+  .uses { margin-top: 14px; font-size: 14px; color: #8E8777; }
+  .uses b { color: #575146; }
+
+  details { margin-top: 14px; }
+  summary { display: inline-block; cursor: pointer; font-size: 13px; font-weight: 700; color: #7A5410;
+            background-color: #F8F0DB; border: 1px solid #E5D2A4; border-radius: 100px; padding: 4px 14px; }
+  summary:hover { background-color: #F2E6C6; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 12 · ДАВТАЛТ</p>
+  <h1>for давталт — 10 дасгал</h1>
+  <p class="lead">Зөвхөн for · if · % · && · `${ }` · console.log</p>
+
+  <div class="start">
+    <h3>ЭХЛЭХ</h3>
+    <ol>
+      <li>Шинэ хавтас нээгээд <code>index.html</code>, <code>script.js</code> гэсэн хоёр файл үүсгэ.</li>
+      <li><code>index.html</code>-д доорх кодыг хуул. <code>&lt;script&gt;</code> нь body-гийн хамгийн доор байна.</li>
+      <li>Дасгал бүрийг <code>script.js</code>-д бич. Дараагийн дасгал руу шилжихдээ өмнөхөө <code>/* */</code>-аар comment болго.</li>
+      <li>Console-оо нээ: <code>Cmd + Option + J</code>. Алдаа гарвал улаан мөрийг унш.</li>
+    </ol>
+    <pre>&lt;!doctype html&gt;
+&lt;html lang="mn"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;JS дасгал&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;JS дасгал&lt;/h1&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span></div>
+    <h2>Хөлбөмбөгийн ДАШТ ⚽</h2>
+    <p class="task">Хөлбөмбөгийн дэлхийн аварга шалгаруулах тэмцээн (ДАШТ) 4 жил тутам болдог. 2002 оноос 2026 он хүртэлх ДАШТ-ын онуудыг хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 2002</code><code>› 2006</code><code>› 2010</code><code>› 2014</code><code>› 2018</code><code>› 2022</code><code>› 2026</code></div></div>
+    <p class="hint">💡 for-ын 3 хэсгийг бод: хэднээс эхлэх вэ, хэзээ зогсох вэ, алхам бүрт хэдээр нэмэгдэх вэ? Заавал 1-ээр нэмэгдэх албагүй.</p>
+    <p class="uses">Хэрэглэх: <b>for</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span></div>
+    <h2>Үржүүлэх хүснэгт ✖️</h2>
+    <p class="task">9-ийн үржүүлэх хүснэгтийг 9 x 1-ээс 9 x 10 хүртэл яг доорх шиг хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 9 x 1 = 9</code><code>› 9 x 2 = 18</code><code>› 9 x 3 = 27</code><code>› 9 x 4 = 36</code><code>› 9 x 5 = 45</code><code>› 9 x 6 = 54</code><code>› 9 x 7 = 63</code><code>› 9 x 8 = 72</code><code>› 9 x 9 = 81</code><code>› 9 x 10 = 90</code></div></div>
+    <p class="hint">💡 i нь 1-ээс 10 хүртэл гүйнэ. Мөр бүрт хэвлэх хариу нь 9 × i.</p>
+    <p class="uses">Хэрэглэх: <b>for · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span></div>
+    <h2>Чихэр хуваах 🍬</h2>
+    <p class="task">Хайрцагт 20 чихэр байна. Найз бүр ээлжээрээ 2 чихэр авна. Хайрцагт хэдэн чихэр үлдэж байгааг эхнээс нь (20) дуустал (0) хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 20</code><code>› 18</code><code>› 16</code><code>› 14</code><code>› 12</code><code>› 10</code><code>› 8</code><code>› 6</code><code>› 4</code><code>› 2</code><code>› 0</code></div></div>
+    <p class="hint">💡 Энэ удаад тоо өсөхгүй, буурна. Алхам бүрт хэдээр хорогдох вэ? 0 ч гэсэн хэвлэгдэх ёстойг зогсох нөхцөлдөө анхаар.</p>
+    <p class="uses">Хэрэглэх: <b>for</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span></div>
+    <h2>3-аар төгссөн тоонууд</h2>
+    <p class="task">1-ээс 100 хүртэлх тоонуудаас сүүлийн цифр нь 3 байгаа тоонуудыг хэвлэ. Анхаар: 3-т хуваагддаг тоо биш — 3-аар ТӨГССӨН тоо.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 3</code><code>› 13</code><code>› 23</code><code>› 33</code><code>› 43</code><code>› 53</code><code>› 63</code><code>› 73</code><code>› 83</code><code>› 93</code></div></div>
+    <p class="hint">💡 Тооны сүүлийн цифрийг олох арга: 10-д хуваагаад үлдэгдлийг нь ав. Console дээр 23 % 10, 47 % 10 гэж бичээд үз.</p>
+    <p class="uses">Хэрэглэх: <b>for · if · %</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span></div>
+    <h2>3-т ч, 5-д ч</h2>
+    <p class="task">1-ээс 100 хүртэлх тоонуудаас 3-т ч, 5-д ч үлдэгдэлгүй хуваагддаг тоонуудыг хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 15</code><code>› 30</code><code>› 45</code><code>› 60</code><code>› 75</code><code>› 90</code></div></div>
+    <p class="hint">💡 Хоёр нөхцөл ЗЭРЭГ үнэн байх ёстой.</p>
+    <p class="uses">Хэрэглэх: <b>for · if · % · &amp;&amp;</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span></div>
+    <h2>Хэдэн ширхэг вэ?</h2>
+    <p class="task">1-ээс 100 хүртэлх тоонуудын дотор 7-д хуваагддаг тоо хэд байгааг тоол. Тоонуудыг биш, зөвхөн хэдэн ширхэг байгааг НЭГ мөрөөр хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 7-д хуваагддаг 14 тоо байна</code></div></div>
+    <p class="hint">💡 Давталтаас өмнө 0-ээс эхэлдэг тоолуур бэлд, олдох бүрт 1-ээр нэм. console.log-оо давталтын ДОТОР биш, ДАРАА нь бич — эс тэгвэл олон мөр гарна.</p>
+    <p class="uses">Хэрэглэх: <b>for · if · % · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span></div>
+    <h2>Гауссын нийлбэр</h2>
+    <p class="task">Математикч Гауссыг бага байхад нь багш нь 1-ээс 100 хүртэлх бүх тоог нэм гэж даалгасан гэдэг. Чи үүнийг for-оор хий: 1 + 2 + 3 + … + 100 = ?</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 1-ээс 100 хүртэлх тоонуудын нийлбэр: 5050</code></div></div>
+    <p class="hint">💡 Нийлбэрээ хадгалах хувьсагчийг давталтаас өмнө 0-ээр эхлүүл. Давталт бүрт түүн дээр одоогийн тоогоо нэм.</p>
+    <p class="uses">Хэрэглэх: <b>for · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span></div>
+    <h2>Шатар ба будаа ♟️</h2>
+    <p class="task">Шатрын самбарын эхний нүдэнд 1 ширхэг будаа тавина. Дараагийн нүд бүрт өмнөхөөсөө 2 дахин их будаа тавина. Эхний 10 нүдэнд хэдэн ширхэг будаа байхыг хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 1-р нүд: 1 ширхэг</code><code>› 2-р нүд: 2 ширхэг</code><code>› 3-р нүд: 4 ширхэг</code><code>› 4-р нүд: 8 ширхэг</code><code>› 5-р нүд: 16 ширхэг</code><code>› 6-р нүд: 32 ширхэг</code><code>› 7-р нүд: 64 ширхэг</code><code>› 8-р нүд: 128 ширхэг</code><code>› 9-р нүд: 256 ширхэг</code><code>› 10-р нүд: 512 ширхэг</code></div></div>
+    <p class="hint">💡 i бол нүдний дугаар. Будааны тоог тусдаа хувьсагчид хадгал: 1-ээс эхэлнэ, нүд бүрийн дараа 2 дахин өснө. Эхлээд хэвлэх үү, эхлээд өсгөх үү — дарааллыг нь бод.</p>
+    <p class="uses">Хэрэглэх: <b>for · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 9</span></div>
+    <h2>Од шат ⭐</h2>
+    <p class="task">Доорх шиг 5 мөр од хэвлэ: эхний мөрөнд 1, дараагийнх нь 2, … сүүлийнх нь 5 од.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› ⭐</code><code>› ⭐⭐</code><code>› ⭐⭐⭐</code><code>› ⭐⭐⭐⭐</code><code>› ⭐⭐⭐⭐⭐</code></div></div>
+    <p class="hint">💡 Хоосон текстээс ("") эхэл. Давталт бүрт текстэндээ нэг ⭐ нэмээд тэр даруй хэвлэ.</p>
+    <p class="uses">Хэрэглэх: <b>for</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 10</span></div>
+    <h2>Бууз, Хуушуур 🥟</h2>
+    <p class="task">1-ээс 15 хүртэлх тоог хэвлэ. Гэхдээ 3-т хуваагддаг бол тооны оронд «Бууз», 5-д хуваагддаг бол «Хуушуур», хоёуланд нь хуваагддаг бол «Бууз Хуушуур» гэж хэвлэ.</p>
+    <p class="label">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 1</code><code>› 2</code><code>› Бууз</code><code>› 4</code><code>› Хуушуур</code><code>› Бууз</code><code>› 7</code><code>› 8</code><code>› Бууз</code><code>› Хуушуур</code><code>› 11</code><code>› Бууз</code><code>› 13</code><code>› 14</code><code>› Бууз Хуушуур</code></div></div>
+    <p class="hint">💡 Хамгийн нарийн нөхцөлийг (3-т ч, 5-д ч) ЭХЛЭЭД шалга. Дараалал буруу бол 15 дээр зөвхөн «Бууз» гарна.</p>
+    <p class="uses">Хэрэглэх: <b>for · if · else if · else · %</b></p>
+  </section>
+</div>
+</body>
+</html>

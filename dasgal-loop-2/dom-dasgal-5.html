@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM × JavaScript — 10 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 980px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+  .lead code, .rules code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background-color: #EBE6DC; border-radius: 4px; padding: 1px 6px; }
+  .rules { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 12px; padding: 18px 24px; margin: 24px 0 36px; }
+  .rules li { font-size: 15.5px; line-height: 1.85; margin-left: 20px; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 26px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin: 20px 0 8px; }
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .shots { display: flex; flex-wrap: wrap; align-items: center; gap: 0 14px; }
+  .shot { width: 420px; max-width: 100%; }
+  .arrow { color: #B8862A; font-size: 28px; font-weight: 700; padding-top: 30px; }
+  .demo { display: block; width: 100%; height: 300px; border: 0; border-radius: 12px; background-color: #FFFFFF;
+          box-shadow: 0 0 0 3px #16130F; pointer-events: none; }
+  .example { margin-top: 14px; font-size: 15px; }
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .cases { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14.5px; }
+  .cases th { text-align: left; font-size: 11.5px; letter-spacing: .1em; color: #8E8777; font-weight: 700; padding: 6px 10px; border-bottom: 2px solid #DCD5C7; }
+  .cases td { padding: 7px 10px; border-bottom: 1px solid #EBE6DC; vertical-align: top; }
+  .cases td:first-child { font-family: ui-monospace, Menlo, monospace; color: #0D3B2F; white-space: nowrap; }
+  .cases td:last-child { font-weight: 600; color: #16130F; }
+  .check { width: 18px; height: 18px; border: 2px solid #BCD2C9; border-radius: 4px; display: inline-block; vertical-align: middle; }
+
+  .recipe { background-color: #FFFDF8; border: 2px solid #0D3B2F; border-radius: 14px; padding: 4px 26px 20px; margin: -12px 0 36px; }
+  .recipe ul { margin-top: 14px; }
+  .recipe li { font-size: 15.5px; line-height: 1.85; margin-left: 20px; }
+  .recipe code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background-color: #EBE6DC; border-radius: 4px; padding: 1px 6px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ДАВТЛАГА · DOM</p>
+  <h1>DOM × JavaScript — 10 дасгал</h1>
+  <p class="lead"><code>getElementById</code> · <code>input.value</code> · <code>textContent</code> · <code>onclick</code> · <code>Number()</code> · <code>let</code></p>
+
+  <div class="rules">
+    <ol>
+      <li>HTML-ийг хуулж <code>index.html</code>-даа тавь. JavaScript-ээ <code>script.js</code>-д өөрөө бич.</li>
+      <li>Хуудсаа нээгээд жишээ утгуудыг бичиж, товчоо дар. «Шалгах жишээнүүд»-ийг нэг нэгээр нь хийж үз — бүгд зөв гарах ёстой.</li>
+      <li>Алдаа гарвал Console-оо нээ: <code>Cmd + Option + J</code></li>
+    </ol>
+  </div>
+
+  <div class="recipe">
+    <p class="label">DOM × JS — ҮРГЭЛЖ ЭНЭ 4 АЛХАМ</p>
+    <pre>&lt;!-- HTML: JS-ээс олох элементэд id өг --&gt;
+&lt;h1 id="title"&gt;Хот&lt;/h1&gt;
+&lt;input id="cityInput" type="text" /&gt;
+&lt;button onclick="show()"&gt;Харуулах&lt;/button&gt;
+
+// JS
+// 1. ОЛОХ — id-аар нь
+const title = document.getElementById("title");
+const cityInput = document.getElementById("cityInput");
+
+// 2. ДАРАХАД — товч дарахад энэ функц ажиллана
+function show() {
+  // 3. УНШИХ — input-ээс .value
+  const city = cityInput.value;
+
+  // 4. БИЧИХ — дэлгэц рүү .textContent
+  title.textContent = `Хот: ${city}`;
+}</pre>
+    <ul>
+      <li><code>.value</code> — зөвхөн input-д. <code>.textContent</code> — h1, p гэх мэт текстэнд.</li>
+      <li>input-ийн утгыг функцийн <b>ДОТОР</b> унш. Гадна уншвал хуудас нээгдэх үеийн хоосон утгыг авна.</li>
+      <li><code>input.value</code> нь текст: "2" + "3" = "23". Тоо хэрэгтэй бол <code>Number()</code>.</li>
+      <li>Товч дарах бүрт хадгалагдах утга (like, оноо) — функцийн <b>ГАДНА</b> <code>let</code>.</li>
+    </ul>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span></div>
+    <h2>Хаалганы хонх 🔔</h2>
+    <p class="task">«Хонх дарах» товч дарахад h1-ийн текст «🔔 Дин дон! Хэн нэгэн ирлээ» болж солигдоно.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="message"&gt;🚪 Хаалга&lt;/h1&gt;
+
+&lt;button onclick="ring()"&gt;Хонх дарах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;message&quot;&gt;🚪 Хаалга&lt;/h1&gt;
+
+&lt;button onclick=&quot;ring()&quot;&gt;Хонх дарах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;message&quot;&gt;🔔 Дин дон! Хэн нэгэн ирлээ&lt;/h1&gt;
+
+&lt;button onclick=&quot;ring()&quot;&gt;Хонх дарах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>Хонх дарах</td><td>🔔 Дин дон! Хэн нэгэн ирлээ</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 h1-ийг id-аар нь ол. Функц дотор түүний textContent-д шинэ текстээ өг.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span></div>
+    <h2>Гэрлэн дохио 🚦</h2>
+    <p class="task">Гурван товч бий. 🔴 дарахад «🔴 Зогс», 🟡 дарахад «🟡 Бэлд», 🟢 дарахад «🟢 Яв» гэж h1 дээр гарна.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="light"&gt;🚦&lt;/h1&gt;
+
+&lt;button id="redButton" onclick="showRed()"&gt;🔴&lt;/button&gt;
+&lt;button id="yellowButton" onclick="showYellow()"&gt;🟡&lt;/button&gt;
+&lt;button id="greenButton" onclick="showGreen()"&gt;🟢&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;light&quot;&gt;🚦&lt;/h1&gt;
+
+&lt;button id=&quot;redButton&quot; onclick=&quot;showRed()&quot;&gt;🔴&lt;/button&gt;
+&lt;button id=&quot;yellowButton&quot; onclick=&quot;showYellow()&quot;&gt;🟡&lt;/button&gt;
+&lt;button id=&quot;greenButton&quot; onclick=&quot;showGreen()&quot;&gt;🟢&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;light&quot;&gt;🔴 Зогс&lt;/h1&gt;
+
+&lt;button id=&quot;redButton&quot; onclick=&quot;showRed()&quot;&gt;🔴&lt;/button&gt;
+&lt;button id=&quot;yellowButton&quot; onclick=&quot;showYellow()&quot;&gt;🟡&lt;/button&gt;
+&lt;button id=&quot;greenButton&quot; onclick=&quot;showGreen()&quot;&gt;🟢&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>🔴</td><td>🔴 Зогс</td><td><span class="check"></span></td></tr><tr><td>🟡</td><td>🟡 Бэлд</td><td><span class="check"></span></td></tr><tr><td>🟢</td><td>🟢 Яв</td><td><span class="check"></span></td></tr><tr><td>🔴, дараа нь 🟢</td><td>🟢 Яв</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Гурван товч = гурван функц. Гурвуулаа НЭГ л h1-ийн текстийг солино.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span></div>
+    <h2>Нэрийн пайз 🏷️</h2>
+    <p class="task">Нэрээ бичээд «Пайз хийх» дарахад h1 дээр «👋 Намайг Бат гэдэг» гэж гарна.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="badge"&gt;🏷️ Нэрийн пайз&lt;/h1&gt;
+
+&lt;input id="nameInput" type="text" placeholder="Нэрээ бич" /&gt;
+&lt;button onclick="makeBadge()"&gt;Пайз хийх&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;badge&quot;&gt;🏷️ Нэрийн пайз&lt;/h1&gt;
+
+&lt;input id=&quot;nameInput&quot; type=&quot;text&quot; placeholder=&quot;Нэрээ бич&quot; /&gt;
+&lt;button onclick=&quot;makeBadge()&quot;&gt;Пайз хийх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;badge&quot;&gt;👋 Намайг Бат гэдэг&lt;/h1&gt;
+
+&lt;input id=&quot;nameInput&quot; value=&quot;Бат&quot; type=&quot;text&quot; placeholder=&quot;Нэрээ бич&quot; /&gt;
+&lt;button onclick=&quot;makeBadge()&quot;&gt;Пайз хийх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«Бат»</td><td>👋 Намайг Бат гэдэг</td><td><span class="check"></span></td></tr><tr><td>«Сараа»</td><td>👋 Намайг Сараа гэдэг</td><td><span class="check"></span></td></tr><tr><td>«Тэмүүлэн»</td><td>👋 Намайг Тэмүүлэн гэдэг</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 input-д бичсэнийг .value-аар уншина. Функцийн ДОТОР унш — тэгвэл товч дарах үеийн утгыг авна.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span></div>
+    <h2>Кофены аяга ☕</h2>
+    <p class="task">Кофе шопт аяган дээр нэр, ундааг чинь бичдэг. Нэр, ундаагаа бичээд «Захиалах» дарахад h1 дээр «☕ Бат — Латте» гэж гарна.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="cup"&gt;☕&lt;/h1&gt;
+
+&lt;input id="nameInput" type="text" placeholder="Нэр" /&gt;
+&lt;input id="drinkInput" type="text" placeholder="Ундаа" /&gt;
+&lt;button onclick="order()"&gt;Захиалах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;cup&quot;&gt;☕&lt;/h1&gt;
+
+&lt;input id=&quot;nameInput&quot; type=&quot;text&quot; placeholder=&quot;Нэр&quot; /&gt;
+&lt;input id=&quot;drinkInput&quot; type=&quot;text&quot; placeholder=&quot;Ундаа&quot; /&gt;
+&lt;button onclick=&quot;order()&quot;&gt;Захиалах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;cup&quot;&gt;☕ Бат — Латте&lt;/h1&gt;
+
+&lt;input id=&quot;nameInput&quot; value=&quot;Бат&quot; type=&quot;text&quot; placeholder=&quot;Нэр&quot; /&gt;
+&lt;input id=&quot;drinkInput&quot; value=&quot;Латте&quot; type=&quot;text&quot; placeholder=&quot;Ундаа&quot; /&gt;
+&lt;button onclick=&quot;order()&quot;&gt;Захиалах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«Бат» · «Латте»</td><td>☕ Бат — Латте</td><td><span class="check"></span></td></tr><tr><td>«Сараа» · «Капучино»</td><td>☕ Сараа — Капучино</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Хоёр input-ийг хоёуланг нь .value-аар уншаад `${ }`-ээр нэг текст болго.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span></div>
+    <h2>Ирэх жил хэдэн нас вэ? 🎂</h2>
+    <p class="task">Одоо хэдэн настайгаа бичээд «Тооцоолох» дарахад h1 дээр «Ирэх жил 18 нас хүрнэ 🎉» гэж гарна.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="result"&gt;🎂&lt;/h1&gt;
+
+&lt;input id="ageInput" type="number" placeholder="Одоо хэдэн настай вэ?" /&gt;
+&lt;button onclick="nextYear()"&gt;Тооцоолох&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;🎂&lt;/h1&gt;
+
+&lt;input id=&quot;ageInput&quot; type=&quot;number&quot; placeholder=&quot;Одоо хэдэн настай вэ?&quot; /&gt;
+&lt;button onclick=&quot;nextYear()&quot;&gt;Тооцоолох&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;result&quot;&gt;Ирэх жил 18 нас хүрнэ 🎉&lt;/h1&gt;
+
+&lt;input id=&quot;ageInput&quot; value=&quot;17&quot; type=&quot;number&quot; placeholder=&quot;Одоо хэдэн настай вэ?&quot; /&gt;
+&lt;button onclick=&quot;nextYear()&quot;&gt;Тооцоолох&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«17»</td><td>Ирэх жил 18 нас хүрнэ 🎉</td><td><span class="check"></span></td></tr><tr><td>«9»</td><td>Ирэх жил 10 нас хүрнэ 🎉</td><td><span class="check"></span></td></tr><tr><td>«0»</td><td>Ирэх жил 1 нас хүрнэ 🎉</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 input.value үргэлж ТЕКСТ байдаг: "17" + 1 = "171" болно. Нэмэхээсээ өмнө Number()-ээр тоо болго.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span></div>
+    <h2>Like товч ❤️</h2>
+    <p class="task">«👍 Like» дарах бүрт h1 дээрх тоо 1-ээр нэмэгдэнэ: ❤️ 1, ❤️ 2, ❤️ 3 …</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="likes"&gt;❤️ 0&lt;/h1&gt;
+
+&lt;button onclick="like()"&gt;👍 Like&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;likes&quot;&gt;❤️ 0&lt;/h1&gt;
+
+&lt;button onclick=&quot;like()&quot;&gt;👍 Like&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;likes&quot;&gt;❤️ 3&lt;/h1&gt;
+
+&lt;button onclick=&quot;like()&quot;&gt;👍 Like&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>Like ×3</td><td>❤️ 3</td><td><span class="check"></span></td></tr><tr><td>Like ×1</td><td>❤️ 1</td><td><span class="check"></span></td></tr><tr><td>Like ×10</td><td>❤️ 10</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Like-ын тоог хадгалах хувьсагчийг функцийн ГАДНА let-ээр зарла. Функц дотор зарлавал товч дарах бүрт 0-ээс эхэлнэ.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span></div>
+    <h2>Дууны чанга 🔊</h2>
+    <p class="task">Дуу 5-аас эхэлнэ. ➕ дарвал 1-ээр чангарч, ➖ дарвал 1-ээр намсна. Гэхдээ 10-аас их, 0-ээс бага болохгүй.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="volume"&gt;🔊 5&lt;/h1&gt;
+
+&lt;button id="downButton" onclick="volumeDown()"&gt;➖&lt;/button&gt;
+&lt;button id="upButton" onclick="volumeUp()"&gt;➕&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;volume&quot;&gt;🔊 5&lt;/h1&gt;
+
+&lt;button id=&quot;downButton&quot; onclick=&quot;volumeDown()&quot;&gt;➖&lt;/button&gt;
+&lt;button id=&quot;upButton&quot; onclick=&quot;volumeUp()&quot;&gt;➕&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;volume&quot;&gt;🔊 7&lt;/h1&gt;
+
+&lt;button id=&quot;downButton&quot; onclick=&quot;volumeDown()&quot;&gt;➖&lt;/button&gt;
+&lt;button id=&quot;upButton&quot; onclick=&quot;volumeUp()&quot;&gt;➕&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>➕ ×2</td><td>🔊 7</td><td><span class="check"></span></td></tr><tr><td>➖ ×3</td><td>🔊 2</td><td><span class="check"></span></td></tr><tr><td>➕ ×8</td><td>🔊 10</td><td><span class="check"></span></td></tr><tr><td>➖ ×7</td><td>🔊 0</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Moving star-ын хана шиг: нэмэхээсээ өмнө 10-д хүрээгүй эсэхийг, хасахаасаа өмнө 0 болоогүй эсэхийг if-ээр шалга.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span></div>
+    <h2>Бууз захиалга 🥟</h2>
+    <p class="task">Нэг бууз 1500₮. «+1 бууз» дарах бүрт тоо нь нэмэгдэж, нийт үнэ нь h1 дээр гарна. «Цэвэрлэх» дарвал 0 болно.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="order"&gt;🥟 0 бууз · 0₮&lt;/h1&gt;
+
+&lt;button id="addButton" onclick="addBuuz()"&gt;+1 бууз&lt;/button&gt;
+&lt;button id="clearButton" onclick="clearOrder()"&gt;Цэвэрлэх&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;order&quot;&gt;🥟 0 бууз · 0₮&lt;/h1&gt;
+
+&lt;button id=&quot;addButton&quot; onclick=&quot;addBuuz()&quot;&gt;+1 бууз&lt;/button&gt;
+&lt;button id=&quot;clearButton&quot; onclick=&quot;clearOrder()&quot;&gt;Цэвэрлэх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;order&quot;&gt;🥟 3 бууз · 4500₮&lt;/h1&gt;
+
+&lt;button id=&quot;addButton&quot; onclick=&quot;addBuuz()&quot;&gt;+1 бууз&lt;/button&gt;
+&lt;button id=&quot;clearButton&quot; onclick=&quot;clearOrder()&quot;&gt;Цэвэрлэх&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>+1 ×3</td><td>🥟 3 бууз · 4500₮</td><td><span class="check"></span></td></tr><tr><td>+1 ×10</td><td>🥟 10 бууз · 15000₮</td><td><span class="check"></span></td></tr><tr><td>+1 ×2, Цэвэрлэх, +1</td><td>🥟 1 бууз · 1500₮</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Ганц хувьсагч хангалттай — буузны тоо. Үнийг хадгалах хэрэггүй: тоог 1500-аар үржүүлээд шууд бод.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 9</span></div>
+    <h2>Унтраалга 💡</h2>
+    <p class="task">Ганц товч бий. Дарвал гэрэл асна («💡 Асаалттай»), дахиад дарвал унтарна («🌑 Унтарсан»), дахиад дарвал асна …</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="lamp"&gt;🌑 Унтарсан&lt;/h1&gt;
+
+&lt;button onclick="toggleLamp()"&gt;🔘 Унтраалга&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;lamp&quot;&gt;🌑 Унтарсан&lt;/h1&gt;
+
+&lt;button onclick=&quot;toggleLamp()&quot;&gt;🔘 Унтраалга&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;lamp&quot;&gt;💡 Асаалттай&lt;/h1&gt;
+
+&lt;button onclick=&quot;toggleLamp()&quot;&gt;🔘 Унтраалга&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>×1</td><td>💡 Асаалттай</td><td><span class="check"></span></td></tr><tr><td>×2</td><td>🌑 Унтарсан</td><td><span class="check"></span></td></tr><tr><td>×3</td><td>💡 Асаалттай</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Гэрэл асаалттай эсэхийг true / false хувьсагчид хадгал. Дарах бүрт ! -ээр эсрэгээр нь эргүүлээд, if-ээр аль текстийг харуулахаа шийд.</p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 10</span></div>
+    <h2>Батарей 🔋</h2>
+    <p class="task">0-ээс 5 хүртэлх тоо бичээд «Харуулах» дарахад батарей 5 нүдээр зурагдана: 3 бол «🔋 🟩🟩🟩⬜⬜».</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;h1 id="battery"&gt;🔋&lt;/h1&gt;
+
+&lt;input id="levelInput" type="number" placeholder="0-5" /&gt;
+&lt;button onclick="showBattery()"&gt;Харуулах&lt;/button&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;battery&quot;&gt;🔋&lt;/h1&gt;
+
+&lt;input id=&quot;levelInput&quot; type=&quot;number&quot; placeholder=&quot;0-5&quot; /&gt;
+&lt;button onclick=&quot;showBattery()&quot;&gt;Харуулах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;h1 id=&quot;battery&quot;&gt;🔋 🟩🟩🟩⬜⬜&lt;/h1&gt;
+
+&lt;input id=&quot;levelInput&quot; value=&quot;3&quot; type=&quot;number&quot; placeholder=&quot;0-5&quot; /&gt;
+&lt;button onclick=&quot;showBattery()&quot;&gt;Харуулах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«3»</td><td>🔋 🟩🟩🟩⬜⬜</td><td><span class="check"></span></td></tr><tr><td>«5»</td><td>🔋 🟩🟩🟩🟩🟩</td><td><span class="check"></span></td></tr><tr><td>«1»</td><td>🔋 🟩⬜⬜⬜⬜</td><td><span class="check"></span></td></tr><tr><td>«0»</td><td>🔋 ⬜⬜⬜⬜⬜</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Moving star-ын зам шиг: давталтаас өмнө хоосон текст бэлд. 5 нүдийг for-оор зур — i нь бичсэн тооноос бага буюу тэнцүү бол 🟩, үгүй бол ⬜.</p>
+  </section>
+</div>
+<script>
+  // Fit each screen to its content (the CSS height is the no-JS fallback)
+  document.querySelectorAll("iframe.demo").forEach(function (frame) {
+    function fit() {
+      var doc = frame.contentDocument;
+      if (!doc || !doc.body) return;
+      frame.style.height = "0px";
+      frame.style.height = doc.documentElement.scrollHeight + "px";
+    }
+    frame.addEventListener("load", fit);
+    window.addEventListener("resize", fit);
+    if (frame.contentDocument && frame.contentDocument.readyState === "complete") fit();
+  });
+</script>
+</body>
+</html>

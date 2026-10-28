@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript — 20 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 900px; margin: 0 auto; }
+
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+
+  .start { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 22px 26px; margin: 26px 0 40px; }
+  .start h3 { font-size: 14px; letter-spacing: .08em; color: #0D3B2F; margin-bottom: 10px; }
+  .start ol { padding-left: 22px; }
+  .start li { font-size: 15.5px; line-height: 1.85; }
+  .start code, .uses b, .hint code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
+  .start li code { background-color: #F0EDE6; border-radius: 4px; padding: 1px 6px; }
+
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; margin-top: 12px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 24px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; margin-bottom: 16px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin-bottom: 10px; }
+
+  /* prompt → alert / console жишээ */
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .arrow { color: #B8862A; font-size: 22px; font-weight: 700; }
+  .mock { border-radius: 10px; padding: 10px 14px; min-width: 180px; max-width: 100%; }
+  .mock .tag { display: block; font-family: ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; letter-spacing: .06em; margin-bottom: 4px; }
+  .mock p { font-size: 14.5px; color: #16130F; }
+  .prompt { background-color: #FFFFFF; border: 1.5px solid #DCD5C7; }
+  .prompt .tag { color: #0D3B2F; }
+  .prompt .field { margin-top: 6px; border: 1.5px solid #7FB59E; border-radius: 6px; padding: 4px 10px; font-weight: 700; color: #0D3B2F; background-color: #F3FAF6; }
+  .alert { background-color: #FFFFFF; border: 1.5px solid #E8C4B4; }
+  .alert .tag { color: #B03A1A; }
+  .alert .ok { display: inline-block; margin-top: 6px; background-color: #C0451B; color: #fff; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 12px; }
+  .console { background-color: #16130F; }
+  .console .tag { color: #8E8777; }
+  .console code { display: block; color: #9CD6A8; font-family: ui-monospace, Menlo, monospace; font-size: 14px; }
+
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+  .uses { margin-top: 14px; font-size: 14px; color: #8E8777; }
+  .uses b { color: #575146; }
+
+  details { margin-top: 14px; }
+  summary { display: inline-block; cursor: pointer; font-size: 13px; font-weight: 700; color: #7A5410;
+            background-color: #F8F0DB; border: 1px solid #E5D2A4; border-radius: 100px; padding: 4px 14px; }
+  summary:hover { background-color: #F2E6C6; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 09 · JAVASCRIPT</p>
+  <h1>JavaScript — 20 дасгал</h1>
+  <p class="lead">Дунд 10 · Хэцүү 10 · Зөвхөн console.log — alert ашиглахгүй</p>
+
+  <div class="start">
+    <h3>ЭХЛЭХ</h3>
+    <ol>
+      <li>Шинэ хавтас нээгээд <code>index.html</code>, <code>script.js</code> гэсэн хоёр файл үүсгэ.</li>
+      <li><code>index.html</code>-д доорх кодыг хуул. <code>&lt;script&gt;</code> нь body-гийн хамгийн доор байна.</li>
+      <li>Дасгал бүрийг <code>script.js</code>-д бич. Дараагийн дасгал руу шилжихдээ өмнөхөө <code>/* */</code>-аар comment болго.</li>
+      <li>Console-оо нээ: <code>Cmd + Option + J</code>. Алдаа гарвал улаан мөрийг унш.</li>
+    </ol>
+    <pre>&lt;!doctype html&gt;
+&lt;html lang="mn"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;JS дасгал&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;JS дасгал&lt;/h1&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div>
+
+  <h2 class="group">Дунд — 10 дасгал</h2>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span><span class="level l2">Дунд</span></div>
+    <h2>Цельс → Фаренгейт</h2>
+    <p class="task">Цельсийн хэмийг асуугаад Фаренгейт рүү хөрвүүл.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн хэм (°C)?</p><div class="field">25</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 25°C = 77°F</code></div></div>
+    <p class="hint">💡 F = C × 9 / 5 + 32</p>
+    <p class="uses">Хэрэглэх: <b>Number() · * · / · +</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const celsius = Number(prompt("Хэдэн хэм (°C)?"));
+
+const fahrenheit = celsius * 9 / 5 + 32;
+
+console.log(celsius + "°C = " + fahrenheit + "°F");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span><span class="level l2">Дунд</span></div>
+    <h2>Километр → метр, сантиметр</h2>
+    <p class="task">Зайг километрээр асуугаад метр, сантиметрээр бич.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн км?</p><div class="field">3</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 3 км = 3000 м = 300000 см</code></div></div>
+    <p class="hint">💡 1 км = 1000 м, 1 м = 100 см</p>
+    <p class="uses">Хэрэглэх: <b>Number() · *</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const km = Number(prompt("Хэдэн км?"));
+
+const meters = km * 1000;
+const centimeters = meters * 100;
+
+console.log(km + " км = " + meters + " м = " + centimeters + " см");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span><span class="level l2">Дунд</span></div>
+    <h2>Дугуйн талбай</h2>
+    <p class="task">Тойргийн радиусыг асуугаад талбайг нь ол. π-г 3.14 гэж ав.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Радиус?</p><div class="field">10</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Талбай: 314</code></div></div>
+    <p class="hint">💡 Талбай = r × r × 3.14</p>
+    <p class="uses">Хэрэглэх: <b>Number() · *</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const radius = Number(prompt("Радиус?"));
+
+const area = radius * radius * 3.14;
+
+console.log("Талбай: " + area);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span><span class="level l2">Дунд</span></div>
+    <h2>Сарын цалин</h2>
+    <p class="task">Цагийн хөлс, өдөрт хэдэн цаг, сард хэдэн өдөр ажилладгийг асуугаад сарын цалинг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Цагийн хөлс?</p><div class="field">12000</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Өдөрт хэдэн цаг?</p><div class="field">8</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Сард хэдэн өдөр?</p><div class="field">22</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Сарын цалин: 2112000₮</code></div></div>
+    
+    <p class="uses">Хэрэглэх: <b>Number() · *</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const hourly = Number(prompt("Цагийн хөлс?"));
+const hours = Number(prompt("Өдөрт хэдэн цаг?"));
+const days = Number(prompt("Сард хэдэн өдөр?"));
+
+const salary = hourly * hours * days;
+
+console.log("Сарын цалин: " + salary + "₮");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span><span class="level l2">Дунд</span></div>
+    <h2>Хадгаламж</h2>
+    <p class="task">Сар бүр хэдэн төгрөг хадгалахыг асуугаад 1 жил, 5 жилд хэд болохыг бич.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Сар бүр хэдийг хадгалах вэ?</p><div class="field">50000</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 1 жилд: 600000₮</code><code>› 5 жилд: 3000000₮</code></div></div>
+    
+    <p class="uses">Хэрэглэх: <b>Number() · * · хоёр console.log</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const monthly = Number(prompt("Сар бүр хэдийг хадгалах вэ?"));
+
+const oneYear = monthly * 12;
+const fiveYears = oneYear * 5;
+
+console.log("1 жилд: " + oneYear + "₮");
+console.log("5 жилд: " + fiveYears + "₮");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span><span class="level l2">Дунд</span></div>
+    <h2>Машины хурд</h2>
+    <p class="task">Явсан зам (км), зарцуулсан хугацааг (цаг) асуугаад дундаж хурдыг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн км явсан бэ?</p><div class="field">180</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн цаг явсан бэ?</p><div class="field">3</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Дундаж хурд: 60 км/ц</code></div></div>
+    <p class="hint">💡 Хурд = зам / хугацаа</p>
+    <p class="uses">Хэрэглэх: <b>Number() · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const distance = Number(prompt("Хэдэн км явсан бэ?"));
+const time = Number(prompt("Хэдэн цаг явсан бэ?"));
+
+const speed = distance / time;
+
+console.log("Дундаж хурд: " + speed + " км/ц");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span><span class="level l2">Дунд</span></div>
+    <h2>Насаа өдөр, цагаар</h2>
+    <p class="task">Насыг асуугаад ойролцоогоор хэдэн өдөр, хэдэн цаг амьдарсныг бич.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн настай вэ?</p><div class="field">18</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Өдөр: 6570</code><code>› Цаг: 157680</code></div></div>
+    <p class="hint">💡 1 жил = 365 өдөр, 1 өдөр = 24 цаг</p>
+    <p class="uses">Хэрэглэх: <b>Number() · *</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const age = Number(prompt("Хэдэн настай вэ?"));
+
+const days = age * 365;
+const hours = days * 24;
+
+console.log("Өдөр: " + days);
+console.log("Цаг: " + hours);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span><span class="level l2">Дунд</span></div>
+    <h2>Шалгалтын хувь</h2>
+    <p class="task">Нийт асуулт, зөв хариулсан тоог асуугаад хэдэн хувь авсныг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Нийт хэдэн асуулт?</p><div class="field">20</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Хэдийг зөв хариулсан бэ?</p><div class="field">17</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Үр дүн: 85%</code></div></div>
+    <p class="hint">💡 Хувь = зөв × 100 / нийт</p>
+    <p class="uses">Хэрэглэх: <b>Number() · * · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const total = Number(prompt("Нийт хэдэн асуулт?"));
+const correct = Number(prompt("Хэдийг зөв хариулсан бэ?"));
+
+const percent = correct * 100 / total;
+
+console.log("Үр дүн: " + percent + "%");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 9</span><span class="level l2">Дунд</span></div>
+    <h2>Концертын ашиг</h2>
+    <p class="task">Тасалбарын үнэ, зарагдсан тоо, зардлыг асуугаад орлого ба ашгийг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Тасалбарын үнэ?</p><div class="field">50000</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн тасалбар зарагдсан бэ?</p><div class="field">300</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Нийт зардал?</p><div class="field">4000000</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Орлого: 15000000₮</code><code>› Ашиг: 11000000₮</code></div></div>
+    <p class="hint">💡 Орлого = үнэ × тоо. Ашиг = орлого − зардал.</p>
+    <p class="uses">Хэрэглэх: <b>Number() · * · −</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const price = Number(prompt("Тасалбарын үнэ?"));
+const sold = Number(prompt("Хэдэн тасалбар зарагдсан бэ?"));
+const cost = Number(prompt("Нийт зардал?"));
+
+const revenue = price * sold;
+const profit = revenue - cost;
+
+console.log("Орлого: " + revenue + "₮");
+console.log("Ашиг: " + profit + "₮");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 10</span><span class="level l2">Дунд</span></div>
+    <h2>Хайрцаг</h2>
+    <p class="task">Хайрцагны урт, өргөн, өндрийг асуугаад эзэлхүүн ба гадаргуугийн талбайг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Урт?</p><div class="field">2</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Өргөн?</p><div class="field">3</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Өндөр?</p><div class="field">4</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Эзэлхүүн: 24</code><code>› Гадаргуу: 52</code></div></div>
+    <p class="hint">💡 Эзэлхүүн = a × b × c. Гадаргуу = 2 × (a×b + b×c + a×c)</p>
+    <p class="uses">Хэрэглэх: <b>Number() · * · + · хаалт</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const a = Number(prompt("Урт?"));
+const b = Number(prompt("Өргөн?"));
+const c = Number(prompt("Өндөр?"));
+
+const volume = a * b * c;
+const surface = 2 * (a * b + b * c + a * c);
+
+console.log("Эзэлхүүн: " + volume);
+console.log("Гадаргуу: " + surface);</pre></details>
+  </section>
+  <h2 class="group">Хэцүү — 10 дасгал</h2>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 11</span><span class="level l3">Хэцүү</span></div>
+    <h2>Секундыг задлах</h2>
+    <p class="task">Секундыг асуугаад хэдэн цаг, минут, секунд болохыг бич.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн секунд?</p><div class="field">3725</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 1 цаг 2 минут 5 секунд</code></div></div>
+    <p class="hint">💡 Эхлээд % 60-аар секундээ ол. Үлдсэнийг 60-д хуваавал минут. Тэр минутаас дахиад % 60.</p>
+    <p class="uses">Хэрэглэх: <b>% · − · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const total = Number(prompt("Хэдэн секунд?"));
+
+const seconds = total % 60;
+const totalMinutes = (total - seconds) / 60;
+
+const minutes = totalMinutes % 60;
+const hours = (totalMinutes - minutes) / 60;
+
+console.log(hours + " цаг " + minutes + " минут " + seconds + " секунд");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 12</span><span class="level l3">Хэцүү</span></div>
+    <h2>ATM — мөнгө задлах</h2>
+    <p class="task">Авах мөнгийг асуугаад 20000, 10000, 5000, 1000-ын дэвсгэртээр хэдэн ширхэг өгөхийг бич. Том дэвсгэртээс эхэл.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн төгрөг авах вэ?</p><div class="field">47000</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 20000₮ × 2</code><code>› 10000₮ × 0</code><code>› 5000₮ × 1</code><code>› 1000₮ × 2</code></div></div>
+    <p class="hint">💡 Ширхэг = (мөнгө − мөнгө % 20000) / 20000. Үлдэгдэл = мөнгө % 20000. Дараагийн дэвсгэрт рүү үлдэгдлээ дамжуул.</p>
+    <p class="uses">Хэрэглэх: <b>% · − · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const amount = Number(prompt("Хэдэн төгрөг авах вэ?"));
+
+const n20 = (amount - amount % 20000) / 20000;
+const rest20 = amount % 20000;
+
+const n10 = (rest20 - rest20 % 10000) / 10000;
+const rest10 = rest20 % 10000;
+
+const n5 = (rest10 - rest10 % 5000) / 5000;
+const rest5 = rest10 % 5000;
+
+const n1 = (rest5 - rest5 % 1000) / 1000;
+
+console.log("20000₮ × " + n20);
+console.log("10000₮ × " + n10);
+console.log("5000₮ × " + n5);
+console.log("1000₮ × " + n1);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 13</span><span class="level l3">Хэцүү</span></div>
+    <h2>Цифрүүдийн нийлбэр</h2>
+    <p class="task">Гурван оронтой тоо асуугаад цифрүүдийнх нь нийлбэрийг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Гурван оронтой тоо?</p><div class="field">472</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 4 + 7 + 2 = 13</code></div></div>
+    <p class="hint">💡 472 % 10 = 2 (нэгж). 472 % 100 = 72. (72 − 2) / 10 = 7 (арав). (472 − 72) / 100 = 4 (зуу).</p>
+    <p class="uses">Хэрэглэх: <b>% · − · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const n = Number(prompt("Гурван оронтой тоо?"));
+
+const ones = n % 10;
+const tens = (n % 100 - ones) / 10;
+const hundreds = (n - n % 100) / 100;
+
+const sum = hundreds + tens + ones;
+
+console.log(hundreds + " + " + tens + " + " + ones + " = " + sum);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 14</span><span class="level l3">Хэцүү</span></div>
+    <h2>Тоог урвуулах</h2>
+    <p class="task">Гурван оронтой тоо асуугаад урвуу дарааллаар нь бич. 472 → 274.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Гурван оронтой тоо?</p><div class="field">472</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 472 → 274</code></div></div>
+    <p class="hint">💡 Цифрүүдээ өмнөх дасгал шиг салга. Урвуу тоо = нэгж × 100 + арав × 10 + зуу.</p>
+    <p class="uses">Хэрэглэх: <b>% · − · / · *</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const n = Number(prompt("Гурван оронтой тоо?"));
+
+const ones = n % 10;
+const tens = (n % 100 - ones) / 10;
+const hundreds = (n - n % 100) / 100;
+
+const reversed = ones * 100 + tens * 10 + hundreds;
+
+console.log(n + " → " + reversed);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 15</span><span class="level l3">Хэцүү</span></div>
+    <h2>Утга солих</h2>
+    <p class="task">Хоёр тоо асуугаад a ба b-ийн утгыг хооронд нь соль. Солихын өмнө ба дараа нь хоёуланг нь бич.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>a?</p><div class="field">5</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>b?</p><div class="field">9</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Өмнө: a = 5, b = 9</code><code>› Дараа: a = 9, b = 5</code></div></div>
+    <p class="hint">💡 Хоёр аяганы усыг солихын тулд гурав дахь хоосон аяга хэрэгтэй.</p>
+    <p class="uses">Хэрэглэх: <b>let · гурав дахь хувьсагч</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>let a = Number(prompt("a?"));
+let b = Number(prompt("b?"));
+
+console.log("Өмнө: a = " + a + ", b = " + b);
+
+const temp = a;
+a = b;
+b = temp;
+
+console.log("Дараа: a = " + a + ", b = " + b);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 16</span><span class="level l3">Хэцүү</span></div>
+    <h2>Хэдэн сар амьдарсан бэ</h2>
+    <p class="task">Төрсөн он, сарыг асуугаад өнөөдрийг хүртэл (2026 оны 10-р сар) хэдэн сар амьдарсныг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Төрсөн он?</p><div class="field">2008</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Төрсөн сар (1–12)?</p><div class="field">3</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Та 223 сар амьдарчээ</code></div></div>
+    <p class="hint">💡 Сар = (2026 − он) × 12 + (10 − сар)</p>
+    <p class="uses">Хэрэглэх: <b>Number() · − · * · +</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const birthYear = Number(prompt("Төрсөн он?"));
+const birthMonth = Number(prompt("Төрсөн сар (1–12)?"));
+
+const currentYear = 2026;
+const currentMonth = 10;
+
+const months = (currentYear - birthYear) * 12 + (currentMonth - birthMonth);
+
+console.log("Та " + months + " сар амьдарчээ");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 17</span><span class="level l3">Хэцүү</span></div>
+    <h2>Зээлийн төлөлт</h2>
+    <p class="task">Зээлийн хэмжээ, хугацаа (сар), сарын хүүг (%) асуугаад нийт хүү, нийт төлөх дүн, сар бүрийн төлбөрийг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Зээлийн хэмжээ?</p><div class="field">1200000</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн сар?</p><div class="field">12</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Сарын хүү (%)?</p><div class="field">2</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Нийт хүү: 288000₮</code><code>› Нийт төлөх: 1488000₮</code><code>› Сар бүр: 124000₮</code></div></div>
+    <p class="hint">💡 Нийт хүү = зээл × хүү / 100 × сар</p>
+    <p class="uses">Хэрэглэх: <b>Number() · * · / · +</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const loan = Number(prompt("Зээлийн хэмжээ?"));
+const months = Number(prompt("Хэдэн сар?"));
+const rate = Number(prompt("Сарын хүү (%)?"));
+
+const interest = loan * rate / 100 * months;
+const total = loan + interest;
+const monthly = total / months;
+
+console.log("Нийт хүү: " + interest + "₮");
+console.log("Нийт төлөх: " + total + "₮");
+console.log("Сар бүр: " + monthly + "₮");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 18</span><span class="level l3">Хэцүү</span></div>
+    <h2>Кино хэзээ дуусах вэ</h2>
+    <p class="task">Кино эхлэх цаг, минут, киноны урт (минут)-ыг асуугаад хэдэн цагт дуусахыг ол. Шөнө дундыг давж болно.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Эхлэх цаг (0–23)?</p><div class="field">22</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Эхлэх минут?</p><div class="field">50</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Кино хэдэн минут?</p><div class="field">95</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Дуусах цаг: 0 цаг 25 минут</code></div></div>
+    <p class="hint">💡 Бүгдийг минут болго: 22 × 60 + 50 + 95. Нэг өдөр = 1440 минут, тиймээс % 1440.</p>
+    <p class="uses">Хэрэглэх: <b>% · − · / · *</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const startHour = Number(prompt("Эхлэх цаг (0–23)?"));
+const startMinute = Number(prompt("Эхлэх минут?"));
+const length = Number(prompt("Кино хэдэн минут?"));
+
+const end = (startHour * 60 + startMinute + length) % 1440;
+
+const endMinute = end % 60;
+const endHour = (end - endMinute) / 60;
+
+console.log("Дуусах цаг: " + endHour + " цаг " + endMinute + " минут");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 19</span><span class="level l3">Хэцүү</span></div>
+    <h2>Автобус</h2>
+    <p class="task">Аялалд хэдэн хүн явах, нэг автобус хэдэн суудалтайг асуугаад хэдэн автобус дүүрэх, хэдэн хүн үлдэхийг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн хүн явах вэ?</p><div class="field">130</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Автобус хэдэн суудалтай вэ?</p><div class="field">45</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Дүүрэн автобус: 2</code><code>› Үлдсэн хүн: 40</code></div></div>
+    <p class="hint">💡 Үлдсэн хүн = хүн % суудал</p>
+    <p class="uses">Хэрэглэх: <b>% · − · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const people = Number(prompt("Хэдэн хүн явах вэ?"));
+const seats = Number(prompt("Автобус хэдэн суудалтай вэ?"));
+
+const left = people % seats;
+const fullBuses = (people - left) / seats;
+
+console.log("Дүүрэн автобус: " + fullBuses);
+console.log("Үлдсэн хүн: " + left);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 20</span><span class="level l3">Хэцүү</span></div>
+    <h2>Цахилгааны төлбөр</h2>
+    <p class="task">Хэрэглэсэн кВт.ц, 1 кВт.ц-ийн үнэ, суурь хураамжийг асуу. Дээр нь 10% НӨАТ нэмээд нийт төлбөрийг алхам алхмаар бич.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн кВт.ц?</p><div class="field">250</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>1 кВт.ц-ийн үнэ?</p><div class="field">150</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Суурь хураамж?</p><div class="field">5000</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Хэрэглээ: 37500₮</code><code>› НӨАТ-гүй: 42500₮</code><code>› НӨАТ: 4250₮</code><code>› Төлөх: 46750₮</code></div></div>
+    <p class="hint">💡 НӨАТ = (хэрэглээ + хураамж) × 10 / 100</p>
+    <p class="uses">Хэрэглэх: <b>Number() · * · + · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const kwh = Number(prompt("Хэдэн кВт.ц?"));
+const price = Number(prompt("1 кВт.ц-ийн үнэ?"));
+const fee = Number(prompt("Суурь хураамж?"));
+
+const usage = kwh * price;
+const beforeTax = usage + fee;
+const tax = beforeTax * 10 / 100;
+const total = beforeTax + tax;
+
+console.log("Хэрэглээ: " + usage + "₮");
+console.log("НӨАТ-гүй: " + beforeTax + "₮");
+console.log("НӨАТ: " + tax + "₮");
+console.log("Төлөх: " + total + "₮");</pre></details>
+  </section>
+</div>
+</body>
+</html>

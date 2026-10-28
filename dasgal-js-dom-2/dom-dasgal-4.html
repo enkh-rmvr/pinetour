@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 980px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+  .lead code, .rules code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background-color: #EBE6DC; border-radius: 4px; padding: 1px 6px; }
+  .rules { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 12px; padding: 18px 24px; margin: 24px 0 36px; }
+  .rules li { font-size: 15.5px; line-height: 1.85; margin-left: 20px; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 26px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin: 20px 0 8px; }
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .shots { display: flex; flex-wrap: wrap; align-items: center; gap: 0 14px; }
+  .shot { width: 420px; max-width: 100%; }
+  .arrow { color: #B8862A; font-size: 28px; font-weight: 700; padding-top: 30px; }
+  .demo { display: block; width: 100%; height: 300px; border: 0; border-radius: 12px; background-color: #FFFFFF;
+          box-shadow: 0 0 0 3px #16130F; pointer-events: none; }
+  .example { margin-top: 14px; font-size: 15px; }
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .cases { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14.5px; }
+  .cases th { text-align: left; font-size: 11.5px; letter-spacing: .1em; color: #8E8777; font-weight: 700; padding: 6px 10px; border-bottom: 2px solid #DCD5C7; }
+  .cases td { padding: 7px 10px; border-bottom: 1px solid #EBE6DC; vertical-align: top; }
+  .cases td:first-child { font-family: ui-monospace, Menlo, monospace; color: #0D3B2F; white-space: nowrap; }
+  .cases td:last-child { font-weight: 600; color: #16130F; }
+  .check { width: 18px; height: 18px; border: 2px solid #BCD2C9; border-radius: 4px; display: inline-block; vertical-align: middle; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 10 · DOM</p>
+  <h1>DOM дасгал</h1>
+  <p class="lead"><code>getElementById</code> · <code>input.value</code> · <code>textContent</code> · <code>onclick</code> · <code>Number()</code> · <code>let</code></p>
+
+  <div class="rules">
+    <ol>
+      <li>HTML-ийг хуулж <code>index.html</code>-даа тавь. JavaScript-ээ <code>script.js</code>-д өөрөө бич.</li>
+      <li>Хуудсаа нээгээд жишээ утгуудыг бичиж, товчоо дар. «Шалгах жишээнүүд»-ийг дарааллаар нь яг хийж үз — бүгд зөв гарах ёстой. Эхлээд цаасан дээр бод.</li>
+      <li>Алдаа гарвал Console-оо нээ: <code>Cmd + Option + J</code></li>
+    </ol>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span></div>
+    <h2>Зээлийг сар сараар</h2>
+    <p class="task">Зээлийн хэмжээ, сарын хүү (%), сар бүр төлөх мөнгийг бичээд «Эхлүүлэх» дар. «Дараагийн сар ➜» дарах бүрт нэг сар өнгөрнө: үлдэгдэл дээр тухайн сарын хүү нэмэгдээд, сарын төлбөр хасагдана. Хэддэх сар, энэ сарын хүү, нийт төлсөн мөнгө, нийт төлсөн хүүг харуул. «Эхлүүлэх»-ийг дахин дарвал бүх зүйл шинээр эхэлнэ.</p>
+
+    <p class="label">HTML — хуулж ав</p>
+    <pre>&lt;input id="loanInput" type="number" placeholder="Зээлийн хэмжээ" /&gt;
+&lt;input id="rateInput" type="number" placeholder="Сарын хүү (%)" /&gt;
+&lt;input id="paymentInput" type="number" placeholder="Сар бүр төлөх" /&gt;
+&lt;button id="startButton" onclick="start()"&gt;Эхлүүлэх&lt;/button&gt;
+&lt;button id="nextButton" onclick="nextMonth()"&gt;Дараагийн сар ➜&lt;/button&gt;
+
+&lt;h1 id="balance"&gt;Үлдэгдэл: ?&lt;/h1&gt;
+&lt;p id="month"&gt;Сар: 0&lt;/p&gt;
+&lt;p id="interest"&gt;Энэ сарын хүү: ?&lt;/p&gt;
+&lt;p id="totals"&gt;Нийт төлсөн: 0₮ · Нийт хүү: 0₮&lt;/p&gt;</pre>
+
+    <div class="shots">
+      <div class="shot"><p class="label">ЭХЭНДЭЭ</p><iframe class="demo" tabindex="-1" title="ЭХЭНДЭЭ" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;input id=&quot;loanInput&quot; type=&quot;number&quot; placeholder=&quot;Зээлийн хэмжээ&quot; /&gt;
+&lt;input id=&quot;rateInput&quot; type=&quot;number&quot; placeholder=&quot;Сарын хүү (%)&quot; /&gt;
+&lt;input id=&quot;paymentInput&quot; type=&quot;number&quot; placeholder=&quot;Сар бүр төлөх&quot; /&gt;
+&lt;button id=&quot;startButton&quot; onclick=&quot;start()&quot;&gt;Эхлүүлэх&lt;/button&gt;
+&lt;button id=&quot;nextButton&quot; onclick=&quot;nextMonth()&quot;&gt;Дараагийн сар ➜&lt;/button&gt;
+
+&lt;h1 id=&quot;balance&quot;&gt;Үлдэгдэл: ?&lt;/h1&gt;
+&lt;p id=&quot;month&quot;&gt;Сар: 0&lt;/p&gt;
+&lt;p id=&quot;interest&quot;&gt;Энэ сарын хүү: ?&lt;/p&gt;
+&lt;p id=&quot;totals&quot;&gt;Нийт төлсөн: 0₮ · Нийт хүү: 0₮&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+      <span class="arrow">→</span>
+      <div class="shot"><p class="label">ДАРСНЫ ДАРАА</p><iframe class="demo" tabindex="-1" title="ДАРСНЫ ДАРАА" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;mn&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css&quot; /&gt;&lt;/head&gt;&lt;body class=&quot;container&quot;&gt;&lt;input id=&quot;loanInput&quot; value=&quot;1000000&quot; type=&quot;number&quot; placeholder=&quot;Зээлийн хэмжээ&quot; /&gt;
+&lt;input id=&quot;rateInput&quot; value=&quot;2&quot; type=&quot;number&quot; placeholder=&quot;Сарын хүү (%)&quot; /&gt;
+&lt;input id=&quot;paymentInput&quot; value=&quot;200000&quot; type=&quot;number&quot; placeholder=&quot;Сар бүр төлөх&quot; /&gt;
+&lt;button id=&quot;startButton&quot; onclick=&quot;start()&quot;&gt;Эхлүүлэх&lt;/button&gt;
+&lt;button id=&quot;nextButton&quot; onclick=&quot;nextMonth()&quot;&gt;Дараагийн сар ➜&lt;/button&gt;
+
+&lt;h1 id=&quot;balance&quot;&gt;Үлдэгдэл: 820000₮&lt;/h1&gt;
+&lt;p id=&quot;month&quot;&gt;Сар: 1&lt;/p&gt;
+&lt;p id=&quot;interest&quot;&gt;Энэ сарын хүү: 20000₮&lt;/p&gt;
+&lt;p id=&quot;totals&quot;&gt;Нийт төлсөн: 200000₮ · Нийт хүү: 20000₮&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    </div>
+
+    <p class="label">ШАЛГАХ ЖИШЭЭНҮҮД — бүгдийг нь туршаад үз</p>
+    <table class="cases"><thead><tr><th>БИЧИХ / ДАРАХ</th><th>ГАРАХ ЁСТОЙ</th><th>✓</th></tr></thead><tbody><tr><td>«1000000» «2» «200000», Эхлүүлэх, Дараагийн сар ×1</td><td>Үлдэгдэл: 820000₮ · Сар: 1 · Энэ сарын хүү: 20000₮ · Нийт төлсөн: 200000₮ · Нийт хүү: 20000₮</td><td><span class="check"></span></td></tr><tr><td>«1000000» «2» «200000», Эхлүүлэх</td><td>Үлдэгдэл: 1000000₮ · Сар: 0 · Энэ сарын хүү: 0₮ · Нийт төлсөн: 0₮ · Нийт хүү: 0₮</td><td><span class="check"></span></td></tr><tr><td>«1000000» «2» «200000», Эхлүүлэх, Дараагийн сар ×3</td><td>Үлдэгдэл: 449128₮ · Сар: 3 · Энэ сарын хүү: 12728₮ · Нийт төлсөн: 600000₮ · Нийт хүү: 49128₮</td><td><span class="check"></span></td></tr><tr><td>Эхлүүлэх, ×2, дахин Эхлүүлэх, ×1</td><td>Үлдэгдэл: 820000₮ · Сар: 1 · Энэ сарын хүү: 20000₮ · Нийт төлсөн: 200000₮ · Нийт хүү: 20000₮</td><td><span class="check"></span></td></tr><tr><td>«500000» «1» «100000», Эхлүүлэх, Дараагийн сар ×2</td><td>Үлдэгдэл: 309050₮ · Сар: 2 · Энэ сарын хүү: 4050₮ · Нийт төлсөн: 200000₮ · Нийт хүү: 9050₮</td><td><span class="check"></span></td></tr></tbody></table>
+
+    <p class="hint">💡 Энэ сарын хүү = үлдэгдэл × хувь / 100 — үлдэгдлийг өөрчлөхөөс ӨМНӨ бод. Шинэ үлдэгдэл = үлдэгдэл + хүү − төлбөр. Үлдэгдэл, сар, нийт төлсөн, нийт хүү — 4 let хувьсагч. «Эхлүүлэх» бүгдийг нь анхны утгаар нь тохируулна.</p>
+  </section>
+</div>
+<script>
+  // Fit each screen to its content (the CSS height is the no-JS fallback)
+  document.querySelectorAll("iframe.demo").forEach(function (frame) {
+    function fit() {
+      var doc = frame.contentDocument;
+      if (!doc || !doc.body) return;
+      frame.style.height = "0px";
+      frame.style.height = doc.documentElement.scrollHeight + "px";
+    }
+    frame.addEventListener("load", fit);
+    window.addEventListener("resize", fit);
+    if (frame.contentDocument && frame.contentDocument.readyState === "complete") fit();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM — 3 дасгал</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #f5f2ec;
+        color: #575146;
+        padding: 40px 20px 90px;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        line-height: 1.6;
+      }
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+      }
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: #b8862a;
+        margin-bottom: 6px;
+      }
+      h1 {
+        font-family: Georgia, serif;
+        font-size: 42px;
+        line-height: 1.15;
+        color: #b03a1a;
+        margin-bottom: 8px;
+      }
+      .lead {
+        font-size: 17px;
+      }
+      .lead code,
+      .rules code {
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 0.9em;
+        background-color: #ebe6dc;
+        border-radius: 4px;
+        padding: 1px 6px;
+      }
+      .rules {
+        background-color: #fffdf8;
+        border: 2px solid #dcd5c7;
+        border-radius: 12px;
+        padding: 18px 24px;
+        margin: 24px 0 36px;
+      }
+      .rules li {
+        font-size: 15.5px;
+        line-height: 1.85;
+        margin-left: 20px;
+      }
+
+      .ex {
+        background-color: #fffdf8;
+        border: 2px solid #dcd5c7;
+        border-radius: 14px;
+        padding: 24px 28px 26px;
+        margin-bottom: 26px;
+      }
+      .ex-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .num {
+        background-color: #b03a1a;
+        color: #fff;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 4px 12px;
+        border-radius: 100px;
+      }
+      .level {
+        font-size: 12.5px;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 100px;
+      }
+      .l1 {
+        background-color: #ddeee6;
+        color: #0d3b2f;
+      }
+      .l2 {
+        background-color: #f8f0db;
+        color: #7a5410;
+      }
+      .l3 {
+        background-color: #fae8e0;
+        color: #7e2a0d;
+      }
+      .ex h2 {
+        font-family: Georgia, serif;
+        font-size: 24px;
+        color: #0d3b2f;
+        margin-bottom: 4px;
+      }
+      .task {
+        font-size: 16.5px;
+      }
+      .label {
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: #0d3b2f;
+        margin: 20px 0 8px;
+      }
+      pre {
+        background-color: #16130f;
+        color: #ede7dc;
+        border-radius: 10px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .shots {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0 14px;
+      }
+      .shot {
+        width: 420px;
+        max-width: 100%;
+      }
+      .arrow {
+        color: #b8862a;
+        font-size: 28px;
+        font-weight: 700;
+        padding-top: 30px;
+      }
+      .demo {
+        display: block;
+        width: 100%;
+        height: 300px;
+        border: 0;
+        border-radius: 12px;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px #16130f;
+        pointer-events: none;
+      }
+      .example {
+        margin-top: 14px;
+        font-size: 15px;
+      }
+      .hint {
+        margin-top: 14px;
+        font-size: 15px;
+        background-color: #f8f0db;
+        border-radius: 8px;
+        padding: 8px 14px;
+        color: #5e4310;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <p class="eyebrow">ХИЧЭЭЛ 10 · DOM</p>
+      <h1>DOM — 3 дасгал</h1>
+      <p class="lead">
+        <code>getElementById</code> · <code>input.value</code> ·
+        <code>textContent</code> · <code>onclick</code> · <code>Number()</code>
+      </p>
+
+      <div class="rules">
+        <ol>
+          <li>
+            HTML-ийг хуулж <code>index.html</code>-даа тавь. JavaScript-ээ
+            <code>script.js</code>-д өөрөө бич.
+          </li>
+          <li>
+            Хуудсаа нээгээд жишээ утгуудыг бичиж, товчоо дар. «Товч дарсны
+            дараа» зурагтай адилхан болох ёстой.
+          </li>
+          <li>Алдаа гарвал Console-оо нээ: <code>Cmd + Option + J</code></li>
+        </ol>
+      </div>
+
+      <section class="ex">
+        <div class="ex-head">
+          <span class="num">ДАСГАЛ 1</span><span class="level l1">Амархан</span>
+        </div>
+        <h2>Бүтэн нэр</h2>
+        <p class="task">
+          Нэр, овгоо бичээд товч дарахад h1 дээр «Сайн уу, Бат Болд!» гэж гарна.
+        </p>
+
+        <p class="label">HTML — хуулж ав</p>
+        <pre>
+&lt;h1 id="greeting"&gt;Сайн уу!&lt;/h1&gt;
+
+&lt;input id="firstName" type="text" placeholder="Нэр" /&gt;
+&lt;input id="lastName" type="text" placeholder="Овог" /&gt;
+&lt;button onclick="showName()"&gt;Харуулах&lt;/button&gt;</pre
+        >
+
+        <div class="shots">
+          <div class="shot">
+            <p class="label">ЭХЭНДЭЭ</p>
+            <iframe
+              class="demo"
+              tabindex="-1"
+              title="ЭХЭНДЭЭ"
+              srcdoc='&lt;!doctype html&gt;&lt;html lang="mn"&gt;&lt;head&gt;&lt;meta charset="UTF-8" /&gt;&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" /&gt;&lt;/head&gt;&lt;body class="container"&gt;&lt;h1 id="greeting"&gt;Сайн уу!&lt;/h1&gt;
+
+&lt;input id="firstName" type="text" placeholder="Нэр" /&gt;
+&lt;input id="lastName" type="text" placeholder="Овог" /&gt;
+&lt;button onclick="showName()"&gt;Харуулах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;'
+            ></iframe>
+          </div>
+          <span class="arrow">→</span>
+          <div class="shot">
+            <p class="label">ТОВЧ ДАРСНЫ ДАРАА</p>
+            <iframe
+              class="demo"
+              tabindex="-1"
+              title="ТОВЧ ДАРСНЫ ДАРАА"
+              srcdoc='&lt;!doctype html&gt;&lt;html lang="mn"&gt;&lt;head&gt;&lt;meta charset="UTF-8" /&gt;&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" /&gt;&lt;/head&gt;&lt;body class="container"&gt;&lt;h1 id="greeting"&gt;Сайн уу, Бат Болд!&lt;/h1&gt;
+
+&lt;input id="firstName" value="Бат" type="text" placeholder="Нэр" /&gt;
+&lt;input id="lastName" value="Болд" type="text" placeholder="Овог" /&gt;
+&lt;button onclick="showName()"&gt;Харуулах&lt;/button&gt;&lt;/body&gt;&lt;/html&gt;'
+            ></iframe>
+          </div>
+        </div>
+        <p class="example">Жишээ утга: «Бат» · «Болд»</p>
+
+        <p class="hint">
+          💡 Хоёр input-ийн утгыг текстээр нийлүүл. Нэр, овгийн хооронд зай байх
+          ёстой.
+        </p>
+      </section>
+      <section class="ex">
+        <div class="ex-head">
+          <span class="num">ДАСГАЛ 2</span><span class="level l2">Дунд</span>
+        </div>
+        <h2>Профайл карт</h2>
+        <p class="task">
+          Нэр, төрсөн оноо бичээд товч дарахад картын нэр ба нас хоёулаа
+          солигдоно.
+        </p>
+
+        <p class="label">HTML — хуулж ав</p>
+        <pre>
+&lt;input id="nameInput" type="text" placeholder="Нэр" /&gt;
+&lt;input id="yearInput" type="number" placeholder="Төрсөн он" /&gt;
+&lt;button onclick="updateCard()"&gt;Шинэчлэх&lt;/button&gt;
+
+&lt;article&gt;
+  &lt;h2 id="cardName"&gt;Нэр&lt;/h2&gt;
+  &lt;p id="cardAge"&gt;? настай&lt;/p&gt;
+&lt;/article&gt;</pre
+        >
+
+        <div class="shots">
+          <div class="shot">
+            <p class="label">ЭХЭНДЭЭ</p>
+            <iframe
+              class="demo"
+              tabindex="-1"
+              title="ЭХЭНДЭЭ"
+              srcdoc='&lt;!doctype html&gt;&lt;html lang="mn"&gt;&lt;head&gt;&lt;meta charset="UTF-8" /&gt;&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" /&gt;&lt;/head&gt;&lt;body class="container"&gt;&lt;input id="nameInput" type="text" placeholder="Нэр" /&gt;
+&lt;input id="yearInput" type="number" placeholder="Төрсөн он" /&gt;
+&lt;button onclick="updateCard()"&gt;Шинэчлэх&lt;/button&gt;
+
+&lt;article&gt;
+  &lt;h2 id="cardName"&gt;Нэр&lt;/h2&gt;
+  &lt;p id="cardAge"&gt;? настай&lt;/p&gt;
+&lt;/article&gt;&lt;/body&gt;&lt;/html&gt;'
+            ></iframe>
+          </div>
+          <span class="arrow">→</span>
+          <div class="shot">
+            <p class="label">ТОВЧ ДАРСНЫ ДАРАА</p>
+            <iframe
+              class="demo"
+              tabindex="-1"
+              title="ТОВЧ ДАРСНЫ ДАРАА"
+              srcdoc='&lt;!doctype html&gt;&lt;html lang="mn"&gt;&lt;head&gt;&lt;meta charset="UTF-8" /&gt;&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" /&gt;&lt;/head&gt;&lt;body class="container"&gt;&lt;input id="nameInput" value="Сараа" type="text" placeholder="Нэр" /&gt;
+&lt;input id="yearInput" value="2008" type="number" placeholder="Төрсөн он" /&gt;
+&lt;button onclick="updateCard()"&gt;Шинэчлэх&lt;/button&gt;
+
+&lt;article&gt;
+  &lt;h2 id="cardName"&gt;Сараа&lt;/h2&gt;
+  &lt;p id="cardAge"&gt;18 настай&lt;/p&gt;
+&lt;/article&gt;&lt;/body&gt;&lt;/html&gt;'
+            ></iframe>
+          </div>
+        </div>
+        <p class="example">Жишээ утга: «Сараа» · «2008»</p>
+
+        <p class="hint">
+          💡 Нэг товч дарахад хоёр өөр элемент (h2 ба p) солигдоно. Нас = 2026 −
+          төрсөн он.
+        </p>
+      </section>
+      <section class="ex">
+        <div class="ex-head">
+          <span class="num">ДАСГАЛ 3</span><span class="level l3">Хэцүү</span>
+        </div>
+        <h2>Хоолны төлбөр хуваах</h2>
+        <p class="task">
+          Найзуудтайгаа хоол идлээ. Нийт төлбөр, гарын мөнгөний хувь, хүний тоог
+          бичээд товч дарахад гарын мөнгө, нийт дүн, нэг хүнд ногдох мөнгө
+          гурвуулаа гарна.
+        </p>
+
+        <p class="label">HTML — хуулж ав</p>
+        <pre>
+&lt;h1 id="each"&gt;Нэг хүн: ?&lt;/h1&gt;
+
+&lt;input id="billInput" type="number" placeholder="Нийт төлбөр" /&gt;
+&lt;input id="tipInput" type="number" placeholder="гарын мөнгө (%)" /&gt;
+&lt;input id="peopleInput" type="number" placeholder="Хүний тоо" /&gt;
+&lt;button onclick="split()"&gt;Хуваах&lt;/button&gt;
+
+&lt;p id="tip"&gt;гарын мөнгө: ?&lt;/p&gt;
+&lt;p id="total"&gt;Нийт: ?&lt;/p&gt;</pre
+        >
+
+        <div class="shots">
+          <div class="shot">
+            <p class="label">ЭХЭНДЭЭ</p>
+            <iframe
+              class="demo"
+              tabindex="-1"
+              title="ЭХЭНДЭЭ"
+              srcdoc='&lt;!doctype html&gt;&lt;html lang="mn"&gt;&lt;head&gt;&lt;meta charset="UTF-8" /&gt;&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" /&gt;&lt;/head&gt;&lt;body class="container"&gt;&lt;h1 id="each"&gt;Нэг хүн: ?&lt;/h1&gt;
+
+&lt;input id="billInput" type="number" placeholder="Нийт төлбөр" /&gt;
+&lt;input id="tipInput" type="number" placeholder="гарын мөнгө (%)" /&gt;
+&lt;input id="peopleInput" type="number" placeholder="Хүний тоо" /&gt;
+&lt;button onclick="split()"&gt;Хуваах&lt;/button&gt;
+
+&lt;p id="tip"&gt;гарын мөнгө: ?&lt;/p&gt;
+&lt;p id="total"&gt;Нийт: ?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;'
+            ></iframe>
+          </div>
+          <span class="arrow">→</span>
+          <div class="shot">
+            <p class="label">ТОВЧ ДАРСНЫ ДАРАА</p>
+            <iframe
+              class="demo"
+              tabindex="-1"
+              title="ТОВЧ ДАРСНЫ ДАРАА"
+              srcdoc='&lt;!doctype html&gt;&lt;html lang="mn"&gt;&lt;head&gt;&lt;meta charset="UTF-8" /&gt;&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" /&gt;&lt;/head&gt;&lt;body class="container"&gt;&lt;h1 id="each"&gt;Нэг хүн: 24750₮&lt;/h1&gt;
+
+&lt;input id="billInput" value="90000" type="number" placeholder="Нийт төлбөр" /&gt;
+&lt;input id="tipInput" value="10" type="number" placeholder="гарын мөнгө (%)" /&gt;
+&lt;input id="peopleInput" value="4" type="number" placeholder="Хүний тоо" /&gt;
+&lt;button onclick="split()"&gt;Хуваах&lt;/button&gt;
+
+&lt;p id="tip"&gt;гарын мөнгө: 9000₮&lt;/p&gt;
+&lt;p id="total"&gt;Нийт: 99000₮&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;'
+            ></iframe>
+          </div>
+        </div>
+        <p class="example">Жишээ утга: «90000» · «10» · «4»</p>
+
+        <p class="hint">
+          💡 гарын мөнгө = төлбөр × хувь / 100. Нийт = төлбөр + гарын мөнгө. Нэг
+          хүн = нийт / хүний тоо. Гурван input-ийн утга бүгд текст гэдгийг
+          санаарай.
+        </p>
+      </section>
+    </div>
+    <script>
+      // Fit each screen to its content (the CSS height is the no-JS fallback)
+      document.querySelectorAll("iframe.demo").forEach(function (frame) {
+        function fit() {
+          var doc = frame.contentDocument;
+          if (!doc || !doc.body) return;
+          frame.style.height = "0px";
+          frame.style.height = doc.documentElement.scrollHeight + "px";
+        }
+        frame.addEventListener("load", fit);
+        window.addEventListener("resize", fit);
+        if (
+          frame.contentDocument &&
+          frame.contentDocument.readyState === "complete"
+        )
+          fit();
+      });
+    </script>
+  </body>
+</html>

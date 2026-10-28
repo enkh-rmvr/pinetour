@@ -1,0 +1,877 @@
+style * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+#full-body {
+  margin: 0 auto;
+  width: 70%;
+  height: 100vh;
+}
+#navbar {
+  display: flex;
+  justify-content: right;
+  gap: 40px;
+  text-align: center;
+  padding-right: 130px;
+  padding-top: 40px;
+  align-items: center;
+}
+#hero {
+  background-image: url(laptoo.png);
+  background-size: 100% 100%;
+  height: 800px;
+  object-fit: cover;
+}
+.burger-btn {
+  display: none;
+}
+.nav-link {
+  text-decoration: none;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 600;
+  color: black;
+}
+.nav-button {
+  border: none;
+  width: 91px;
+  height: 40px;
+  background-color: #f84646;
+  border-radius: 5px;
+  color: white;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 600;
+}
+#hero-text {
+  display: flex;
+  flex-direction: column;
+  padding-top: 108px;
+  padding-left: 140px;
+  width: 700px;
+  column-gap: 0px;
+}
+#hero-title {
+  font-size: 65px;
+  font-family: "Outfit", sans-serif;
+}
+#hero-para {
+  font-size: 22px;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 300;
+}
+#search-box {
+  position: relative;
+  display: inline-block;
+  width: 65%;
+  height: 73px;
+  border-radius: 10px;
+}
+input {
+  width: 100%;
+  height: 73px;
+  font-size: 20px;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 200;
+  border: none;
+  border-radius: 8px;
+}
+::placeholder {
+  font-size: 20px;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 100;
+  padding-left: 20px;
+}
+#search-button {
+  position: absolute;
+  top: 51%;
+  right: 0px;
+  transform: translateY(-50%);
+  padding: 6px 12px;
+  height: 61px;
+  width: 30%;
+  border: none;
+  background-color: #f84646;
+  color: white;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 300;
+}
+#hero-2 {
+  padding-top: 100px;
+}
+#hero-2-tit-para {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#hero-2-tit {
+  width: 80%;
+  text-align: center;
+  font-size: 50px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+}
+#hero-2-para {
+  width: 80%;
+  text-align: center;
+  font-size: 30px;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 300;
+}
+#hero-2-icon-sec {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  padding-top: 80px;
+}
+.hero-2-icon-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  column-gap: 0;
+}
+.hero-2-icons {
+  width: 76px;
+  height: 76px;
+}
+#staricon {
+  border: 1px #7553ff solid;
+  background-color: #7553ff;
+  border-radius: 50%;
+}
+#barcharticon {
+  border: 1px #53acff solid;
+  background-color: #53acff;
+  border-radius: 50%;
+}
+#piecharticon {
+  border: 1px #ff5353 solid;
+  background-color: #ff5353;
+  border-radius: 50%;
+}
+#crownicon {
+  border: 1px #52c1ff solid;
+  background-color: #52c1ff;
+  border-radius: 50%;
+}
+#figmaicon {
+  border: 1px #ffba52 solid;
+  background-color: #ffba52;
+  border-radius: 50%;
+}
+#fileicon {
+  border: 1px #ff5392 solid;
+  background-color: #ff5392;
+  border-radius: 50%;
+}
+.hero-2-icon-tit {
+  text-align: center;
+  font-size: 28px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+}
+.hero-2-icon-desc {
+  text-align: center;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+}
+#red {
+  padding-top: 200px;
+}
+#red-thing {
+  background-image: url(red-thing-op.png);
+  background-color: #f84646;
+  background-blend-mode: lighten;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 500px;
+}
+#red-thing-tit-subtit {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding-top: 80px;
+}
+#red-thing-tit {
+  font-family: "Clarity City", sans-serif;
+  font-weight: 700;
+  font-size: 50px;
+  color: white;
+}
+#red-thing-subtit {
+  font-family: "Clarity City", sans-serif;
+  font-weight: 200;
+  font-size: 25px;
+  color: white;
+}
+#red-thing-row {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding-left: 90px;
+}
+.red-thing-row-text {
+  font-family: "Clarity City", sans-serif;
+  font-weight: 500;
+  font-size: 25px;
+  color: white;
+}
+.arrow-icon {
+  width: 20px;
+  height: 20px;
+  border: 3px white solid;
+  border-radius: 50%;
+  padding: 5px;
+}
+#lot-of-info {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 200px;
+}
+#lot-of-info-group {
+  display: flex;
+  justify-content: space-between;
+  height: 480px;
+}
+.lot-of-info-group-text {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+#group-text {
+  width: 40%;
+}
+#group-tit {
+  font-size: 60px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  transform: translateY(-40px);
+}
+#group-para {
+  font-size: 18px;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 300;
+  color: #808080;
+  transform: translateY(-40px);
+}
+#lot-of-info-nerd-on-laptop {
+  padding-top: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+.lot-of-info-but {
+  border: none;
+  width: 160px;
+  height: 48px;
+  background-color: #f84646;
+  border-radius: 5px;
+  color: white;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 600;
+}
+.lot-of-info-pic {
+  width: 45%;
+  height: 480px;
+}
+#sponsors {
+  width: 100%;
+  height: 603px;
+  margin: 0 auto;
+  background-color: #f4f5f7;
+  transform: translateY(200px);
+}
+.arrow-down {
+  display: none;
+}
+#sponsors-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#sponsors-tit {
+  font-size: 60px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+}
+#sponsors-para {
+  font-size: 15px;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 300;
+  transform: translateY(-50px);
+}
+#sponsor-list {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.sponsor-box {
+  width: 170px;
+  height: 96px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sponsor-logo {
+  width: 90%;
+  height: 90%;
+}
+.sponsor-box-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+#amazon {
+  height: 50%;
+}
+#bookmyshow {
+  height: 50%;
+}
+#ola {
+  height: 50%;
+}
+#bize-ulazin {
+  padding-top: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#but-but-but {
+  transform: translateY(0px);
+}
+#user-image {
+  width: 120px;
+  height: 120px;
+  border: 1px #f84646 solid;
+  background-color: #f84646;
+  border-radius: 50%;
+}
+#user-tit {
+  font-size: 60px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  transform: translateY(-50px);
+}
+#user-para {
+  font-size: 15px;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 300;
+  transform: translateY(-90px);
+}
+#group-text {
+  transform: translateY(0px);
+}
+.user-but {
+  border: none;
+  width: 200px;
+  height: 70px;
+  background-color: #f84646;
+  border-radius: 5px;
+  color: white;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  transform: translateY(-80px);
+}
+#footer {
+  width: 100%;
+  height: 570px;
+  background-color: #f84646;
+}
+#footer-list-cont {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-evenly;
+  margin-right: 200px;
+  margin-top: 100px;
+  padding-top: 70px;
+  padding-left: 50px;
+}
+.top-footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: white;
+  font-family: "Clarity City", sans-serif;
+}
+#sponsor-list-cont {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+}
+#footer-list-tit {
+  font-weight: 600;
+}
+#footer-list-bottom {
+  font-weight: 100;
+}
+#Copyright {
+  color: white;
+  font-family: "Clarity City", sans-serif;
+  font-weight: 400;
+  transform: translateX(-162px);
+}
+#footer-footer {
+  display: flex;
+  justify-content: space-around;
+  transform: translateY(60px);
+  align-items: center;
+}
+#footer-logo {
+  display: flex;
+  gap: 20px;
+  transform: translateX(-70px);
+  width: 32px;
+  height: 32px;
+}
+@media (max-width: 1024px) {
+  #full-body {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .arrow-down {
+    display: none;
+  }
+  #hero {
+    background-image: url(laptoo.png);
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+  }
+  #navbar {
+    flex-wrap: wrap;
+    padding-right: 30px;
+    padding-top: 30px;
+  }
+  .burger-btn {
+    display: none;
+  }
+  #hero-text {
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-60px);
+    width: 65%;
+    column-gap: 0px;
+  }
+  #red-thing {
+    background-image: url(red-thing-op.png);
+    background-color: #f84646;
+    background-blend-mode: lighten;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 500px;
+  }
+  #red-thing-tit-subtit {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding-top: 20px;
+  }
+  #red-thing-tit {
+    font-family: "Clarity City", sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+    color: white;
+  }
+  #red-thing-subtit {
+    font-family: "Clarity City", sans-serif;
+    font-weight: 200;
+    font-size: 25px;
+    color: white;
+  }
+  #red-thing-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding-top: 20px;
+    justify-content: center;
+  }
+  .red-thing-row-text {
+    font-family: "Clarity City", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+  }
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    border: 3px white solid;
+    border-radius: 50%;
+    padding: 5px;
+  }
+  #lot-of-info {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 200px;
+  }
+  #lot-of-info-group {
+    display: flex;
+    justify-content: space-between;
+    height: 600px;
+  }
+  .lot-of-info-group-text {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    transform: translateY(30px);
+  }
+  #group-text {
+    transform: translateY(22px);
+  }
+  #group-tit {
+    font-size: 45px;
+    font-family: "Outfit", sans-serif;
+    font-weight: 500;
+    transform: translateY(-60px);
+  }
+  #group-para {
+    font-size: 18px;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 300;
+    color: #808080;
+    transform: translateY(-60px);
+  }
+  #lot-of-info-nerd-on-laptop {
+    padding-top: 100px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .lot-of-info-but {
+    border: none;
+    width: 160px;
+    height: 48px;
+    background-color: #f84646;
+    border-radius: 5px;
+    color: white;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 600;
+  }
+  .lot-of-info-pic {
+    width: 45%;
+    height: 480px;
+  }
+  #but-but-but {
+    transform: translateY(-40px);
+  }
+  #sponsor-list-cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  #footer-list-cont {
+    display: flex;
+    flex-direction: row;
+    gap: 70px;
+    justify-content: space-evenly;
+    margin-right: 200px;
+    padding-top: 70px;
+    padding-left: 50px;
+  }
+  #footer {
+    width: 100%;
+    height: 630px;
+    background-color: #f84646;
+  }
+  #footer-footer {
+    display: flex;
+    justify-content: space-evenly;
+    transform: translateY(30px);
+    gap: 80px;
+    align-items: center;
+    padding-bottom: 50px;
+  }
+  #footer-logo {
+    display: flex;
+    gap: 20px;
+    transform: translateX(-70px);
+    width: 32px;
+    height: 32px;
+  }
+}
+@media (max-width: 440px) {
+  #hero {
+    background-image: url(laptoo.png);
+    background-size: cover;
+    background-position: 70% center;
+    width: 100%;
+    opacity: 0.8;
+  }
+  #navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    padding: 10px;
+    align-items: center;
+    gap: 150px;
+    transform: translateY(20px);
+  }
+  .nav-link {
+    text-decoration: none;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 600;
+    color: black;
+    display: none;
+  }
+  .nav-button {
+    border: none;
+    width: 91px;
+    height: 40px;
+    background-color: #f84646;
+    border-radius: 5px;
+    color: white;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 600;
+  }
+  .burger-btn {
+    display: inline;
+    border: none;
+    background: none;
+  }
+  .burger-bar {
+    width: 32px;
+    height: 32px;
+  }
+  #hero-text {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-140px);
+  }
+  #hero-title {
+    font-size: 45px;
+    font-family: "Outfit", sans-serif;
+  }
+  #hero-para {
+    font-size: 22px;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 300;
+  }
+  #search-box {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 73px;
+    border-radius: 10px;
+  }
+  input {
+    width: 87%;
+    transform: translateX(-4px);
+    height: 100%;
+    font-size: 20px;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 200;
+    border: none;
+    border-radius: 8px;
+  }
+  #search-button {
+    position: absolute;
+    top: 51%;
+    right: 35px;
+    transform: translateY(-50%);
+    padding: 6px 12px;
+    height: 85%;
+    width: 25%;
+    border: none;
+    background-color: #f84646;
+    color: white;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 300;
+  }
+  ::placeholder {
+    font-size: 17px;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 100;
+    padding-left: 15px;
+  }
+  #red-thing {
+    background-image: url(red-thing-op.png);
+    background-color: #f84646;
+    background-blend-mode: lighten;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 1400px;
+  }
+  #red-thing-tit-subtit {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding-top: 80px;
+  }
+  #red-thing-tit {
+    font-family: "Clarity City", sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+    color: white;
+  }
+  #red-thing-subtit {
+    font-family: "Clarity City", sans-serif;
+    font-weight: 200;
+    font-size: 25px;
+    color: white;
+  }
+  #red-thing-row {
+    transform: translateY(60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 40px;
+    padding-left: 0px;
+  }
+  .red-thing-row-text {
+    font-family: "Clarity City", sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: white;
+  }
+  .arrow-icon {
+    display: none;
+  }
+  .arrow-down {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px white solid;
+    border-radius: 50%;
+    padding: 5px;
+  }
+  #lot-of-info {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 100px;
+  }
+  #lot-of-info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+  .lot-of-info-group-text {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transform: translateY(40px);
+    text-align: center;
+  }
+  #group-text {
+    transform: translateY(0px);
+    width: 100%;
+  }
+  #group-tit {
+    font-size: 45px;
+    font-family: "Outfit", sans-serif;
+    font-weight: 500;
+    transform: translateY(-0px);
+  }
+  #group-para {
+    font-size: 18px;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 300;
+    color: #808080;
+    transform: translateY(-0px);
+  }
+  #lot-of-info-nerd-on-laptop {
+    padding-top: 300px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 75px;
+  }
+  .lot-of-info-but {
+    border: none;
+    width: 100%;
+    height: 48px;
+    background-color: #f84646;
+    border-radius: 5px;
+    color: white;
+    font-family: "Clarity City", sans-serif;
+    font-weight: 600;
+  }
+  .lot-of-info-pic {
+    width: 100%;
+    height: 340px;
+  }
+  #but-but-but {
+    transform: translateY(-0px);
+  }
+  #sponsors {
+    width: 100%;
+    height: 1300px;
+    margin: 0 auto;
+    background-color: #f4f5f7;
+    transform: translateY(200px);
+  }
+  #sponsors-tit {
+    font-size: 50px;
+  }
+  #sponsor-list-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .sponsor-box-cont {
+    gap: 10px;
+  }
+  #footer {
+    width: 100%;
+    height: 1700px;
+  }
+  #footer-list-cont {
+    flex-direction: column;
+    gap: 10px;
+  }
+  #footer-footer {
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    transform: translateX(200px);
+    align-items: flex-start;
+    transform: translateY(30px);
+  }
+  #Copyright {
+    transform: translateX(47px);
+  }
+  #footer-logo {
+    display: flex;
+    gap: 20px;
+    transform: translateX(47px);
+    width: 32px;
+    height: 32px;
+  }
+  .hero-2-icon-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    column-gap: 0;
+  }
+}

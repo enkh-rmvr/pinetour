@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript — 10 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 900px; margin: 0 auto; }
+
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+
+  .start { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 22px 26px; margin: 26px 0 40px; }
+  .start h3 { font-size: 14px; letter-spacing: .08em; color: #0D3B2F; margin-bottom: 10px; }
+  .start ol { padding-left: 22px; }
+  .start li { font-size: 15.5px; line-height: 1.85; }
+  .start code, .uses b, .hint code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
+  .start li code { background-color: #F0EDE6; border-radius: 4px; padding: 1px 6px; }
+
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; margin-top: 12px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 24px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; margin-bottom: 16px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin-bottom: 10px; }
+
+  /* prompt → alert / console жишээ */
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .arrow { color: #B8862A; font-size: 22px; font-weight: 700; }
+  .mock { border-radius: 10px; padding: 10px 14px; min-width: 180px; max-width: 100%; }
+  .mock .tag { display: block; font-family: ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; letter-spacing: .06em; margin-bottom: 4px; }
+  .mock p { font-size: 14.5px; color: #16130F; }
+  .prompt { background-color: #FFFFFF; border: 1.5px solid #DCD5C7; }
+  .prompt .tag { color: #0D3B2F; }
+  .prompt .field { margin-top: 6px; border: 1.5px solid #7FB59E; border-radius: 6px; padding: 4px 10px; font-weight: 700; color: #0D3B2F; background-color: #F3FAF6; }
+  .alert { background-color: #FFFFFF; border: 1.5px solid #E8C4B4; }
+  .alert .tag { color: #B03A1A; }
+  .alert .ok { display: inline-block; margin-top: 6px; background-color: #C0451B; color: #fff; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 12px; }
+  .console { background-color: #16130F; }
+  .console .tag { color: #8E8777; }
+  .console code { display: block; color: #9CD6A8; font-family: ui-monospace, Menlo, monospace; font-size: 14px; }
+
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+  .uses { margin-top: 14px; font-size: 14px; color: #8E8777; }
+  .uses b { color: #575146; }
+
+  details { margin-top: 14px; }
+  summary { display: inline-block; cursor: pointer; font-size: 13px; font-weight: 700; color: #7A5410;
+            background-color: #F8F0DB; border: 1px solid #E5D2A4; border-radius: 100px; padding: 4px 14px; }
+  summary:hover { background-color: #F2E6C6; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 09 · JAVASCRIPT</p>
+  <h1>JavaScript — 10 дасгал</h1>
+  <p class="lead">Хувьсагч · prompt · Number() · console.log · alert · арифметик</p>
+
+  <div class="start">
+    <h3>ЭХЛЭХ</h3>
+    <ol>
+      <li>Шинэ хавтас нээгээд <code>index.html</code>, <code>script.js</code> гэсэн хоёр файл үүсгэ.</li>
+      <li><code>index.html</code>-д доорх кодыг хуул. <code>&lt;script&gt;</code> нь body-гийн хамгийн доор байна.</li>
+      <li>Дасгал бүрийг <code>script.js</code>-д бич. Дараагийн дасгал руу шилжихдээ өмнөхөө <code>/* */</code>-аар comment болго.</li>
+      <li>Console-оо нээ: <code>Cmd + Option + J</code>. Алдаа гарвал улаан мөрийг унш.</li>
+    </ol>
+    <pre>&lt;!doctype html&gt;
+&lt;html lang="mn"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;JS дасгал&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;JS дасгал&lt;/h1&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span><span class="level l1">Амархан</span></div>
+    <h2>Мэнд хүргэх</h2>
+    <p class="task">Хэрэглэгчийн нэрийг асуугаад мэнд хүргэ.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Таны нэр хэн бэ?</p><div class="field">Сараа</div></div><span class="arrow">→</span><div class="mock alert"><span class="tag">alert</span><p><b>Сайн уу, Сараа!</b></p><span class="ok">OK</span></div></div>
+    
+    <p class="uses">Хэрэглэх: <b>prompt · alert · +</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const userName = prompt("Таны нэр хэн бэ?");
+
+alert("Сайн уу, " + userName + "!");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span><span class="level l1">Амархан</span></div>
+    <h2>Ирэх жилийн нас</h2>
+    <p class="task">Насыг нь асуугаад ирэх жил хэдэн настай болохыг хэл.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн настай вэ?</p><div class="field">20</div></div><span class="arrow">→</span><div class="mock alert"><span class="tag">alert</span><p><b>Ирэх жил 21 настай болно</b></p><span class="ok">OK</span></div></div>
+    <p class="hint">💡 «201» гарч байвал: Number() мартсан эсвэл (age + 1)-ийн хаалтыг мартсан.</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · alert</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const age = Number(prompt("Хэдэн настай вэ?"));
+
+alert("Ирэх жил " + (age + 1) + " настай болно");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span><span class="level l1">Амархан</span></div>
+    <h2>Хоёр тоо нэмэх</h2>
+    <p class="task">Хоёр тоо асуугаад нийлбэрийг нь Console-д бич.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Эхний тоо?</p><div class="field">4</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Хоёр дахь тоо?</p><div class="field">6</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› 4 + 6 = 10</code></div></div>
+    
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · console.log</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const a = Number(prompt("Эхний тоо?"));
+const b = Number(prompt("Хоёр дахь тоо?"));
+
+console.log(a + " + " + b + " = " + (a + b));</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span><span class="level l2">Дунд</span></div>
+    <h2>Тэгш өнцөгт</h2>
+    <p class="task">Өргөн, өндрийг асуугаад талбай ба периметрийг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Өргөн?</p><div class="field">5</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Өндөр?</p><div class="field">3</div></div><span class="arrow">→</span><div class="mock alert"><span class="tag">alert</span><p><b>Талбай: 15, Периметр: 16</b></p><span class="ok">OK</span></div></div>
+    <p class="hint">💡 Периметр = 2 × (өргөн + өндөр)</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · * · + · хаалт</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const width = Number(prompt("Өргөн?"));
+const height = Number(prompt("Өндөр?"));
+
+const area = width * height;
+const perimeter = 2 * (width + height);
+
+alert("Талбай: " + area + ", Периметр: " + perimeter);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span><span class="level l2">Дунд</span></div>
+    <h2>Дэлгүүр</h2>
+    <p class="task">Нэг барааны үнэ ба тоо ширхэгийг асуугаад нийт үнийг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Нэг барааны үнэ?</p><div class="field">2500</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Хэдийг авах вэ?</p><div class="field">4</div></div><span class="arrow">→</span><div class="mock alert"><span class="tag">alert</span><p><b>Нийт: 10000₮</b></p><span class="ok">OK</span></div></div>
+    
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · *</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const price = Number(prompt("Нэг барааны үнэ?"));
+const count = Number(prompt("Хэдийг авах вэ?"));
+
+const total = price * count;
+
+alert("Нийт: " + total + "₮");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span><span class="level l2">Дунд</span></div>
+    <h2>Хямдрал</h2>
+    <p class="task">Барааны үнэ, хямдралын хувийг асуугаад хэдэн төгрөг хямдарч, хэдийг төлөхийг Console-д бич.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Барааны үнэ?</p><div class="field">80000</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн хувийн хямдрал?</p><div class="field">25</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Хямдрал: 20000₮</code><code>› Төлөх: 60000₮</code></div></div>
+    <p class="hint">💡 Хямдрал = үнэ × хувь / 100</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · * · / · −</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const price = Number(prompt("Барааны үнэ?"));
+const percent = Number(prompt("Хэдэн хувийн хямдрал?"));
+
+const discount = price * percent / 100;
+const finalPrice = price - discount;
+
+console.log("Хямдрал: " + discount + "₮");
+console.log("Төлөх: " + finalPrice + "₮");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span><span class="level l2">Дунд</span></div>
+    <h2>Дундаж оноо</h2>
+    <p class="task">Гурван шалгалтын оноог асуугаад дундажийг нь ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>1-р оноо?</p><div class="field">70</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>2-р оноо?</p><div class="field">80</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>3-р оноо?</p><div class="field">93</div></div><span class="arrow">→</span><div class="mock alert"><span class="tag">alert</span><p><b>Дундаж оноо: 81</b></p><span class="ok">OK</span></div></div>
+    <p class="hint">💡 Эхлээд нэмээд, дараа нь 3-т хуваа. Хаалтаа мартвал буруу гарна.</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · + · / · хаалт</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const a = Number(prompt("1-р оноо?"));
+const b = Number(prompt("2-р оноо?"));
+const c = Number(prompt("3-р оноо?"));
+
+const average = (a + b + c) / 3;
+
+alert("Дундаж оноо: " + average);</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span><span class="level l2">Дунд</span></div>
+    <h2>Төлбөр хуваах</h2>
+    <p class="task">Найзуудтайгаа хоол идлээ. Нийт төлбөр, хүний тоог асуугаад нэг хүнд хэд ногдохыг ол.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Нийт төлбөр?</p><div class="field">90000</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн хүн вэ?</p><div class="field">4</div></div><span class="arrow">→</span><div class="mock alert"><span class="tag">alert</span><p><b>Нэг хүн: 22500₮</b></p><span class="ok">OK</span></div></div>
+    
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const bill = Number(prompt("Нийт төлбөр?"));
+const people = Number(prompt("Хэдэн хүн вэ?"));
+
+const each = bill / people;
+
+alert("Нэг хүн: " + each + "₮");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 9</span><span class="level l3">Хэцүү</span></div>
+    <h2>Минутыг цаг болгох</h2>
+    <p class="task">Кино хэдэн минут үргэлжлэхийг асуугаад «2 цаг 15 минут» хэлбэрээр харуул.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Хэдэн минут?</p><div class="field">135</div></div><span class="arrow">→</span><div class="mock alert"><span class="tag">alert</span><p><b>2 цаг 15 минут</b></p><span class="ok">OK</span></div></div>
+    <p class="hint">💡 135 % 60 = 15 → үлдсэн минут. (135 − 15) / 60 = 2 → цаг.</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · % · − · /</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const total = Number(prompt("Хэдэн минут?"));
+
+const minutes = total % 60;
+const hours = (total - minutes) / 60;
+
+alert(hours + " цаг " + minutes + " минут");</pre></details>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 10</span><span class="level l3">Хэцүү</span></div>
+    <h2>🎮 Тоглогчийн профайл</h2>
+    <p class="task">Нэр, төрсөн он, дуртай тоглоомыг асуу. Насыг бодоод мэдээлэл бүрийг Console-д, бүгдийг нь нэг alert-д харуул.</p>
+    <p class="label">ЖИШЭЭ</p>
+    <div class="flow"><div class="mock prompt"><span class="tag">prompt</span><p>Тоглогчийн нэр?</p><div class="field">Бат</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Төрсөн он?</p><div class="field">2008</div></div><span class="arrow">→</span><div class="mock prompt"><span class="tag">prompt</span><p>Дуртай тоглоом?</p><div class="field">Minecraft</div></div><span class="arrow">→</span><div class="mock console"><span class="tag">console</span><code>› Нэр: Бат</code><code>› Нас: 18</code><code>› Тоглоом: Minecraft</code></div><span class="arrow">→</span><div class="mock alert"><span class="tag">alert</span><p><b>🎮 Бат · 18 настай · Minecraft</b></p><span class="ok">OK</span></div></div>
+    <p class="hint">💡 Нас = 2026 − төрсөн он</p>
+    <p class="uses">Хэрэглэх: <b>prompt · Number() · − · console.log · alert</b></p>
+    <details><summary>Хариулт — эхлээд өөрөө хий</summary><pre>const playerName = prompt("Тоглогчийн нэр?");
+const birthYear = Number(prompt("Төрсөн он?"));
+const favoriteGame = prompt("Дуртай тоглоом?");
+
+const age = 2026 - birthYear;
+
+console.log("Нэр: " + playerName);
+console.log("Нас: " + age);
+console.log("Тоглоом: " + favoriteGame);
+
+alert("🎮 " + playerName + " · " + age + " настай · " + favoriteGame);</pre></details>
+  </section>
+</div>
+</body>
+</html>

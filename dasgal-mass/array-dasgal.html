@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Массив — 10 дасгал</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #F5F2EC; color: #575146; padding: 40px 20px 90px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .page { max-width: 900px; margin: 0 auto; }
+
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: #B8862A; margin-bottom: 6px; }
+  h1 { font-family: Georgia, serif; font-size: 42px; line-height: 1.15; color: #B03A1A; margin-bottom: 8px; }
+  .lead { font-size: 17px; }
+
+  .start { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 22px 26px; margin: 26px 0 40px; }
+  .start h3 { font-size: 14px; letter-spacing: .08em; color: #0D3B2F; margin-bottom: 10px; }
+  .start ol { padding-left: 22px; }
+  .start li { font-size: 15.5px; line-height: 1.85; }
+  .start code, .uses b, .hint code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
+  .start li code { background-color: #F0EDE6; border-radius: 4px; padding: 1px 6px; }
+
+  pre { background-color: #16130F; color: #EDE7DC; border-radius: 10px; padding: 16px 18px; margin-top: 12px; overflow-x: auto;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+
+  .ex { background-color: #FFFDF8; border: 2px solid #DCD5C7; border-radius: 14px; padding: 24px 28px 26px; margin-bottom: 24px; }
+  .ex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .num { background-color: #B03A1A; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; padding: 4px 12px; border-radius: 100px; }
+  .level { font-size: 12.5px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .l1 { background-color: #DDEEE6; color: #0D3B2F; }
+  .l2 { background-color: #F8F0DB; color: #7A5410; }
+  .l3 { background-color: #FAE8E0; color: #7E2A0D; }
+  .group { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #0D3B2F; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #DCD5C7; }
+  .ex h2 { font-family: Georgia, serif; font-size: 24px; color: #0D3B2F; margin-bottom: 4px; }
+  .task { font-size: 16.5px; margin-bottom: 16px; }
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: #0D3B2F; margin-bottom: 10px; }
+
+  /* prompt → alert / console жишээ */
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .arrow { color: #B8862A; font-size: 22px; font-weight: 700; }
+  .mock { border-radius: 10px; padding: 10px 14px; min-width: 180px; max-width: 100%; }
+  .mock .tag { display: block; font-family: ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; letter-spacing: .06em; margin-bottom: 4px; }
+  .mock p { font-size: 14.5px; color: #16130F; }
+  .prompt { background-color: #FFFFFF; border: 1.5px solid #DCD5C7; }
+  .prompt .tag { color: #0D3B2F; }
+  .prompt .field { margin-top: 6px; border: 1.5px solid #7FB59E; border-radius: 6px; padding: 4px 10px; font-weight: 700; color: #0D3B2F; background-color: #F3FAF6; }
+  .alert { background-color: #FFFFFF; border: 1.5px solid #E8C4B4; }
+  .alert .tag { color: #B03A1A; }
+  .alert .ok { display: inline-block; margin-top: 6px; background-color: #C0451B; color: #fff; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 12px; }
+  .console { background-color: #16130F; }
+  .console .tag { color: #8E8777; }
+  .console code { display: block; color: #9CD6A8; font-family: ui-monospace, Menlo, monospace; font-size: 14px; }
+
+  .hint { margin-top: 14px; font-size: 15px; background-color: #F8F0DB; border-radius: 8px; padding: 8px 14px; color: #5E4310; }
+  .uses { margin-top: 14px; font-size: 14px; color: #8E8777; }
+  .uses b { color: #575146; }
+
+  details { margin-top: 14px; }
+  summary { display: inline-block; cursor: pointer; font-size: 13px; font-weight: 700; color: #7A5410;
+            background-color: #F8F0DB; border: 1px solid #E5D2A4; border-radius: 100px; padding: 4px 14px; }
+  summary:hover { background-color: #F2E6C6; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">ХИЧЭЭЛ 14 · МАССИВ</p>
+  <h1>Массив — 10 дасгал</h1>
+  <p class="lead">[ ] · [0] · .length · length - 1 · arr[i] = … · for + массив · console.log</p>
+
+  <div class="start">
+    <h3>ЭХЛЭХ</h3>
+    <ol>
+      <li>Шинэ хавтас нээгээд <code>index.html</code>, <code>script.js</code> гэсэн хоёр файл үүсгэ.</li>
+      <li><code>index.html</code>-д доорх кодыг хуул. <code>&lt;script&gt;</code> нь body-гийн хамгийн доор байна.</li>
+      <li>Дасгал бүрийг <code>script.js</code>-д бич. Дараагийн дасгал руу шилжихдээ өмнөхөө <code>/* */</code>-аар comment болго.</li>
+      <li>Console-оо нээ: <code>Cmd + Option + J</code>. Алдаа гарвал улаан мөрийг унш.</li>
+    </ol>
+    <pre>&lt;!doctype html&gt;
+&lt;html lang="mn"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;JS дасгал&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;JS дасгал&lt;/h1&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div>
+
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 1</span></div>
+    <h2>Долоо хоногийн өдрүүд 📅</h2>
+    <p class="task">Эхний өдөр, 3 дахь өдөр, сүүлийн өдөр, нийт хэдэн өдөр байгааг хэвлэ. Сүүлийн өдрийг олохдоо 6 гэж бүү бич — length ашигла.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const days = ["Даваа", "Мягмар", "Лхагва", "Пүрэв", "Баасан", "Бямба", "Ням"];</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› Эхний өдөр: Даваа</code><code>› 3 дахь өдөр: Лхагва</code><code>› Сүүлийн өдөр: Ням</code><code>› Нийт 7 өдөр</code></div></div>
+    <p class="hint">💡 1 дэх нь [0], 3 дахь нь [2]. Сүүлийнх нь days.length - 1 дугаартай.</p>
+    <p class="uses">Хэрэглэх: <b>[0] · .length · length - 1 · `${ }`</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 2</span></div>
+    <h2>Playlist 🎵</h2>
+    <p class="task">current нь одоо тоглож буй дууны ИНДЕКС. Өмнөх, одоогийн, дараагийн дууг хэвлэ. current-ийг 3 болговол өөр дуунууд гарах ёстой.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const songs = ["Өглөө", "Хавар", "Тал нутаг", "Бороо", "Од"];
+let current = 2;</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› ⏮ Өмнөх: Хавар</code><code>› ▶️ Одоо: Тал нутаг</code><code>› ⏭ Дараагийн: Бороо</code></div></div><p class="label" style="margin-top:14px">ХЭРЭВ <code style="letter-spacing:0;font-size:13px">let current = 3;</code> БОЛ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› ⏮ Өмнөх: Тал нутаг</code><code>› ▶️ Одоо: Бороо</code><code>› ⏭ Дараагийн: Од</code></div></div>
+    <p class="hint">💡 Индекс нь тоо — түүн дээр нэмж, хасаж болно: songs[current - 1], songs[current + 1].</p>
+    <p class="uses">Хэрэглэх: <b>[current] · current - 1 · current + 1</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 3</span></div>
+    <h2>Ирцийн жагсаалт ✋</h2>
+    <p class="task">Сурагч бүрийн нэрийг дугаартай нь хэвлэ — дугаар 1-ээс эхэлнэ (индекс 0-ээс!). Төгсгөлд нь хэдэн сурагч байгааг хэвлэ.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const students = ["Бат", "Сараа", "Тэмүүлэн", "Ану", "Болд"];</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 1. Бат</code><code>› 2. Сараа</code><code>› 3. Тэмүүлэн</code><code>› 4. Ану</code><code>› 5. Болд</code><code>› Нийт 5 сурагч</code></div></div>
+    <p class="hint">💡 for-оор i = 0-ээс i &lt; students.length хүртэл. Дугаар = i + 1, нэр = students[i].</p>
+    <p class="uses">Хэрэглэх: <b>for · i &lt; length · i + 1</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 4</span></div>
+    <h2>Цэс шинэчлэх 🍽️</h2>
+    <p class="task">Өнөөдөр банштай шөл дууссан тул тэр хоолыг «Бууз»-аар соль. Дараа нь цэсийг НЭГ мөрөнд « · »-ээр тусгаарлан хэвлэ.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const menu = ["Цуйван", "Хуушуур", "Банштай шөл", "Гурилтай шөл"];</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› Цуйван · Хуушуур · Бууз · Гурилтай шөл</code></div></div>
+    <p class="hint">💡 Банштай шөл хэддүгээр индекст байна? Солиод, дараа нь мөрөө давталтаар бүтээ: эхний хоолны өмнө « · » тавихгүй (өрөөний дугаарын дасгал шиг).</p>
+    <p class="uses">Хэрэглэх: <b>arr[i] = … · for · if</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 5</span></div>
+    <h2>Шалгалтын дундаж 📝</h2>
+    <p class="task">Ангийн шалгалтын оноонуудын нийлбэр ба дундажийг хэвлэ.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const scores = [85, 92, 78, 64, 96, 80];</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› Нийлбэр: 495</code><code>› Дундаж: 82.5</code></div></div>
+    <p class="hint">💡 Нийлбэрийг 0-ээс эхлүүлээд давталт бүрт scores[i]-г нэм. Дундаж = нийлбэр / scores.length.</p>
+    <p class="uses">Хэрэглэх: <b>for · sum = sum + scores[i] · / length</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 6</span></div>
+    <h2>Хамгийн хүйтэн өдөр 🥶</h2>
+    <p class="task">temps[i] нь days[i] өдрийн температур. Хамгийн хүйтэн өдрийн нэр ба хэмийг хэвлэ.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const days = ["Даваа", "Мягмар", "Лхагва", "Пүрэв", "Баасан"];
+const temps = [-12, -18, -25, -9, -15];</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 🥶 Хамгийн хүйтэн: Лхагва (-25°)</code></div></div>
+    <p class="hint">💡 Хоёр массивын ижил индекс = нэг өдөр. Хамгийн хүйтний ИНДЕКСИЙГ хадгал (0-ээс эхэл). temps[i] түүнээс бага бол индексээ шинэчил.</p>
+    <p class="uses">Хэрэглэх: <b>хоёр массив · ижил индекс · for · if</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 7</span></div>
+    <h2>Санал тоолох 🗳️</h2>
+    <p class="task">Ангийн даргын сонгуулийн саналууд. Бат хэдэн санал авсныг, нийт хэдэн санал байгааг хэвлэ.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const votes = ["Бат", "Сараа", "Бат", "Ану", "Бат", "Сараа", "Ану", "Бат"];</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› Бат: 4 санал</code><code>› Нийт: 8 санал</code></div></div>
+    <p class="hint">💡 Тоолуурыг 0-ээс эхлүүл. votes[i] нь "Бат" бол 1 нэм. Нийт саналын тоог тоолох хэрэггүй — length байна.</p>
+    <p class="uses">Хэрэглэх: <b>for · if · === · тоолуур</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 8</span></div>
+    <h2>Автобуснаас буух 🚌</h2>
+    <p class="task">Хүмүүс автобусанд массивын дарааллаар орсон. Сүүлд орсон нь хаалганд хамгийн ойр тул түрүүлж бууна. Сүүлээс нь эхлэн хэвлэ.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const bus = ["Бат", "Сараа", "Тэмүүлэн", "Ану"];</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 🚪 Ану буулаа</code><code>› 🚪 Тэмүүлэн буулаа</code><code>› 🚪 Сараа буулаа</code><code>› 🚪 Бат буулаа</code></div></div>
+    <p class="hint">💡 Сүүлийн индексээс (bus.length - 1) эхэлж, i &gt;= 0 байх хооронд i--.</p>
+    <p class="uses">Хэрэглэх: <b>for · i-- · length - 1</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 9</span></div>
+    <h2>Тавиураас хайх 🔍</h2>
+    <p class="task">wanted бараа хэддүгээр тавиур дээр байгааг (1-ээс тоолно) хэвлэ. Байхгүй бол «😢 … олдсонгүй». wanted-ийг өөрчлөөд бас шалга.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const shelf = ["🍎", "🥛", "🍞", "🧀", "🍌", "🥚"];
+const wanted = "🧀";</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 🧀 4-р тавиур дээр байна</code></div></div><p class="label" style="margin-top:14px">ХЭРЭВ <code style="letter-spacing:0;font-size:13px">const wanted = "🍫";</code> БОЛ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 😢 🍫 олдсонгүй</code></div></div><p class="label" style="margin-top:14px">ХЭРЭВ <code style="letter-spacing:0;font-size:13px">const wanted = "🍎";</code> БОЛ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› 🍎 1-р тавиур дээр байна</code></div></div>
+    <p class="hint">💡 Олдсон индексийг хадгалах хувьсагчийг -1-ээс эхлүүл ("байхгүй" гэсэн утга). Давталтын дараа -1 хэвээр бол олдоогүй.</p>
+    <p class="uses">Хэрэглэх: <b>for · if · === · -1</b></p>
+  </section>
+  <section class="ex">
+    <div class="ex-head"><span class="num">ДАСГАЛ 10</span></div>
+    <h2>Тест засах ✅</h2>
+    <p class="task">correct — зөв хариултууд, answers — сурагчийн хариултууд. Буруу хариулсан асуулт бүрийн дугаарыг (1-ээс) хэвлээд, төгсгөлд нь оноог «7 / 10» гэж хэвлэ.</p>
+    <p class="label">ЭХЛЭХ КОД — хуулж ав</p>
+    <pre style="margin-bottom:6px">const correct = ["A", "C", "B", "D", "A", "B", "C", "D", "A", "C"];
+const answers = ["A", "C", "D", "D", "A", "B", "A", "D", "B", "C"];</pre>
+    <p class="label" style="margin-top:14px">CONSOLE ДЭЭР ГАРАХ ЁСТОЙ</p>
+    <div class="flow"><div class="mock console"><span class="tag">console</span><code>› ❌ 3-р асуулт</code><code>› ❌ 7-р асуулт</code><code>› ❌ 9-р асуулт</code><code>› Оноо: 7 / 10</code></div></div>
+    <p class="hint">💡 Хоёр массивыг НЭГ давталтаар зэрэг гүй: correct[i] ба answers[i]. Таарахгүй бол дугаарыг (i + 1) хэвлэ, таарвал оноог нэм.</p>
+    <p class="uses">Хэрэглэх: <b>хоёр массив · ижил индекс · for · if / else</b></p>
+  </section>
+</div>
+</body>
+</html>
